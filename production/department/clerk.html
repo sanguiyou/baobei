@@ -142,212 +142,91 @@
                 </div>
             </div>
             <br/>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel tile ">
-                        <div class="x_content" id="addressContent">
-                            <ul >
-                                <li class="active" ><a href="javascript:void(0)" >不限</a></li>
-                                <li ><a href="javascript:void(0)" >北京</a></li>
-                                <li ><a href="javascript:void(0)" >山东</a></li>
-                                <li ><a href="javascript:void(0)" >山西</a></li>
-                                <li ><a href="javascript:void(0)" >陕西</a></li>
-                                <li ><a href="javascript:void(0)" >安徽</a></li>
-                                <li ><a href="javascript:void(0)" >山东</a></li>
-                                <li ><a href="javascript:void(0)" >山西</a></li>
-                                <li ><a href="javascript:void(0)" >陕西</a></li>
-                                <li ><a href="javascript:void(0)" >安徽</a></li>
-                                <li ><a href="javascript:void(0)" >山东</a></li>
-                                <li ><a href="javascript:void(0)" >山西</a></li>
-                                <li ><a href="javascript:void(0)" >陕西</a></li>
-                                <li ><a href="javascript:void(0)" >安徽</a></li>
-                                <li ><a href="javascript:void(0)" >山东</a></li>
-                                <li ><a href="javascript:void(0)" >山西</a></li>
-                                <li ><a href="javascript:void(0)" >陕西</a></li>
-                                <li ><a href="javascript:void(0)" >安徽</a></li>
-                                <li ><a href="javascript:void(0)" >山东</a></li>
-                                <li ><a href="javascript:void(0)" >山西</a></li>
-                                <li ><a href="javascript:void(0)" >陕西</a></li>
-                                <li ><a href="javascript:void(0)" >安徽</a></li>
-                            </ul>
+            <div id="app">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel tile ">
+                            <div class="x_content" id="addressContent">
+                                <ul >
+                                    <li v-for="(province_name,key) in province_list" v-bind:class="[isActive == key? 'active' : '', '']" @click="isActive=key"><a href="javascript:void(0)" >{{province_name}}</a></li>
+                                    <!--
+                                    <li class="active" ><a href="javascript:void(0)" >不限</a></li>
+                                    <li ><a href="javascript:void(0)" >北京</a></li>
+                                    <li ><a href="javascript:void(0)" >山东</a></li>
+                                    <li ><a href="javascript:void(0)" >山西</a></li>
+                                    <li ><a href="javascript:void(0)" >陕西</a></li>
+                                    <li ><a href="javascript:void(0)" >安徽</a></li>
+                                    <li ><a href="javascript:void(0)" >山东</a></li>
+                                    <li ><a href="javascript:void(0)" >山西</a></li>
+                                    <li ><a href="javascript:void(0)" >陕西</a></li>
+                                    <li ><a href="javascript:void(0)" >安徽</a></li>
+                                    <li ><a href="javascript:void(0)" >山东</a></li>
+                                    <li ><a href="javascript:void(0)" >山西</a></li>
+                                    <li ><a href="javascript:void(0)" >陕西</a></li>
+                                    <li ><a href="javascript:void(0)" >安徽</a></li>
+                                    <li ><a href="javascript:void(0)" >山东</a></li>
+                                    <li ><a href="javascript:void(0)" >山西</a></li>
+                                    <li ><a href="javascript:void(0)" >陕西</a></li>
+                                    <li ><a href="javascript:void(0)" >安徽</a></li>
+                                    <li ><a href="javascript:void(0)" >山东</a></li>
+                                    <li ><a href="javascript:void(0)" >山西</a></li>
+                                    <li ><a href="javascript:void(0)" >陕西</a></li>
+                                    <li ><a href="javascript:void(0)" >安徽</a></li>
+                                    -->
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel tile">
-                        <table class="table  table-striped">
-                            <thead>
-                            <tr>
-                                <th>用户ID</th>
-                                <th>用户名</th>
-                                <th>性别</th>
-                                <th>项目通过数</th>
-                                <th>入职日起</th>
-                                <th>离职日期</th>
-                                <th>部门</th>
-                                <th>职位</th>
-                                <th>激活状态</th>
-                                <th>类型</th>
-                                <th>最近登录</th>
-                                <th>箱体提交限制</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><a href="./clerkDetail.html" >山东省</a></td>
-                                <td>Otto</td>
-                                <td>男</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>Otto</td>
-                                <td>
-                                    <span class="state_actived">已激活</span>
-                                    <i class="fa fa-unlock"></i>
-                                </td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <a href="clerkEdit.html" class="btn btn-warning">修改</a>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="./../contractPerformance/contractDetail.html" >江苏</a></td>
-                                <td>Thornton</td>
-                                <td>男</td>
-                                <td>@fat</td>
-                                <td>@fat</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>Otto</td>
-                                <td>
-                                    <span class="state_actived">已激活</span>
-                                    <i class="fa fa-unlock"></i>
-                                </td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>北京市</td>
-                                <td>the Bird</td>
-                                <td>女</td>
-                                <td>@twitter</td>
-                                <td>@twitter</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>Otto</td>
-                                <td>
-                                    <span class="state_actived">已激活</span>
-                                    <i class="fa fa-unlock"></i>
-                                </td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <a class="btn btn-warning">修改</a>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>山东省</td>
-                                <td>Otto</td>
-                                <td>男</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>Otto</td>
-                                <td>
-                                    <span class="state_actived">已激活</span>
-                                    <i class="fa fa-unlock"></i>
-                                </td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>江苏</td>
-                                <td>Thornton</td>
-                                <td>女</td>
-                                <td>@fat</td>
-                                <td>@fat</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>Otto</td>
-                                <td>
-                                    <span class="state_actived">已激活</span>
-                                    <i class="fa fa-unlock"></i>
-                                </td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>北京市</td>
-                                <td>the Bird</td>
-                                <td>男</td>
-                                <td>@twitter</td>
-                                <td>@twitter</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>Otto</td>
-                                <td>
-                                    <span class="state_actived">已激活</span>
-                                    <i class="fa fa-unlock"></i>
-                                </td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>山东省</td>
-                                <td>Otto</td>
-                                <td>女</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>Otto</td>
-                                <td>
-                                    <span class="state_actived">已激活</span>
-                                    <i class="fa fa-unlock"></i>
-                                </td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="page_content">
-                            <ul id="pageLimit1"></ul>
+                <br/>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel tile">
+                            <table class="table  table-striped">
+                                <thead>
+                                <tr>
+                                    <th>用户ID</th>
+                                    <th>用户名</th>
+                                    <th>性别</th>
+                                    <th>项目通过数</th>
+                                    <th>入职日起</th>
+                                    <th>离职日期</th>
+                                    <th>部门</th>
+                                    <th>职位</th>
+                                    <th>激活状态</th>
+                                    <th>类型</th>
+                                    <th>最近登录</th>
+                                    <th>箱体提交限制</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="customer in customer_list">
+                                    <td><a href="./clerkDetail.html" >山东省</a></td>
+                                    <td>{{customer.name}}</td>
+                                    <td>男</td>
+                                    <td>@mdo</td>
+                                    <td>@mdo</td>
+                                    <td>@mdo</td>
+                                    <td>@mdo</td>
+                                    <td>Otto</td>
+                                    <td>
+                                        <span class="state_actived">已激活</span>
+                                        <i class="fa fa-unlock"></i>
+                                    </td>
+                                    <td>@mdo</td>
+                                    <td>@mdo</td>
+                                    <td>@mdo</td>
+                                    <td>
+                                        <a href="clerkEdit.html" class="btn btn-warning">修改</a>
+                                        <button class="btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="page_content">
+                                <ul id="pageLimit1"></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -363,6 +242,9 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+
+<script src="../../vendors/vue/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

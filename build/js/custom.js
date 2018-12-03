@@ -287,8 +287,10 @@ if (typeof NProgress != 'undefined') {
 window.getToken = function() {
     var userInfo = localStorage.getItem("_USER");
     userInfo = JSON.parse(userInfo);
-
-    return userInfo.token;
+    if(userInfo.token != undefined){
+        return userInfo.token;
+    }
+    return null;
 }
 
 // set user info
