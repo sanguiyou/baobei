@@ -1,0 +1,81 @@
+.x_title .state {
+  font-size: 12px;
+  width: auto;
+  padding: 0px 5px;
+  height: 19px;
+  line-height: 19px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #3298f5;
+  border-radius: 4px;
+  color: #3298f5;
+  margin-left: 15px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: -1px; }
+
+#base_info ul {
+  float: left;
+  width: 450px;
+  margin-top: 10px;
+  padding-left: 0px; }
+
+.info_row {
+  overflow: hidden; }
+
+.info_row .row_label {
+  width: 150px;
+  float: left;
+  color: #8f96a8; }
+
+.row_content {
+  color: #6a7183; }
+
+.info_row {
+  margin-bottom: 18px; }
+
+.table {
+  border-bottom: 1px solid #ddd; }
+
+.page-content {
+  text-align: right; }
+
+.pagination {
+  margin: 15px 0px; }
+
+#huikuanfapiao ul {
+  list-style: none;
+  padding: 0; }
+
+#huikuanfapiao li {
+  float: left;
+  width: 600px;
+  height: 300px;
+  position: relative; }
+
+#huikuanfapiao .chart_content, #huikuanfapiao li .progress-text {
+  width: 300px;
+  height: 100%; }
+
+#huikuanfapiao li .progress-text, #huikuanfapiao li .text {
+  text-align: center;
+  line-height: 300px;
+  font-size: 50px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  color: #3f1680; }
+
+#huikuanfapiao li .progress-text {
+  font-size: 20px; }
+
+#huikuanfapiao li .progress-text strong {
+  font-size: 39px; }
+
+#huikuanfapiao li .text {
+  left: 300px;
+  font-size: 14px;
+  color: #452283; }
+
+#huikuanfapiao li .text strong {
+  font-size: 20px; }
