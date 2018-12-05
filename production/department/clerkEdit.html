@@ -120,23 +120,23 @@
             </ul>
             <div class="clearfix"></div>
             <br/>
-            <div style="background:#fff; padding:20px;">
+            <div style="background:#fff; padding:20px;" id="app">
                 <form>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 电话</p>
-                            <input type="text" class="big" required="" placeholder="用作登录账号"/>
+                            <input type="text" class="big form_data" data-name="phone" required="" placeholder="用作登录账号" v-model="user.phone"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 真实姓名</p>
-                            <input type="text" class="big" required=""/>
+                            <input type="text" class="big form_data" data-name="real_name" required=""/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 邮件</p>
-                            <input type="text" class="big" required="" placeholder="用作登录账号"/>
+                            <input type="text" class="big form_data" data-name="email" required="" placeholder="用作登录账号"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>性别</p>
@@ -147,7 +147,9 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>请选择所属公司</p>
-                            <select></select>
+                            <select v-model="user.company" class="form_data" data-name="company">
+                                <option v-for="company in company_list">{{company}}</option>
+                            </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 请选择所属部门</p>
@@ -169,11 +171,11 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>入职日期</p>
-                            <input type="text" class="form_datetime"/>
+                            <input type="text" class="form_datetime form_data" id="start_date" data-name="start_date" v-model="user.start_date"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>离职日期</p>
-                            <input type="text" class="form_datetime"/>
+                            <input type="text" class="form_datetime form_data" data-name="end_date" v-model="user.end_date"/>
                         </div>
                     </div>
                     <br/>
@@ -191,15 +193,15 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>* 省/直辖市</p>
-                            <select id="provinceSelect"></select>
+                            <select id="provinceSelect" class="form_data" data-name="provice" v-model="user.province"></select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>市/市区</p>
-                            <select id="citySelect"></select>
+                            <select id="citySelect" class="form_data" data-name="city" v-model="user.city"></select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>区县</p>
-                            <select id="areaSelect"></select>
+                            <select id="areaSelect" class="form_data" data-name="area" v-model="user.area"></select>
                         </div>
                     </div>
                     <br/>
@@ -217,7 +219,7 @@
                     <br/>
                     <br/>
                     <div style="text-align:center;">
-                        <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;">更新用户</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;" id="update_user_btn">更新用户</button>
                         <button type="button" id="cancelBtn" class="btn btn-default btn-lg">取消</button>
                     </div>
                     <br/>
@@ -233,6 +235,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -256,6 +259,6 @@
 
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/department_clerkAdd.min.js"></script>
+<script src="../../build/js/department_clerkEdit.min.js"></script>
 </body>
 </html>

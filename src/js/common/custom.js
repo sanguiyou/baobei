@@ -3,6 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function parseURL(url) {
+    //var url =  location.href;
+    console.log(url);
+    if (url.split("?")[1] == undefined) {
+        return [];
+    }
+    var paramArr = url.split("?")[1].split("&");
+    var parseResult = new Array();
+    for ($i = 0; $i < paramArr.length; $i++) {
+        var eachParam = paramArr[$i].split("=");
+        parseResult[eachParam[0]] = eachParam[1];
+    }
+    return parseResult;
+}
+var remote_host = "106.12.154.195:8081";
+var ACTION_URL ={
+    "province_list":"http://"+remote_host+"/api/cities/getlistDic",    
+};
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
     $BODY = $('body'),
@@ -238,6 +256,30 @@ $(document).ready(function() {
     });
 });
 
+function jquery_ajax(url,port_or_get,post_data,callback_func){
+    $.ajax({
+        url: url,
+        type: port_or_get,
+        dataType: "json",
+        data: post_data,
+        contentType: "application/json",
+        success: function(e) {                        
+            if(0){//判断登录过期
+                location.href ="/login.html";
+            }
+            callback_func(e);            
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {    
+            console.log(XMLHttpRequest.status);                    
+            alert(XMLHttpRequest.readyState);
+            //alert(textStatus);
+        },
+        complete: function(XMLHttpRequest, textStatus) {
+            this; // 调用本次AJAX请求时传递的options参数
+        }
+    });
+}
+
 // NProgress
 if (typeof NProgress != 'undefined') {
     $(document).ready(function () {
@@ -252,6 +294,7 @@ if (typeof NProgress != 'undefined') {
 window.getToken = function() {
     var userInfo = localStorage.getItem("_USER");
     userInfo = JSON.parse(userInfo);
+    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDQwNzU4MzYsInVzZXJuYW1lIjoiMTM2MDAwMDAwMDAifQ.Yrpn_5b0UYNj3K3Dp4fONrY7TwNw5ujGVcWOje9MdyI";
     if(userInfo.token != undefined){
         return userInfo.token;
     }
@@ -266,19 +309,60 @@ if(userInfo) {
     $(".profile_pic img").addClass("show").attr("src", userInfo.avatar || "/production/images/missing_avatar.png");
 }
 
-$.ajaxSetup({
-    headers: {
-        "Authorization": getToken()
-    },
-});
+$(function(){
+    $.ajaxSetup({
+        headers: {
+            "Authorization": getToken()
+        },
+    });
 
-// 省市区选择
-$("#provinceSelect").change(function() {
+    // 省市区选择
+    $("#provinceSelect").change(function() {
+        $.ajax({
+            url: ACTION_URL.province_list,
+            type: "post",
+            dataType: "json",
+            data: $("#provinceSelect").val(),
+            contentType: "application/json",
+            success: function(e) {
+                if(e.result === "00000000") {
+                    var list = e.data;
+                    var html = '';
+                    for(var i=0, len=list.length; i<len; i++) {
+                        var obj = list[i];
+                        html += '<option value="'+obj.cityId+'">'+obj.name+'</option>';
+                    }
+                    $("#citySelect").html(html);
+                    $("#citySelect").trigger("change");
+                }
+            }
+        });
+    });
+    $("#citySelect").change(function() {
+        $.ajax({
+            url: "http://106.12.154.195:8081/api/areas/getlistDic",
+            type: "post",
+            dataType: "json",
+            data: $("#citySelect").val(),
+            contentType: "application/json",
+            success: function(e) {
+                if(e.result === "00000000") {
+                    var list = e.data;
+                    var html = '';
+                    for(var i=0, len=list.length; i<len; i++) {
+                        var obj = list[i];
+                        html += '<option value="'+obj.areaId+'">'+obj.name+'</option>';
+                    }
+                    $("#areaSelect").html(html);
+                    $("#areaSelect").trigger("change");
+                }
+            }
+        });
+    });
     $.ajax({
-        url: "http://106.12.154.195:8081/api/cities/getlistDic",
+        url: "http://106.12.154.195:8081/api/provinces/getlistDic",
         type: "post",
         dataType: "json",
-        data: $("#provinceSelect").val(),
         contentType: "application/json",
         success: function(e) {
             if(e.result === "00000000") {
@@ -286,50 +370,11 @@ $("#provinceSelect").change(function() {
                 var html = '';
                 for(var i=0, len=list.length; i<len; i++) {
                     var obj = list[i];
-                    html += '<option value="'+obj.cityId+'">'+obj.name+'</option>';
+                    html += '<option value="'+obj.provinceId+'">'+obj.name+'</option>';
                 }
-                $("#citySelect").html(html);
-                $("#citySelect").trigger("change");
+                $("#provinceSelect").html(html);
+                $("#provinceSelect").trigger("change");
             }
         }
     });
-});
-$("#citySelect").change(function() {
-    $.ajax({
-        url: "http://106.12.154.195:8081/api/areas/getlistDic",
-        type: "post",
-        dataType: "json",
-        data: $("#citySelect").val(),
-        contentType: "application/json",
-        success: function(e) {
-            if(e.result === "00000000") {
-                var list = e.data;
-                var html = '';
-                for(var i=0, len=list.length; i<len; i++) {
-                    var obj = list[i];
-                    html += '<option value="'+obj.areaId+'">'+obj.name+'</option>';
-                }
-                $("#areaSelect").html(html);
-                $("#areaSelect").trigger("change");
-            }
-        }
-    });
-});
-$.ajax({
-    url: "http://106.12.154.195:8081/api/provinces/getlistDic",
-    type: "post",
-    dataType: "json",
-    contentType: "application/json",
-    success: function(e) {
-        if(e.result === "00000000") {
-            var list = e.data;
-            var html = '';
-            for(var i=0, len=list.length; i<len; i++) {
-                var obj = list[i];
-                html += '<option value="'+obj.provinceId+'">'+obj.name+'</option>';
-            }
-            $("#provinceSelect").html(html);
-            $("#provinceSelect").trigger("change");
-        }
-    }
 });

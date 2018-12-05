@@ -1,74 +1,67 @@
-console.log("department_clerk");
-
-$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd', minView: "month"});
-
-$('#pageLimit1').bootstrapPaginator({
-    currentPage: 1,
-    totalPages: 100,
-    size:"normal",
-    bootstrapMajorVersion: 3,
-    alignment:"right",
-    numberOfPages:10,
-    itemTexts: function (type, page, current) {
-        switch (type) {
-            case "first": return "首页";
-            case "prev": return "上一页";
-            case "next": return "下一页";
-            case "last": return "末页";
-            case "page": return page;
+$(function(){
+    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd', minView: "month"});
+    $('#pageLimit1').bootstrapPaginator({
+        currentPage: 1,
+        totalPages: vue_instance.totalPages,
+        size:"normal",
+        bootstrapMajorVersion: 3,
+        alignment:"right",
+        numberOfPages:10,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first": return "首页";
+                case "prev": return "上一页";
+                case "next": return "下一页";
+                case "last": return "末页";
+                case "page": return page;
+            }
+        },
+        onPageClicked: function(event, originalEvent, type, page) {
+            console.log("page", page);
+            vue_instance.load_list(page);
         }
-    },
-    onPageClicked: function(event, originalEvent, type, page) {
-        console.log("page", page);
-    }
+    });
+    $("#addressContent li").click(function() {
+        var $this = $(this);
+        if($this.hasClass("active")) {
+            return;
+        }
+        $this.addClass("active").siblings().removeClass("active");
+    });
+    
+    $("#addBtn").click(function() {
+        location.href = "./clerkAdd.html";
+    });
 });
 
-$("#addressContent li").click(function() {
-    var $this = $(this);
-    if($this.hasClass("active")) {
-        return;
-    }
-    alert("fff");
-    $this.addClass("active").siblings().removeClass("active");
-});
 
-$("#addBtn").click(function() {
-    location.href = "./clerkAdd.html";
-});
-
-var app = new Vue({
+var vue_instance = new Vue({
     el: '#app',
     data: {
         customer_list: [],
         province_list:[],
+        currentPage:12,
+        totalPages: 1,
         isActive:0,
     },
     methods: {
-        load_list: function () {
+        load_list: function (page) {
             this.customer_list = [{'name':"aaffa","department":"bbb"},{'name':"BBB","department":"bbb"}];
+            this.totalPages = 11;
         },
         provice_search:function(){
 
         },
         get_provice_list:function () {
             this.province_list = ["北京","山东"]
-            $.ajax({
-                url: "http://106.12.154.195:8081/api/areas/getlistDic",
-                type: "post",
-                dataType: "json",
-                data: 1,
-                contentType: "application/json",
-                success: function(e) {
-                    console.log(e);
-                    if(e.result === "00000000") {
-                        this.province_list = e.data;
-                    }
-                }
-            });
+            jquery_ajax(ACTION_URL.province_list,"post",{},this.get_provice_list_callback);
+        },
+        get_provice_list_callback:function(result){            
+            console.log(result);
         }
     },
     created: function () {
-        this.load_list();
+        this.load_list(1);
         this.get_provice_list();
     }
 })
