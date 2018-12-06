@@ -119,37 +119,34 @@
             </ul>
             <div class="clearfix"></div>
             <br/>
-            <div style="background:#fff; padding:20px;">
-                <form>
+            <div style="background:#fff; padding:20px;" id="app">                
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >报备人</p>
-                            <select ></select>
+                            <select v-model="form_data.industryId">
+                                <option v-for="baobei in baobei_list">{{baobei}}</option>
+                            </select>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >* 名称</p>
-                            <input type="text" required="" />
+                            <input type="text" required="" v-model="form_data.realName"/>
                         </div>
                     </div>
                     <br/>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >联系电话</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="row">                       
+                        <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >Email</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.email"/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >年龄</p>
-                            <select >
+                            <select v-model="form_data.age">
                                 <option >10-20</option>
                                 <option >20-30</option>
                                 <option >30-40</option>
@@ -159,7 +156,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >性别</p>
-                            <select >
+                            <select v-model="form_data.gender">
                                 <option >未知</option>
                                 <option >男</option>
                                 <option >女</option>
@@ -170,64 +167,63 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >联系人</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.creatorId"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >联系电话</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.phone"/>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row" >
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 省/直辖市</p>
-                            <select id="provinceSelect" required=""></select>
+                            <select id="provinceSelect" required="" v-model="form_data.provinceId"></select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>* 市/市辖区</p>
-                            <select id="citySelect" required=""></select>
+                            <select id="citySelect" required="" v-model="form_data.cityId"></select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 区县</p>
-                            <select id="areaSelect" required=""></select>
+                            <select id="areaSelect" required="" v-model="form_data.areaId"></select>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >详细地址</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.street"/>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >爱好</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.hobby"/>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p >认识时间</p>
-                            <input type="text" class="form_datetime" />
+                            <input type="text" class="form_datetime" v-model="form_data.perceptionTime" id="perceptionTime"/>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >备注</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.note"/>
                         </div>
                     </div>
                     <br/>
-                    <br/>
+                    <br/>                    
                     <div style="text-align:center;">
-                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;">新增代理商</button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">新增代理商</button>
                         <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
                     </div>
-                    <br/>
-                </form>
+                    <br/>                    
             </div>
         </div>
         <footer>
@@ -239,6 +235,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

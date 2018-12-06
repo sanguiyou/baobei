@@ -14,10 +14,10 @@ gulp.task('scripts-common', function() {
         'src/js/common/helpers/*.js',
         'src/js/common/*.js',
       ])
-      .pipe(concat('custom.js'))
+      .pipe(concat('custom.js'))      
       .pipe(gulp.dest(DEST+'/js'))
       .pipe(rename({suffix: '.min'}))
-      .pipe(uglify())
+      //.pipe(uglify())
       .pipe(gulp.dest(DEST+'/js'))
       .pipe(browserSync.stream());
 });
@@ -28,7 +28,7 @@ gulp.task('scripts-page', function() {
     ])
         .pipe(gulp.dest(DEST+'/js'))
         .pipe(rename({suffix: '.min'}))
-        // .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(DEST+'/js'))
         .pipe(browserSync.stream());
 });

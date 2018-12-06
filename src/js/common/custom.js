@@ -17,9 +17,11 @@ function parseURL(url) {
     }
     return parseResult;
 }
-var remote_host = "106.12.154.195:8081";
+var remote_host = "http://106.12.154.195:8081";
 var ACTION_URL ={
-    "province_list":"http://"+remote_host+"/api/cities/getlistDic",    
+    "province_list":remote_host+"/api/cities/getlistDic",  
+    "login":remote_host+"/login",  
+    "shadow_users_modify":remote_host+"/shadowUsers/modify",
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
@@ -261,11 +263,12 @@ function jquery_ajax(url,port_or_get,post_data,callback_func){
         url: url,
         type: port_or_get,
         dataType: "json",
-        data: post_data,
-        contentType: "application/json",
+        data: JSON.stringify(post_data),
+        contentType: "application/json;charset=UTF-8",
         success: function(e) {                        
-            if(0){//判断登录过期
-                location.href ="/login.html";
+            if(e.result == 90000001){//判断登录过期
+                console.log(e.msg);
+                //location.href ="/login.html";
             }
             callback_func(e);            
         },
@@ -292,11 +295,21 @@ if (typeof NProgress != 'undefined') {
 }
 
 window.getToken = function() {
-    var userInfo = localStorage.getItem("_USER");
-    userInfo = JSON.parse(userInfo);
-    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDQwNzU4MzYsInVzZXJuYW1lIjoiMTM2MDAwMDAwMDAifQ.Yrpn_5b0UYNj3K3Dp4fONrY7TwNw5ujGVcWOje9MdyI";
-    if(userInfo.token != undefined){
-        return userInfo.token;
+    var userInfo = localStorage.getItem("_USER");            
+    if(userInfo == undefined){
+        var login_param = {"userName":"13600000000","passWord":"123"};
+        jquery_ajax(ACTION_URL.login,"post",login_param,login_success_callback);
+        function login_success_callback(json){                  
+             if(json.result == "00000000"){
+                 console.log("login success--");                 
+                localStorage.setItem("_USER",JSON.stringify(json.data));   
+             }         
+        }
+    }            
+    userInfo = JSON.parse(userInfo);    
+    this.console.log(userInfo.user.token);
+    if(userInfo.user.token != undefined){        
+        return userInfo.user.token;
     }
     return null;
 }
@@ -304,7 +317,7 @@ window.getToken = function() {
 // set user info
 var userInfo = localStorage.getItem("_USER");
 if(userInfo) {
-    userInfo = JSON.parse(userInfo);
+    //userInfo = JSON.parse(userInfo);
     $(".profile_info h2").text(userInfo.name);
     $(".profile_pic img").addClass("show").attr("src", userInfo.avatar || "/production/images/missing_avatar.png");
 }
