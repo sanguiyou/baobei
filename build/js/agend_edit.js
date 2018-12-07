@@ -1,5 +1,7 @@
-$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd', minView: "month"});
+$(function(){
+    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd', minView: "month"});
 
-$("#cancelBtn").click(function() {
-    location.href = "./project.html";
+    $("#cancelBtn").click(function() {
+        location.href = "./project.html";
+    });
 });
