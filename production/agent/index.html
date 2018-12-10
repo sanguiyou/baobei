@@ -27,7 +27,7 @@
     <title>代理商</title>
 </head>
 <body class="nav-md">
-<div class="container body">
+<div class="container body" id="app">
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
@@ -123,19 +123,21 @@
                     <div class="search_content">
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p >代理商名称</p>
-                            <input type="text" />
+                            <input type="text" v-model="search_param.name"/>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >关联业务员</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >地区</p>
-                            <input type="text" />
-                        </div>
+                        <!--
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >关联业务员</p>
+                                <input type="text" />
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >地区</p>
+                                <input type="text" />
+                            </div>
+                        -->
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
+                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
                         </div>
                     </div>
                 </div>
@@ -159,104 +161,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="./detail.html" >山东省</a></td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <th>Email</th>
-                                <th>报备人</th>
-                                <th>关联用户</th>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="./../contractPerformance/contractDetail.html" >江苏</a></td>
-                                <td>Thornton</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <th>Email</th>
-                                <th>报备人</th>
-                                <th>关联用户</th>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>北京市</td>
-                                <td>the Bird</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <th>Email</th>
-                                <th>报备人</th>
-                                <th>关联用户</th>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>山东省</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <th>Email</th>
-                                <th>报备人</th>
-                                <th>关联用户</th>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>江苏</td>
-                                <td>Thornton</td>
-                                <td>@mdo</td>
-                                <th>Email</th>
-                                <th>报备人</th>
-                                <th>关联用户</th>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>北京市</td>
-                                <td>the Bird</td>
-                                <td>@mdo</td>
-                                <th>Email</th>
-                                <th>报备人</th>
-                                <th>关联用户</th>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="detail.html" >山东省</a></td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <th>Email</th>
-                                <th>报备人</th>
-                                <th>关联用户</th>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <a href="edit.html" class="btn btn-warning">修改</a>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
+                                <tr v-for="list_value in list">
+                                    <td><a href="./detail.html" >{{list_value.realName}}</a></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{list_value.phone}}</td>
+                                    <td>{{list_value.email}}</td>
+                                    <th>{{list_value.userId}}</th>
+                                    <th></th>
+                                    <th>{{list_value.note}}</th>
+                                    <td>
+                                        <button class="btn btn-warning">修改</button>
+                                        <button class="btn btn-danger">删除</button>
+                                    </td>
+                                </tr>                            
                             </tbody>
                         </table>
                         <div class="page_content">
