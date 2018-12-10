@@ -162,7 +162,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="list_value in list">
-                                    <td><a href="./detail.html" >{{list_value.realName}}</a></td>
+                                    <td>{{list_value.realName}}</td>
                                     <td></td>
                                     <td></td>
                                     <td>{{list_value.phone}}</td>
@@ -171,7 +171,7 @@
                                     <th></th>
                                     <th>{{list_value.note}}</th>
                                     <td>
-                                        <button class="btn btn-warning">修改</button>
+                                        <button class="btn btn-warning"><a :href="'/production/agent/add.html?id='+list_value.id+'&current_page='+search_param.page">修改</a></button>
                                         <button class="btn btn-danger">删除</button>
                                     </td>
                                 </tr>                            
