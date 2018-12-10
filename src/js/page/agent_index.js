@@ -44,7 +44,7 @@ var vue_instance = new Vue({
         var page_param = parseURL(window.location.href);
         console.log(page_param["current_page"]);
         if(page_param["current_page"] != undefined){
-            this.currentPage = page_param["current_page"];
+            this.search_param.page = page_param["current_page"];
         }
         this.load_list();            
     },

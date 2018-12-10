@@ -27,6 +27,7 @@ var ACTION_URL ={
     "login":remote_host+"/login",  //登录验证
     "shadow_users_modify":remote_host+"/shadowUsers/modify", //代理人修改接口
     "shadow_users_list":remote_host+"/shadowUsers/listPage", //代理人列表
+    "shadow_user_detail":remote_host+"/shadowUsers/getShadowUser", //代理商详情    
     "user_list":remote_host+"/user/userList", //用户列表    
 };
 
@@ -389,9 +390,8 @@ function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){
         },        
         contentType: "application/json",
         success: function(e) {                        
-            if(e.result == 90000001){//判断登录过期
-                console.log(e.msg);
-                alert("ajax return 9000001");
+            if(e.result == 90000001){//判断登录过期                
+                alert("ajax return 9000001,"+url);
                 return;
                 //location.href ="/login.html";
             }
@@ -399,7 +399,7 @@ function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {    
             console.log(XMLHttpRequest.status);                    
-            alert(XMLHttpRequest.readyState);
+            alert(XMLHttpRequest.readyState+url);
             //alert(textStatus);
         },
         complete: function(XMLHttpRequest, textStatus) {
@@ -411,7 +411,7 @@ function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){
             ajax_obj.data = JSON.stringify(post_data);
         }else{
             ajax_obj.data = post_data;
-        }      
+        }              
     }    
     $.ajax(ajax_obj);
 }
@@ -432,7 +432,7 @@ function jquery_ajax_notoken(url,post_or_get,post_data,callback_func){
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {    
             console.log(XMLHttpRequest.status);                    
-            alert(XMLHttpRequest.readyState);
+            alert(XMLHttpRequest.readyState+url);
             //alert(textStatus);
         },
         complete: function(XMLHttpRequest, textStatus) {
