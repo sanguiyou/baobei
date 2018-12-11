@@ -137,7 +137,7 @@
                         -->
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
+                            <button type="button" id="searchBtn" class="btn btn-primary" @click="search_param.page=1;load_list()">搜索</button>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                                     <th>{{list_value.note}}</th>
                                     <td>
                                         <button class="btn btn-warning"><a :href="'/production/agent/add.html?id='+list_value.id+'&current_page='+search_param.page">修改</a></button>
-                                        <button class="btn btn-danger">删除</button>
+                                        <button class="btn btn-danger" @click="del_record(list_value.id)">删除</button>
                                     </td>
                                 </tr>                            
                             </tbody>

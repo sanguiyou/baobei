@@ -7,11 +7,9 @@ var vue_instance = new Vue({
     },
     methods: {
         list_callback: function (ajax_json) {  
-            console.log(ajax_json.data);        
             this.list = ajax_json.data.records;
             this.totalPages = ajax_json.data.pages;      
-            
-            
+                        
             $('#pageLimit1').bootstrapPaginator({
                 currentPage: this.search_param.page,
                 totalPages: this.totalPages,
@@ -28,17 +26,27 @@ var vue_instance = new Vue({
                         case "page": return page;
                     }
                 },
-                onPageClicked: function(event, originalEvent, type, page) {
-                    vue_instance.search_param.page = page;
+                onPageClicked: (event, originalEvent, type, page)=> {
+                    this.search_param.page = page;
                     console.log("clicked page", page);
-                    jquery_ajax(ACTION_URL.shadow_users_list,"post",vue_instance.search_param,true,vue_instance.list_callback);  
+                    jquery_ajax(ACTION_URL.shadow_users_list,"post",this.search_param,true,this.list_callback);  
                 }
             }); 
                               
         },
-        load_list:function(){            
+        load_list:function(){                 
+            console.log(this.search_param);
             jquery_ajax(ACTION_URL.shadow_users_list,"post",this.search_param,true,this.list_callback);      
+        },
+        del_record(id){            
+            if(confirm("确定要删除此记录吗？")){
+                jquery_ajax(ACTION_URL.shadow_users_delete+"?id="+id,"get",undefined,true,()=>{
+                    alert("操作成功");
+                    location.href = location.href;
+                }); 
+            }                 
         }
+        
     },
     created: function () {
         var page_param = parseURL(window.location.href);
