@@ -102,7 +102,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     职位设置
@@ -115,7 +115,7 @@
                     </ul>
                 </li>
                 <li >
-                    <span id="addBtn">+新增部门</span>
+                    <span id="addBtn"><a href="./job_add.html">+新增部门</a></span>
                 </li>
             </ul>
             <div class="clearfix"></div>
@@ -151,69 +151,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="./detail.html" >山东省</a></td>
+                            <tr v-for="list_value in list">
+                                <td><a href="./detail.html" >{{list_value.name}}</a></td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
                                 <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
+                                    <button class="btn btn-warning"><a :href="'/production/job/job_add.html?id='+list_value.id+'&current_page='+search_param.page">修改</a></button>
+                                    <button class="btn btn-danger" @click="del_record(list_value.id)">删除</button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><a href="./../contractPerformance/contractDetail.html" >江苏</a></td>
-                                <td>Thornton</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>北京市</td>
-                                <td>the Bird</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>山东省</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>江苏</td>
-                                <td>Thornton</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>北京市</td>
-                                <td>the Bird</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>山东省</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">修改</button>
-                                    <button class="btn btn-danger">删除</button>
-                                </td>
-                            </tr>
+                            </tr>                            
                             </tbody>
                         </table>
                         <div class="page_content">
@@ -233,6 +179,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -256,6 +203,6 @@
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/job.min.js"></script>
+<script src="../../build/js/job_add.min.js"></script>
 </body>
 </html>

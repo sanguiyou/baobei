@@ -30,6 +30,14 @@ var ACTION_URL ={
     "shadow_users_delete":remote_host+"/shadowUsers/delete", //代理人删除
     "shadow_user_detail":remote_host+"/shadowUsers/getShadowUser", //代理商详情    
     "user_list":remote_host+"/user/userList", //用户列表    
+    "positions_list":remote_host+"/positions/listTree", //职位列表        
+    "positions_modify":remote_host+"/positions/modify", //职位修改
+    "positions_delete":remote_host+"/positions/delete", //职位删除
+    "departments_list":remote_host+"/departments/listPage", //部门列表带翻页        
+    "departments_list_tree":remote_host+"/departments/listTree", //部门列表        
+    "departments_modify":remote_host+"/departments/modify", //部门修改
+    "departments_delete":remote_host+"/departments/delete", //部门删除
+    "departments_get_dep_users":remote_host+"/departments/getDepUsers", //部门下的人
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
@@ -305,60 +313,6 @@ if(userInfo) {
     $(".profile_info h2").text(userInfo.name);
     $(".profile_pic img").addClass("show").attr("src", userInfo.avatar || "/production/images/missing_avatar.png");
 }
-
-$(function(){
-    // $.ajaxSetup({
-    //     headers: {
-    //         "Authorization": getToken()
-    //     },
-    // });
-
-    // 省市区选择
-    // $("#provinceSelect").change(function() {
-    //     jquery_ajax(ACTION_URL.city_list,"post",$("#provinceSelect").val(),true,province_change_callback);        
-    // });
-    // province_change_callback = function(e){                  
-    //     if(e.result === "00000000") {
-    //         var list = e.data;
-    //         var html = '';
-    //         for(var i=0, len=list.length; i<len; i++) {
-    //             var obj = list[i];
-    //             html += '<option value="'+obj.cityId+'">'+obj.name+'</option>';
-    //         }
-    //         $("#citySelect").html(html);
-    //         $("#citySelect").trigger("change");
-    //     }       
-    // }
-    // $("#citySelect").change(function() {
-    //     jquery_ajax(ACTION_URL.area_list,"post",$("#citySelect").val(),true,city_change_callback);
-    //     function city_change_callback(e){                  
-    //         if(e.result === "00000000") {
-    //             var list = e.data;
-    //             var html = '';
-    //             for(var i=0, len=list.length; i<len; i++) {
-    //                 var obj = list[i];
-    //                 html += '<option value="'+obj.areaId+'">'+obj.name+'</option>';
-    //             }
-    //             $("#areaSelect").html(html);
-    //             $("#areaSelect").trigger("change");
-    //         }    
-    //     }  
-    // });
-    
-    //jquery_ajax(ACTION_URL.province_list,"post",undefined,true,province_list_callback);            
-    // function province_list_callback(e){                  
-    //     if(e.result === "00000000") {
-    //         var list = e.data;
-    //         var html = '';
-    //         for(var i=0, len=list.length; i<len; i++) {
-    //             var obj = list[i];
-    //             html += '<option value="'+obj.provinceId+'">'+obj.name+'</option>';
-    //         }
-    //         $("#provinceSelect").html(html);
-    //         $("#provinceSelect").trigger("change");
-    //     }     
-    // }            
-});
 
 function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){            
     var ajax_obj = {

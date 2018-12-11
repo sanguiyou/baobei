@@ -18,16 +18,18 @@
 
     <!-- bootstrap-progressbar -->
     <link href="../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="../../vendors/timeline/jquery.eeyellow.Timeline.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
-    <link href="../../build/css/department.css" rel="stylesheet">
-    <title>部门设置</title>
+    <link href="../../build/css/agent_add.css" rel="stylesheet">
+    <title>{{title_name}}</title>
 </head>
 <body class="nav-md">
-<div class="container body">
+<div class="container body" >
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
@@ -105,78 +107,43 @@
         <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    部门设置
+                    {{title_name}}
                 </li>
                 <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
-                        <li><a href="#">部门人员</a></li>
-                        <li class="active"><a href="#" >部门设置</a></li>
+                        <li><a href="./job.html">职位管理</a></li>
+                        <li class="active">{{title_name}}</li>
                     </ul>
-                </li>
-                <li >
-                    <span id="addBtn"><a href="./department_add.html">+新增部门</a></span>
                 </li>
             </ul>
             <div class="clearfix"></div>
-            <div class="row special">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="search_content">
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >部门名称</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >部门负责人</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >类型</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <br/>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel tile">
-                        <table class="table  table-striped">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>部门名称</th>
-                                <th>上级部门</th>
-                                <th>部门领导</th>
-                                <th>描述</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="list_value in list">
-                                <td><a href="./detail.html" >{{list_value.id}}</a></td>
-                                <td>{{list_value.name}}</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>{{list_value.description}}</td>
-                                <td>
-                                    <button class="btn btn-success">显示</button>
-                                </td>
-                            </tr>                            
-                            </tbody>
-                        </table>
-                        <div class="page_content">
-                            <ul id="pageLimit1"></ul>
+            <div style="background:#fff; padding:20px;">                
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p >所属上级</p>
+                            <select v-model="form_data.pid">
+                                <option v-for="position in position_list" :value="position.id">{{position.name}}</option>
+                            </select>
                         </div>
                     </div>
-                </div>
+                    <br/>
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p >* 名称</p>
+                            <input type="text" v-model="form_data.name"/>
+                        </div>
+                    </div>                                       
+                    
+                    <br/>                    
+                    <div style="text-align:center;">
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
+                        <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
+                    </div>
+                    <br/>                    
             </div>
         </div>
-
         <footer>
             Copyright © 2019 TysenKLD. All rights reserved.
         </footer>
@@ -203,13 +170,12 @@
 <script src="../../vendors/iCheck/icheck.min.js"></script>
 <!-- Skycons -->
 <script src="../../vendors/skycons/skycons.js"></script>
-<script src="../../vendors/art-template-master/lib/template-web.js"></script>
-<!-- bootstrap-daterangepicker -->
 <script src="../../vendors/moment/min/moment.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/department.min.js"></script>
+<script src="../../build/js/job_add.min.js"></script>
 </body>
 </html>
