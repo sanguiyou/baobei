@@ -26,7 +26,7 @@ var vue_instance = new Vue({
             });                               
         },        
         load_edit_data(){ //拉取修改页的数据   
-            jquery_ajax_obj({"url":ACTION_URL.companies_get_companies+"?id="+this.form_data.id,"request_type":"get","post_data":undefined,"is_json_param":false,
+            jquery_ajax_obj({"url":ACTION_URL.companies_get_companies,"request_type":"post","post_data":this.form_data.id,"is_json_param":false,
                 "callback_func":(json_result)=>{
                     this.form_data = json_result.data; //赋值            
                     if(json_result.data.provinceId != undefined){

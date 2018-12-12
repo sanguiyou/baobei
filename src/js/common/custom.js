@@ -39,9 +39,9 @@ var ACTION_URL ={
     "departments_delete":remote_host+"/departments/delete", //部门删除
     "departments_get_dep_users":remote_host+"/departments/getDepUsers", //部门下的人
     "companies_modify":remote_host+"/companies/modify", //公司修改接口
-    "companies_list":remote_host+"/shadowUsers/listPage", //公司列表
-    "companies_delete":remote_host+"/shadowUsers/delete", //公司删除
-    "companies_get_companies":remote_host+"/shadowUsers/getCompanies", //公司详情    
+    "companies_list":remote_host+"/companies/listPage", //公司列表
+    "companies_delete":remote_host+"/companies/delete", //公司删除
+    "companies_get_companies":remote_host+"/companies/getCompanies", //公司详情    
 
 };
 
@@ -123,9 +123,9 @@ $(document).ready(function() {
     }).parent().addClass('active');
 
     // recompute content when resizing
-    $(window).smartresize(function(){  
-        setContentHeight();
-    });
+    // $(window).smartresize(function(){  
+    //     setContentHeight();
+    // });
 
     setContentHeight();
 
