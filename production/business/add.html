@@ -112,7 +112,7 @@
                 <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
-                        <li><a href="./index.html">代理商管理</a></li>
+                        <li><a href="./index.html">客户信息列表</a></li>
                         <li class="active">{{title_name}}</li>
                     </ul>
                 </li>
@@ -123,49 +123,43 @@
             <div style="background:#fff; padding:20px;">                
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >报备人</p>
-                            <select v-model="form_data.userId">
-                                <option v-for="baobei in baobei_list" :value="baobei.id">{{baobei.nickname}}</option>
-                            </select>
+                            <p >* 公司名称</p>
+                            <input type="text" v-model="form_data.name"/>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >* 名称</p>
-                            <input type="text" v-model="form_data.realName"/>
+                            <p >公司别名</p>
+                            <input type="text" v-model="form_data.aliasName"/>
                         </div>
                     </div>                                       
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >年龄</p>
-                            <select v-model="form_data.age">
-                                <option >10-20</option>
-                                <option >20-30</option>
-                                <option >30-40</option>
-                                <option >40-50</option>
-                                <option >50-60</option>
+                            <p >客户类型</p>
+                            <select v-model="form_data.businessEntityCategoryId">
+                                <option value="1">代理商</option>
+                                <option value="2">成套场</option>
+                                <option value="3">甲方</option>
+                                <option value="4">乙方</option>
+                                <option value="5">非代理商</option>                                
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >性别</p>
-                            <select v-model="form_data.gender">
-                                <option >未知</option>
-                                <option >男</option>
-                                <option >女</option>
-                            </select>
+                            <p >营业执照号码</p>
+                            <input type="text" v-model="form_data.license"/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >Email</p>
-                            <input type="text" v-model="form_data.email"/>
+                            <p >税务登记证号码</p>
+                            <input type="text" v-model="form_data.tin"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >联系电话</p>
-                            <input type="text" v-model="form_data.phone"/>
+                            <p >开户行ID</p>
+                            <input type="text" v-model="form_data.invoice_bank_id"/>
                         </div>
                     </div>
                     <br/>
@@ -199,25 +193,31 @@
                     <br/>
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >爱好</p>
-                            <input type="text" v-model="form_data.hobby"/>
+                            <p >联系人电话</p>
+                            <input type="text" v-model="form_data.phone"/>
                         </div>
                     </div>
                     <br/>
                     <div style="margin-top:10px;" class="row">
-                        <div class="col-md-2 col-sm-2 col-xs-2">
-                            <p >认识时间</p>
-                            <input type="text" class="form_datetime" id="perceptionTime"/>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <p >联系人</p>
+                                <input type="text" v-model="form_data.contact"/>
+                            </div>
                         </div>
-                    </div>
-                    <br/>
+                    <br/>                    
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >备注</p>
+                            <p >描述</p>
                             <input type="text" v-model="form_data.note"/>
                         </div>
                     </div>
                     <br/>
+                    <div style="margin-top:10px;" class="row">
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                <p >创建时间</p>
+                                <input type="text" class="form_datetime" id="createAt"/>
+                            </div>
+                        </div>
                     <br/>                    
                     <div style="text-align:center;">
                         <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
@@ -258,7 +258,7 @@
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/company_add.min.js"></script>
+<script src="../../src/js/common/custom.js"></script>
+<script src="../../build/js/business_add.min.js"></script>
 </body>
 </html>

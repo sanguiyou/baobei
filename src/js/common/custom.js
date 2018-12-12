@@ -41,8 +41,11 @@ var ACTION_URL ={
     "companies_modify":remote_host+"/companies/modify", //公司修改接口
     "companies_list":remote_host+"/companies/listPage", //公司列表
     "companies_delete":remote_host+"/companies/delete", //公司删除
-    "companies_get_companies":remote_host+"/companies/getCompanies", //公司详情    
-
+    "companies_get_companies":remote_host+"/companies/getCompanies", //公司详情  
+    "business_modify":remote_host+"/api/businessEntities/modify", //客户修改接口
+    "business_list":remote_host+"/api/businessEntities/listPage", //客户列表
+    "business_delete":remote_host+"/api/businessEntities/delete", //客户删除
+    "business_get_detail":remote_host+"/api/businessEntities/getBusinessEntities", //客户详情   
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
