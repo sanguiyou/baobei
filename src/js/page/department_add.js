@@ -27,8 +27,8 @@ var vue_instance = new Vue({
     },
     created: function () {
         //拉取部门列表
-        jquery_ajax(ACTION_URL.departments_list_tree,"post",undefined,false,(json_result)=>{
-            this.department_list = json_result.data;
+        jquery_ajax(ACTION_URL.departments_list_tree,"post",{"pid":null},true,(json_result)=>{
+            this.department_list = json_result.data.records;
         });           
         //解析URL参数
         var page_param = parseURL(window.location.href);        

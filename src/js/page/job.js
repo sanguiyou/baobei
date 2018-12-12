@@ -6,7 +6,7 @@ var vue_instance = new Vue({
         totalPages: 0,        
     },
     methods: {
-        list_callback: function (ajax_json) {  
+        list_callback: function (ajax_json) {              
             this.list = ajax_json.data.records;
             this.totalPages = ajax_json.data.pages;      
                         
