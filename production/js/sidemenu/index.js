@@ -91,6 +91,15 @@
                 }, {
                     text: "发票开票记录",
                     href: "/production/contractPerformance/invoice.html"
+                }, {
+                    text: "公司",
+                    href: "/production/company/index.html"
+                }, {
+                    text: "客户",
+                    href: "/production/business/index.html"
+                }, {
+                    text: "客户分类",
+                    href: "/production/business/category.html"
                 }
             ]
         }, {

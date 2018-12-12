@@ -38,6 +38,11 @@ var ACTION_URL ={
     "departments_modify":remote_host+"/departments/modify", //部门修改
     "departments_delete":remote_host+"/departments/delete", //部门删除
     "departments_get_dep_users":remote_host+"/departments/getDepUsers", //部门下的人
+    "companies_modify":remote_host+"/companies/modify", //公司修改接口
+    "companies_list":remote_host+"/shadowUsers/listPage", //公司列表
+    "companies_delete":remote_host+"/shadowUsers/delete", //公司删除
+    "companies_get_companies":remote_host+"/shadowUsers/getCompanies", //公司详情    
+
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
@@ -272,6 +277,15 @@ $(document).ready(function() {
             $expand.text("+");
         }
     });
+    $("#login").on("click",function(){        
+        var login_param = {"userName":"13600000000","passWord":"123"};
+        jquery_ajax_notoken(ACTION_URL.login,"post",login_param,(json)=>{
+            if(json.result == "00000000"){                
+                localStorage.setItem("_USER",JSON.stringify(json.data));   
+                alert("login successfully");
+            }  
+        });        
+    });
 });
 
 // NProgress
@@ -285,19 +299,8 @@ if (typeof NProgress != 'undefined') {
     });
 }
 
-window.getToken = function() {
-    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDQ1ODQwMTQsInVzZXJuYW1lIjoiMTM2MDAwMDAwMDAifQ.Gc5QzLyBCHgsfRTH1QwctmInryU58rUKS6UrwRRDrOg"
-    var userInfo = localStorage.getItem("_USER");            
-    // if(userInfo == undefined){
-    //     var login_param = {"userName":"13600000000","passWord":"123"};
-    //     jquery_ajax_notoken(ACTION_URL.login,"post",login_param,login_success_callback);
-    //     function login_success_callback(json){                  
-    //          if(json.result == "00000000"){
-    //              console.log("login success--");                 
-    //             localStorage.setItem("_USER",JSON.stringify(json.data));   
-    //          }         
-    //     }
-    // }            
+window.getToken = function() {    
+    var userInfo = localStorage.getItem("_USER");                            
     userInfo = JSON.parse(userInfo);    
     this.console.log(userInfo.user.token);
     if(userInfo.user.token != undefined){        
@@ -349,7 +352,49 @@ function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){
     }    
     $.ajax(ajax_obj);
 }
-function jquery_ajax_notoken(url,post_or_get,post_data,callback_func){    
+function jquery_ajax_obj(obj){    
+    url = obj.url;
+    post_or_get = obj.request_type;
+    post_data = obj.post_data;
+    is_json = obj.is_json_param;
+    callback_func = obj.callback_func;
+
+    var ajax_obj = {
+        url: url,
+        type: post_or_get,
+        dataType: "json",
+        headers: {
+            "Authorization": ""+getToken()
+        },        
+        contentType: "application/json",
+        success: function(e) {                        
+            if(e.result == 90000001){//判断登录过期                
+                alert("ajax return 9000001,"+url);
+                return;
+                //location.href ="/login.html";
+            }
+            callback_func(e);            
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {    
+            console.log(XMLHttpRequest.status);                    
+            alert(XMLHttpRequest.readyState+url);
+            //alert(textStatus);
+        },
+        complete: function(XMLHttpRequest, textStatus) {
+            this; // 调用本次AJAX请求时传递的options参数
+        }
+    }    
+    if(post_data != undefined){
+        if(is_json == true){
+            ajax_obj.data = JSON.stringify(post_data);
+        }else{
+            ajax_obj.data = post_data;
+        }              
+    }    
+    $.ajax(ajax_obj);
+}
+
+function jquery_ajax_notoken(url,post_or_get,post_data,callback_func){      
     $.ajax({
         url: url,
         type: post_or_get,

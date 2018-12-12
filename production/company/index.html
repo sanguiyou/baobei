@@ -23,8 +23,8 @@
     <link href="../../vendors/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
-    <link href="../../build/css/department_clerk.css" rel="stylesheet">
-    <title>业务员设置</title>
+    <link href="../../build/css/agent_index.css" rel="stylesheet">
+    <title>代理商</title>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -102,21 +102,19 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    业务员设置
-                    @@include('../../src/include.html')
+                    代理商
                 </li>
                 <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
-                        <li><a href="#">部门人员</a></li>
-                        <li class="active"><a href="#" >业务员设置</a></li>
+                        <li class="active"><a href="#">代理商</a></li>
                     </ul>
                 </li>
                 <li >
-                    <span id="addBtn">+新增业务员</span>
+                    <span id="addBtn">+新增代理商</span>
                 </li>
             </ul>
             <div class="clearfix"></div>
@@ -124,110 +122,63 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="search_content">
                         <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >姓名</p>
-                            <input type="text" />
+                            <p >代理商名称</p>
+                            <input type="text" v-model="search_param.name"/>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >部门</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >类型</p>
-                            <input type="text" />
-                        </div>
+                        <!--
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >关联业务员</p>
+                                <input type="text" />
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >地区</p>
+                                <input type="text" />
+                            </div>
+                        -->
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
+                            <button type="button" id="searchBtn" class="btn btn-primary" @click="search_param.page=1;load_list()">搜索</button>
                         </div>
                     </div>
                 </div>
             </div>
             <br/>
-            <div id="app">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel tile ">
-                            <div class="x_content" id="addressContent">
-                                <ul >
-                                    <li v-for="(province_name,key) in province_list" v-bind:class="[isActive == key? 'active' : '', '']" @click="isActive=key"><a href="javascript:void(0)" >{{province_name}}</a></li>
-                                    <!--
-                                    <li class="active" ><a href="javascript:void(0)" >不限</a></li>
-                                    <li ><a href="javascript:void(0)" >北京</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    -->
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel tile">
-                            <table class="table  table-striped">
-                                <thead>
-                                <tr>
-                                    <th>用户ID</th>
-                                    <th>用户名</th>
-                                    <th>性别</th>
-                                    <th>项目通过数</th>
-                                    <th>入职日起</th>
-                                    <th>离职日期</th>
-                                    <th>部门</th>
-                                    <th>职位</th>
-                                    <th>激活状态</th>
-                                    <th>类型</th>
-                                    <th>最近登录</th>
-                                    <th>箱体提交限制</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="customer in customer_list">
-                                    <td><a href="./clerkDetail.html" >山东省</a></td>
-                                    <td>{{customer.name}}</td>
-                                    <td>男</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>Otto</td>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel tile">
+                        <table class="table  table-striped">
+                            <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>关联项目数</th>
+                                <th>关联项目成交数</th>
+                                <th>电话</th>
+                                <th>Email</th>
+                                <th>报备人</th>
+                                <th>关联用户</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="list_value in list">
+                                    <td>{{list_value.realName}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{list_value.phone}}</td>
+                                    <td>{{list_value.email}}</td>
+                                    <th>{{list_value.userId}}</th>
+                                    <th></th>
+                                    <th>{{list_value.note}}</th>
                                     <td>
-                                        <span class="state_actived">已激活</span>
-                                        <i class="fa fa-unlock"></i>
+                                        <button class="btn btn-warning"><a :href="'/production/agent/add.html?id='+list_value.id+'&current_page='+search_param.page">修改</a></button>
+                                        <button class="btn btn-danger" @click="del_record(list_value.id)">删除</button>
                                     </td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>
-                                        <a href="clerkEdit.html" class="btn btn-warning">修改</a>
-                                        <button class="btn btn-danger">删除</button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="page_content">
-                                <ul id="pageLimit1"></ul>
-                            </div>
+                                </tr>                            
+                            </tbody>
+                        </table>
+                        <div class="page_content">
+                            <ul id="pageLimit1"></ul>
                         </div>
                     </div>
                 </div>
@@ -243,9 +194,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
-
 <script src="../../vendors/vue/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -269,6 +218,6 @@
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/department_clerk.min.js"></script>
+<script src="../../build/js/company_index.min.js"></script>
 </body>
 </html>
