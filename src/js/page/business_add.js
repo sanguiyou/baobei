@@ -60,23 +60,13 @@ var vue_instance = new Vue({
             });            
         }
     },
-    created: function () {        
+    created: function () {                
         //拉取省列表
-        // jquery_ajax_obj({"url":ACTION_URL.province_list,"request_type":"post","post_data":undefined,"is_json_param":true,
-        //     "callback_func":(e)=>{
-        //         console.log("------------ffff----");
-        //         this.province_list = e.data;            
-        //     },
-        // });    
         jquery_ajax_obj({"url":ACTION_URL.province_list,"request_type":"post","post_data":undefined,"is_json_param":true,
-                "callback_func":(e)=>{
-                    console.log("------------ffffee----");
+                "callback_func":(e)=>{                    
                     this.province_list = e.data;            
                 },
-            }); 
-        // jquery_ajax(ACTION_URL.province_list,"post",undefined,true,(e)=>{
-        //     this.province_list = e.data;            
-        // });         
+            });               
         //解析URL参数
         var page_param = parseURL(window.location.href);        
         this.title_name = "新增客户信息"

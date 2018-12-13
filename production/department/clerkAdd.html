@@ -104,7 +104,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     新增业务员
@@ -125,62 +125,73 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 电话</p>
-                            <input type="text" class="big" required="" placeholder="用作登录账号"/>
+                            <input type="text" class="big" required="" placeholder="用作登录账号" v-model="form_data.phone"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 真实姓名</p>
-                            <input type="text" class="big" required=""/>
+                            <input type="text" class="big" required="" v-model="form_data.nickname"/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 邮件</p>
-                            <input type="text" class="big" required="" placeholder="用作登录账号"/>
+                            <input type="text" class="big" required="" placeholder="用作登录账号" v-model="form_data.email"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>性别</p>
-                            <select></select>
+                            <select v-model="form_data.sex">
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>请选择所属公司</p>
-                            <select></select>
+                            <select v-model="form_data.companyId">
+                                 <option value="1">公司1</option>
+                            </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 请选择所属部门</p>
-                            <select></select>
+                            <select v-model="form_data.departmentId">
+                                <option value="1">部门1</option>
+                            </select>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>请选择职位</p>
-                            <select></select>
+                            <select v-model="form_data.positionId">
+                                    <option value="1">职位1</option>
+                            </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>用户类型</p>
-                            <select></select>
+                            <select v-model="form_data.userType">
+                                    <option value="1">用户类型1</option>
+                            </select>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>入职日期</p>
-                            <input type="text" class="form_datetime"/>
+                            <input type="text" class="form_datetime" id="entryDate"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>离职日期</p>
-                            <input type="text" class="form_datetime"/>
+                            <input type="text" class="form_datetime" id="leaveDate"/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>试用期</p>
-                            <input type="text" class="form_datetime"/>
+                            <input type="text" class="form_datetime" id="trialDate"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 销售任务(可在销售任务页修改)</p>
@@ -190,34 +201,40 @@
                     <br/>
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4">
-                            <p>* 省/直辖市</p>
-                            <select id="provinceSelect"></select>
+                            <p >* 省/直辖市</p>
+                            <select id="provinceSelect" required="" v-model="form_data.provinceId" @change="province_change()">                                
+                                <option v-for="province_obj in province_list" v-bind:value="province_obj.provinceId">{{province_obj.name}}</option>
+                            </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
-                            <p>市/市区</p>
-                            <select id="citySelect"></select>
+                            <p>* 市/市辖区</p>
+                            <select id="citySelect" required="" v-model="form_data.cityId" @change="city_change()">
+                                <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId">{{city_obj.name}}</option>
+                            </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
-                            <p>区县</p>
-                            <select id="areaSelect"></select>
+                            <p >* 区县</p>
+                            <select id="areaSelect" required="" v-model="form_data.areaId">
+                                <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId">{{area_obj.name}}</option>                                    
+                            </select>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p>头像</p>
-                            <img style="width:80px;height:80px;" src="../images/missing_avatar.png"/>
+                            <img style="width:80px;height:80px;" v-bind:src="form_data.avatar"/>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p>选择文件</p>
-                            <input type="file"/>
+                            <input type="file" @change="setImage"/>
                         </div>
                     </div>
                     <hr>
                     <br/>
                     <br/>
                     <div style="text-align:center;">
-                        <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;">新增用户</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">新增用户</button>
                         <button type="button" id="cancelBtn" class="btn btn-default btn-lg">取消</button>
                     </div>
                     <br/>
@@ -233,6 +250,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

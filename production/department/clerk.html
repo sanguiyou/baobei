@@ -102,11 +102,10 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    业务员设置
-                    @@include('../../src/include.html')
+                    业务员设置                    
                 </li>
                 <li >
                     <ul class="breadcrumb border">
@@ -149,31 +148,9 @@
                         <div class="x_panel tile ">
                             <div class="x_content" id="addressContent">
                                 <ul >
-                                    <li v-for="(province_name,key) in province_list" v-bind:class="[isActive == key? 'active' : '', '']" @click="isActive=key"><a href="javascript:void(0)" >{{province_name}}</a></li>
-                                    <!--
-                                    <li class="active" ><a href="javascript:void(0)" >不限</a></li>
-                                    <li ><a href="javascript:void(0)" >北京</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    <li ><a href="javascript:void(0)" >山东</a></li>
-                                    <li ><a href="javascript:void(0)" >山西</a></li>
-                                    <li ><a href="javascript:void(0)" >陕西</a></li>
-                                    <li ><a href="javascript:void(0)" >安徽</a></li>
-                                    -->
+                                    <li v-for="(province_obj,key) in province_list" v-bind:class="[search_param.provinceId == key? 'active' : '', '']" @click="search_param.provinceId=key">
+                                        <a href="javascript:void(0)" v-html="province_obj.name"></a>
+                                    </li>                                   
                                 </ul>
                             </div>
                         </div>
@@ -202,9 +179,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="customer in customer_list">
+                                <tr v-for="customer in list">
                                     <td><a href="./clerkDetail.html" >山东省</a></td>
-                                    <td>{{customer.name}}</td>
+                                    <td>{{customer.nickname}}</td>
                                     <td>男</td>
                                     <td>@mdo</td>
                                     <td>@mdo</td>

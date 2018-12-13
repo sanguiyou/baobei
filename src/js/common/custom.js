@@ -29,7 +29,10 @@ var ACTION_URL ={
     "shadow_users_list":remote_host+"/shadowUsers/listPage", //代理人列表
     "shadow_users_delete":remote_host+"/shadowUsers/delete", //代理人删除
     "shadow_user_detail":remote_host+"/shadowUsers/getShadowUser", //代理商详情    
-    "user_list":remote_host+"/user/userList", //用户列表    
+    "user_list":remote_host+"/user/userList", //用户列表
+    "user_list_page":remote_host+"/user/listPage", //用户带翻页    
+    "user_modify":remote_host+"/user/modify", //用户修改
+    "user_delete":remote_host+"/user/delete", //用户删除    
     "positions_list":remote_host+"/positions/listTree", //职位列表        
     "positions_modify":remote_host+"/positions/modify", //职位修改
     "positions_delete":remote_host+"/positions/delete", //职位删除
@@ -37,7 +40,7 @@ var ACTION_URL ={
     "departments_list_tree":remote_host+"/departments/listTree", //部门列表        
     "departments_modify":remote_host+"/departments/modify", //部门修改
     "departments_delete":remote_host+"/departments/delete", //部门删除
-    "departments_get_dep_users":remote_host+"/departments/getDepUsers", //部门下的人
+    "departments_get_dep_users":remote_host+"/departments/getDepUsers", //部门下的人    
     "companies_modify":remote_host+"/companies/modify", //公司修改接口
     "companies_list":remote_host+"/companies/listPage", //公司列表
     "companies_delete":remote_host+"/companies/delete", //公司删除
