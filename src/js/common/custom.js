@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var per_page_cnt = 1;
+var per_page_cnt = 100;
 function parseURL(url) {
     //var url =  location.href;
     console.log(url);
@@ -361,10 +361,10 @@ function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){
 }
 function jquery_ajax_obj(obj){    
     url = obj.url;
-    post_or_get = obj.request_type;
-    post_data = obj.post_data;
-    is_json = obj.is_json_param;
-    callback_func = obj.callback_func;
+    var post_or_get = obj.request_type;
+    var post_data = obj.post_data;    
+    var is_json = obj.is_json_param;
+    var callback_func = obj.callback_func;
 
     var ajax_obj = {
         url: url,
@@ -379,7 +379,7 @@ function jquery_ajax_obj(obj){
                 alert("ajax return 9000001,"+url);
                 return;
                 //location.href ="/login.html";
-            }
+            }            
             callback_func(e);            
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {    
