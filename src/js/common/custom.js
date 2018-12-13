@@ -46,6 +46,10 @@ var ACTION_URL ={
     "business_list":remote_host+"/api/businessEntities/listPage", //客户列表
     "business_delete":remote_host+"/api/businessEntities/delete", //客户删除
     "business_get_detail":remote_host+"/api/businessEntities/getBusinessEntities", //客户详情   
+    "business_category_modify":remote_host+"/api/businessEntityCategories/modify", //客户分类修改接口
+    "business_category_list":remote_host+"/api/businessEntityCategories/getlist", //客户分类列表
+    "business_category_delete":remote_host+"/api/businessEntityCategories/delete", //客户分类删除
+    "business_category_detail":remote_host+"/api/businessEntityCategories/getBusinessEntityCategories", //客户分类详情   
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
