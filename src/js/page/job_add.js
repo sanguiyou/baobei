@@ -13,21 +13,21 @@ var vue_instance = new Vue({
                 console.log(json_result);
                 alert("操作成功");
                 if(this.form_data.id > 0){
-                     location.href="/production/agent/index.html?current_page="+this.current_page;
+                     location.href="/production/department/job.html?current_page="+this.current_page;
                 }else{
-                    location.href="/production/agent/index.html";
+                    location.href="/production/department/job.html";
                 }
             });                    
         },        
         load_edit_data(){ //拉取修改页的数据            
-            jquery_ajax(ACTION_URL.shadow_user_detail+"?id="+this.form_data.id,"get",undefined,false,(json_result)=>{
+            jquery_ajax(ACTION_URL.positions_getPositions,"post",this.form_data.id,false,(json_result)=>{
                 this.form_data = json_result.data; //赋值                               
             });                    
         }
     },
     created: function () {
         //拉取职位列表          
-        jquery_ajax_obj({"url":ACTION_URL.positions_list,"post_data":undefined,"is_json_param":false,
+        jquery_ajax_obj({"url":ACTION_URL.positions_list,"post_data":{page:1,"rows":per_page_cnt,"name":""},
             "callback_func":(e)=>{
                 this.position_list = e.data;            
             },

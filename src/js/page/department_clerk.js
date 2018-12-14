@@ -3,7 +3,7 @@ var vue_instance = new Vue({
     data: {
         list: [],
         province_list:[],        
-        search_param:{page:1,"rows":per_page_cnt,"provinceId":0},        
+        search_param:{page:1,"rows":per_page_cnt,"provinceId":null},        
         totalPages: 0,        
     },
     methods: {
@@ -39,11 +39,13 @@ var vue_instance = new Vue({
             console.log(this.search_param);            
             jquery_ajax_obj({"url":ACTION_URL.user_list_page,"request_type":"post","post_data":this.search_param,"is_json_param":true,"callback_func":this.list_callback});     
         },
-        del_record(id){            
-            if(confirm("确定要删除此记录吗？")){
-                jquery_ajax(ACTION_URL.user_delete,"post",id,true,()=>{
-                    alert("操作成功");
-                    location.href = location.href;
+        del_record(id){                      
+            if(confirm("确定要删除此记录吗？")){                
+                jquery_ajax_obj({"url":ACTION_URL.user_delete,"post_data":id,
+                    "callback_func":(e)=>{
+                        alert("操作成功");
+                        //location.href = location.href;           
+                    },
                 }); 
             }                 
         },        

@@ -124,15 +124,11 @@
                     <div class="search_content">
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p >职位名称</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >任务标准</p>
-                            <input type="text" />
-                        </div>
+                            <input type="text" v-model="search_param.name"/>
+                        </div>                        
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
+                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
                         </div>
                     </div>
                 </div>
@@ -156,7 +152,7 @@
                                 <td>Otto</td>
                                 <td>@mdo</td>
                                 <td>
-                                    <button class="btn btn-warning"><a :href="'/production/job/job_add.html?id='+list_value.id+'&current_page='+search_param.page">修改</a></button>
+                                    <button class="btn btn-warning"><a :href="'/production/department/job_add.html?id='+list_value.id+'&current_page='+search_param.page">修改</a></button>
                                     <button class="btn btn-danger" @click="del_record(list_value.id)">删除</button>
                                 </td>
                             </tr>                            
@@ -203,6 +199,6 @@
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/job_add.min.js"></script>
+<script src="../../build/js/job.min.js"></script>
 </body>
 </html>

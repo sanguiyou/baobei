@@ -9,6 +9,7 @@ var vue_instance = new Vue({
         title_name:"",
         company_list:[],
         depart_list:[],
+        position_list:[],
     },
     methods: {
         submit_form:function () {                        
@@ -29,9 +30,9 @@ var vue_instance = new Vue({
             });                               
         },        
         load_edit_data(){ //拉取修改页的数据   
-            jquery_ajax_obj({"url":ACTION_URL.user_modify,"request_type":"post","post_data":this.form_data.id,"is_json_param":false,
+            jquery_ajax_obj({"url":ACTION_URL.user_detail,"post_data":this.form_data.id,"is_json_param":false,
                 "callback_func":(json_result)=>{
-                    this.form_data = json_result.data; //赋值            
+                    this.form_data = json_result.data; //赋值            s
                     if(json_result.data.provinceId != undefined){
                         jquery_ajax(ACTION_URL.city_list,"post",json_result.data.provinceId,true,(e)=>{
                             this.city_list = e.data;                
@@ -98,7 +99,13 @@ var vue_instance = new Vue({
             "callback_func":(e)=>{
                 this.depart_list = e.data.records;            
             },
-        });         
+        });  
+        //拉职位列表
+        jquery_ajax_obj({"url":ACTION_URL.positions_list,"request_type":"post","post_data":{page:1,"rows":1000},"is_json_param":true,
+            "callback_func":(e)=>{
+                this.position_list = e.data;            
+            },
+        });       
         //解析URL参数
         var page_param = parseURL(window.location.href);        
         this.title_name = "新增业务员"

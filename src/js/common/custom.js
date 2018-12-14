@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var per_page_cnt = 100;
+var per_page_cnt = 5;
 function parseURL(url) {
     //var url =  location.href;
     console.log(url);
@@ -19,7 +19,7 @@ function parseURL(url) {
     return parseResult;
 }
 
-var remote_host = "http://106.12.154.195:8081";
+var remote_host = "http://39.105.146.145:8081";
 var ACTION_URL ={
     "city_list":remote_host+"/api/cities/getlistDic",   //市列表
     "province_list":remote_host+"/api/provinces/getlistDic",  //省列表
@@ -30,12 +30,14 @@ var ACTION_URL ={
     "shadow_users_delete":remote_host+"/shadowUsers/delete", //代理人删除
     "shadow_user_detail":remote_host+"/shadowUsers/getShadowUser", //代理商详情    
     "user_list":remote_host+"/user/userList", //用户列表
-    "user_list_page":remote_host+"/user/listPage", //用户带翻页    
+    "user_list_page":remote_host+"/user/listPage", //用户带翻页  
+    "user_detail":remote_host+"/user/getUsers", //用户详情
     "user_modify":remote_host+"/user/modify", //用户修改
     "user_delete":remote_host+"/user/delete", //用户删除    
     "positions_list":remote_host+"/positions/listTree", //职位列表        
     "positions_modify":remote_host+"/positions/modify", //职位修改
     "positions_delete":remote_host+"/positions/delete", //职位删除
+    "positions_getPositions":remote_host+"/positions/getPositions", //职位    
     "departments_list":remote_host+"/departments/listPage", //部门列表带翻页        
     "departments_list_tree":remote_host+"/departments/listTree", //部门列表        
     "departments_modify":remote_host+"/departments/modify", //部门修改
@@ -361,6 +363,7 @@ function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){
             ajax_obj.data = post_data;
         }              
     }    
+    console.log(ajax_obj)
     $.ajax(ajax_obj);
 }
 function jquery_ajax_obj(obj){    

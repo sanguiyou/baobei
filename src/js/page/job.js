@@ -2,12 +2,12 @@ var vue_instance = new Vue({
     el: '#app',
     data: {
         list: [],
-        search_param:{page:1,"rows":per_page_cnt},        
+        search_param:{page:1,"rows":per_page_cnt,"name":""},        
         totalPages: 0,        
     },
     methods: {
         list_callback: function (ajax_json) {              
-            this.list = ajax_json.data.records;
+            this.list = ajax_json.data;
             this.totalPages = ajax_json.data.pages;      
                         
             $('#pageLimit1').bootstrapPaginator({
@@ -35,7 +35,7 @@ var vue_instance = new Vue({
                               
         },
         load_list:function(){                 
-            console.log(this.search_param);
+            console.log(this.search_param);            
             jquery_ajax(ACTION_URL.positions_list,"post",this.search_param,true,this.list_callback);      
         },
         del_record(id){            

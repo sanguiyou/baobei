@@ -12,9 +12,9 @@ var vue_instance = new Vue({
                 console.log(json_result);
                 alert("操作成功");
                 if(this.form_data.id > 0){
-                     location.href="/production/agent/index.html?current_page="+this.current_page;
+                     location.href="/production/category/index.html?current_page="+this.current_page;
                 }else{
-                    location.href="/production/agent/index.html";
+                    location.href="/production/category/index.html";
                 }
             });                    
         },        

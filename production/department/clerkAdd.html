@@ -151,13 +151,13 @@
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>请选择所属公司</p>
                             <select v-model="form_data.companyId">
-                                 <option v-for="company_obj in company_list" v-html="company_obj.name"></option>
+                                 <option :value="company_obj.id" v-for="company_obj in company_list" v-html="company_obj.name"></option>
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 请选择所属部门</p>
                             <select v-model="form_data.departmentId">
-                                <option value="1" v-for="depart_obj in depart_list" v-html="depart_obj.name"></option>
+                                <option :value="depart_obj.id" v-for="depart_obj in depart_list" v-html="depart_obj.name"></option>
                             </select>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>请选择职位</p>
                             <select v-model="form_data.positionId">
-                                    <option value="1">职位1</option>
+                                    <option :value="position_obj.id" v-for="position_obj in position_list" v-html="position_obj.name"></option>
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
