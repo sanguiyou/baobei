@@ -40,7 +40,7 @@ var ACTION_URL ={
     "departments_list_tree":remote_host+"/departments/listTree", //部门列表        
     "departments_modify":remote_host+"/departments/modify", //部门修改
     "departments_delete":remote_host+"/departments/delete", //部门删除
-    "departments_get_dep_users":remote_host+"/departments/getDepUsers", //部门下的人    
+    "departments_get_dep_users":remote_host+"/departments/getDeptUsers", //部门下的人    
     "companies_modify":remote_host+"/companies/modify", //公司修改接口
     "companies_list":remote_host+"/companies/listPage", //公司列表
     "companies_delete":remote_host+"/companies/delete", //公司删除
