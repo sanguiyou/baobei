@@ -162,14 +162,14 @@
                             </thead>
                             <tbody>
                                 <tr v-for="list_value in list">
-                                    <td>{{list_value.realName}}</td>
+                                    <td v-html="list_value.realName"></td>
                                     <td></td>
                                     <td></td>
-                                    <td>{{list_value.phone}}</td>
-                                    <td>{{list_value.email}}</td>
-                                    <th>{{list_value.userId}}</th>
+                                    <td v-html="list_value.phone"></td>
+                                    <td v-html="list_value.email"></td>
+                                    <th v-html="list_value.userId"></th>
                                     <th></th>
-                                    <th>{{list_value.note}}</th>
+                                    <th v-html="list_value.note"></th>
                                     <td>
                                         <button class="btn btn-warning"><a :href="'/production/agent/add.html?id='+list_value.id+'&current_page='+search_param.page">修改</a></button>
                                         <button class="btn btn-danger" @click="del_record(list_value.id)">删除</button>

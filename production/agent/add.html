@@ -113,7 +113,7 @@
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
                         <li><a href="./index.html">代理商管理</a></li>
-                        <li class="active">{{title_name}}</li>
+                        <li class="active" v-html="title_name"></li>
                     </ul>
                 </li>
             </ul>
@@ -125,7 +125,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >报备人</p>
                             <select v-model="form_data.userId">
-                                <option v-for="baobei in baobei_list" :value="baobei.id">{{baobei.nickname}}</option>
+                                <option v-for="baobei in baobei_list" :value="baobei.id" v-html="baobei.nickname"></option>
                             </select>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >* 名称</p>
-                            <input type="text" v-model="form_data.realName"/>
+                            <input type="text" v-model="form_data.realName" />
                         </div>
                     </div>                                       
                     <br/>
@@ -173,19 +173,19 @@
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 省/直辖市</p>
                             <select id="provinceSelect" required="" v-model="form_data.provinceId" @change="province_change()">                                
-                                <option v-for="province_obj in province_list" v-bind:value="province_obj.provinceId">{{province_obj.name}}</option>
+                                <option v-for="province_obj in province_list" v-bind:value="province_obj.provinceId" v-html="province_obj.name"></option>
                             </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>* 市/市辖区</p>
                             <select id="citySelect" required="" v-model="form_data.cityId" @change="city_change()">
-                                <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId">{{city_obj.name}}</option>
+                                <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId" v-html="city_obj.name"></option>
                             </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 区县</p>
                             <select id="areaSelect" required="" v-model="form_data.areaId">
-                                <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId">{{area_obj.name}}</option>                                    
+                                <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId" v-html="area_obj.name"></option>                                    
                             </select>
                         </div>
                     </div>
@@ -220,7 +220,7 @@
                     <br/>
                     <br/>                    
                     <div style="text-align:center;">
-                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()" v-html="title_name"></button>
                         <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
                     </div>
                     <br/>                    

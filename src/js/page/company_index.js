@@ -36,7 +36,7 @@ var vue_instance = new Vue({
         },
         load_list:function(){                 
             console.log(this.search_param);            
-            jquery_ajax_obj({"url":ACTION_URL.companies_list,"request_type":"post","post_data":this.search_param,"is_json_param":true,"callback_func":this.list_callback});     
+            jquery_ajax_obj({"url":ACTION_URL.companies_list,"request_type":"post","post_data":this.search_param,"callback_func":this.list_callback});     
         },
         del_record(id){            
             if(confirm("确定要删除此记录吗？")){

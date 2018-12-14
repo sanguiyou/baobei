@@ -53,6 +53,7 @@ var ACTION_URL ={
     "business_category_list":remote_host+"/api/businessEntityCategories/getlist", //客户分类列表
     "business_category_delete":remote_host+"/api/businessEntityCategories/delete", //客户分类删除
     "business_category_detail":remote_host+"/api/businessEntityCategories/getBusinessEntityCategories", //客户分类详情   
+    "resource":remote_host+"/api/resource",     
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
@@ -364,9 +365,10 @@ function jquery_ajax(url,post_or_get,post_data,is_json,callback_func){
 }
 function jquery_ajax_obj(obj){    
     url = obj.url;
-    var post_or_get = obj.request_type;
-    var post_data = obj.post_data;    
-    var is_json = obj.is_json_param;
+    console.log(obj.request_type);
+    var post_or_get = obj.request_type==undefined?"post":obj.request_type;
+    var post_data = obj.post_data==undefined?undefined:obj.post_data;    
+    var is_json = obj.is_json_param==undefined?true:obj.is_json_param;//不传默认json格式
     var callback_func = obj.callback_func;
 
     var ajax_obj = {
@@ -382,8 +384,9 @@ function jquery_ajax_obj(obj){
                 alert("ajax return 9000001,"+url);
                 return;
                 //location.href ="/login.html";
-            }            
-            callback_func(e);            
+            }         
+            if(obj.callback_func != undefined)   
+                callback_func(e);            
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {    
             console.log(XMLHttpRequest.status);                    

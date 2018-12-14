@@ -26,10 +26,12 @@ var vue_instance = new Vue({
         }
     },
     created: function () {
-        //拉取职位列表
-        jquery_ajax(ACTION_URL.positions_list,"post",undefined,false,(json_result)=>{
-            this.position_list = json_result.data;
-        });           
+        //拉取职位列表          
+        jquery_ajax_obj({"url":ACTION_URL.positions_list,"post_data":undefined,"is_json_param":false,
+            "callback_func":(e)=>{
+                this.position_list = e.data;            
+            },
+        });        
         //解析URL参数
         var page_param = parseURL(window.location.href);        
         this.title_name = "新增职位"

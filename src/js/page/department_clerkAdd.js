@@ -7,6 +7,8 @@ var vue_instance = new Vue({
         province_list:[],
         area_list:[],
         title_name:"",
+        company_list:[],
+        depart_list:[],
     },
     methods: {
         submit_form:function () {                        
@@ -66,8 +68,12 @@ var vue_instance = new Vue({
                 return;
             }
             const reader = new FileReader();
-            reader.onload = (event) => {                
-                this.form_data.avatar = event.target.result;
+            reader.onload = (event) => {                                
+                jquery_ajax_obj({"url":ACTION_URL.resource,"request_type":"post","post_data":event.target.result,"is_json_param":false,
+                    "callback_func":(e)=>{
+                        this.arethis.form_data.avatara_list = e.data;            
+                    },
+                });   
                 //console.log(event.target.result);
                 //this.$refs.cropper && this.$refs.cropper.replace(event.target.result);
             };
@@ -80,7 +86,19 @@ var vue_instance = new Vue({
             "callback_func":(e)=>{
                 this.province_list = e.data;            
             },
-        });            
+        });   
+        //拉公司列表
+        jquery_ajax_obj({"url":ACTION_URL.companies_list,"request_type":"post","post_data":{page:1,"rows":1000},"is_json_param":true,
+            "callback_func":(e)=>{
+                this.company_list = e.data.records;            
+            },
+        }); 
+        //拉部门列表
+        jquery_ajax_obj({"url":ACTION_URL.departments_list,"request_type":"post","post_data":{page:1,"rows":1000},"is_json_param":true,
+            "callback_func":(e)=>{
+                this.depart_list = e.data.records;            
+            },
+        });         
         //解析URL参数
         var page_param = parseURL(window.location.href);        
         this.title_name = "新增业务员"
