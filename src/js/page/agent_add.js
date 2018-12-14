@@ -25,7 +25,7 @@ var vue_instance = new Vue({
         },        
         load_edit_data(){ //拉取修改页的数据            
             jquery_ajax(ACTION_URL.shadow_user_detail,"post",this.form_data.id,true,(json_result)=>{
-                this.form_data = json_result.data; //赋值            
+                this.form_data = json_result.data.shadowUsers; //赋值            
                 if(json_result.data.provinceId != undefined){
                     jquery_ajax(ACTION_URL.city_list,"post",json_result.data.provinceId,true,(e)=>{
                         this.city_list = e.data;                
