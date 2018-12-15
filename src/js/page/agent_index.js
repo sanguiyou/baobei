@@ -40,7 +40,7 @@ var vue_instance = new Vue({
         },
         del_record(id){            
             if(confirm("确定要删除此记录吗？")){
-                jquery_ajax(ACTION_URL.shadow_users_delete+"?id="+id,"get",undefined,true,()=>{
+                jquery_ajax(ACTION_URL.shadow_users_delete,"post",id,true,()=>{
                     alert("操作成功");
                     location.href = location.href;
                 }); 

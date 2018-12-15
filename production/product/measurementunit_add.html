@@ -18,16 +18,18 @@
 
     <!-- bootstrap-progressbar -->
     <link href="../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="../../vendors/timeline/jquery.eeyellow.Timeline.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
-    <link href="../../build/css/department_clerk.css" rel="stylesheet">
-    <title>业务员设置</title>
+    <link href="../../build/css/agent_add.css" rel="stylesheet">
+    <title>{{title_name}}</title>
 </head>
 <body class="nav-md">
-<div class="container body">
+<div class="container body" >
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
@@ -105,113 +107,40 @@
         <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    业务员设置                    
+                    {{title_name}}
                 </li>
                 <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
-                        <li><a href="#">部门人员</a></li>
-                        <li class="active"><a href="#" >业务员设置</a></li>
+                        <li><a href="./job.html">计量单位管理</a></li>
+                        <li class="active" v-html="title_name"></li>
                     </ul>
-                </li>
-                <li >
-                    <span id="addBtn">+新增业务员</span>
                 </li>
             </ul>
             <div class="clearfix"></div>
-            
             <br/>
-            <div id="app">
-                <div class="row special">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="search_content">
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <p >姓名</p>
-                                <input type="text" v-model="search_param.nickname"/>
+            <div style="background:#fff; padding:20px;">                
+                    <div style="margin-top:10px;" class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <p >* 单位名称</p>
+                                <input type="text" v-model="form_data.name"/>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3" >
-                                <p >部门</p>
-                                <select v-model="search_param.departmentId ">
-                                        <option v-for="department_obj in department_list" :value="department_obj.id" v-html="department_obj.deptName"></option>
-                                    </select>
-                            </div>                        
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <p>&nbsp;</p>
-                                <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
-                            </div>
+                        </div>                    
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p >* 符号</p>
+                            <input type="text" v-model="form_data.symbol"/>
                         </div>
+                    </div>                                       
+                    
+                    <br/>                    
+                    <div style="text-align:center;">
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
+                        <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel tile ">
-                            <div class="x_content" id="addressContent">
-                                <ul >
-                                    <li v-bind:class="[search_param.provinceId == null? 'active' : '', '']" @click="search_param.provinceId=null;load_list()">
-                                        <a href="javascript:void(0)">全部</a>
-                                    </li>
-                                    <li v-for="(province_obj,key) in province_list" v-bind:class="[search_param.provinceId == province_obj.id? 'active' : '', '']" @click="search_param.provinceId=province_obj.id;load_list()">
-                                        <a href="javascript:void(0)" v-html="province_obj.name"></a>                                        
-                                    </li>                                   
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel tile">
-                            <table class="table  table-striped">
-                                <thead>
-                                <tr>
-                                    <th>用户ID</th>
-                                    <th>用户名</th>
-                                    <th>手机号</th>
-                                    <th>性别</th>
-                                    <!--<th>项目通过数</th>-->
-                                    <th>入职日起</th>
-                                    <th>离职日期</th>
-                                    <th>部门</th>
-                                    <th>职位</th>
-                                    <th>激活状态</th>                                                                        
-                                    <th>操作</th>
-                                    <!--
-                                    <th>箱体提交限制</th>
-                                    
-                                    -->
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="customer in list">
-                                    <td><a href="./clerkDetail.html" v-html="customer.id"></a></td>
-                                    <td v-html="customer.nickname"></td>
-                                    <td v-html="customer.phone"></td>
-                                    <td v-html="customer.sex==1?'男':'女'"></td>                                    
-                                    <td v-html="customer.entryDate"></td>
-                                    <td v-html="customer.leaveDate"></td>
-                                    <td v-html="customer.departmentId"></td>
-                                    <td v-html="customer.positionId"></td>
-                                    <td>
-                                        <span :class="customer.isActive==1?'state_actived':''" v-html="customer.isActive==0?'未激活':'激活'"></span>
-                                        <i class="fa fa-unlock"></i>
-                                    </td>                                    
-                                    <td>
-                                        <a :href="'/production/department/clerkAdd.html?id='+customer.id" class="btn btn-warning">修改</a>
-                                        <button class="btn btn-danger" @click="del_record(customer.id)">删除</button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="page_content">
-                                <ul id="pageLimit1"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <br/>                    
             </div>
         </div>
-
         <footer>
             Copyright © 2019 TysenKLD. All rights reserved.
         </footer>
@@ -221,9 +150,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
-
 <script src="../../vendors/vue/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -240,14 +167,12 @@
 <script src="../../vendors/iCheck/icheck.min.js"></script>
 <!-- Skycons -->
 <script src="../../vendors/skycons/skycons.js"></script>
-<script src="../../vendors/art-template-master/lib/template-web.js"></script>
-<!-- bootstrap-daterangepicker -->
 <script src="../../vendors/moment/min/moment.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/department_clerk.min.js"></script>
-<script src="../../build/js/layer.min.js"></script>
+<script src="../../build/js/measurementunit_add.min.js"></script>
 </body>
 </html>

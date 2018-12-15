@@ -113,7 +113,7 @@
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
                         <li><a href="./department.html">部门管理</a></li>
-                        <li class="active">{{title_name}}</li>
+                        <li class="active" v-html="title_name"></li>
                     </ul>
                 </li>
             </ul>
@@ -124,7 +124,15 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <p >上级部门</p>
                             <select v-model="form_data.pid">
-                                <option v-for="department in department_list" :value="department.id">{{department.deptName}}</option>
+                                <option v-for="department in department_list" :value="department.id" v-html="department.deptName"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p >部门领导</p>
+                            <select v-model="form_data.supervisorId ">
+                                <option v-for="department_leader_obj in department_leader_list" :value="department_lead_obj.id" v-html="department_leader_obj.nickname"></option>
                             </select>
                         </div>
                     </div>
@@ -134,11 +142,17 @@
                             <p >* 名称</p>
                             <input type="text" v-model="form_data.name"/>
                         </div>
+                    </div> 
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p >部门描述</p>
+                            <input type="text" v-model="form_data.description "/>
+                        </div>
                     </div>                                       
                     
                     <br/>                    
                     <div style="text-align:center;">
-                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()" v-html="title_name"></button>
                         <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
                     </div>
                     <br/>                    

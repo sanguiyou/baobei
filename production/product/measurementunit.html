@@ -102,7 +102,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     计量单位管理
@@ -113,7 +113,7 @@
                         <li><a href="#">产品中心</a></li>
                         <li class="active"><a href="#">计量单位管理</a></li>
                         <li >
-                            <span id="addBtn">+添加计量单位</span>
+                            <a href="/production/product/measurementunit_add.html"><span id="addBtn">+添加计量单位</span></a>
                         </li>
                     </ul>
                 </li>
@@ -133,13 +133,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-warning">编辑</button>
-                                    <button class="btn btn-success">详情</button>
+                            <tr v-for="obj in list">
+                                <td v-html="obj.id"></td>
+                                <td v-html="obj.name"></td>
+                                <td v-html="obj.symbol"></td>                                
+                                <td>                                    
+                                    <button class="btn btn-warning"><a :href="'/production/product/measurementunit_add.html?id='+obj.id+'&current_page='+search_param.page">修改</a></button>
+                                    <button class="btn btn-danger" @click="del_record(obj.id)">删除</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -161,6 +161,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

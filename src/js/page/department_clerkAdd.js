@@ -17,6 +17,7 @@ var vue_instance = new Vue({
             this.form_data.entryDate = $("#entryDate").val();
             this.form_data.leaveDate = $("#leaveDate").val();
             this.form_data.trialDate = $("#trialDate").val();
+            this.form_data.avatar = $("#opening_license_url").val();                 
             jquery_ajax_obj({"url":ACTION_URL.user_modify,"request_type":"post","post_data":this.form_data,"is_json_param":true,
                 "callback_func":(json_result)=>{                
                     console.log(json_result);
@@ -32,7 +33,10 @@ var vue_instance = new Vue({
         load_edit_data(){ //拉取修改页的数据   
             jquery_ajax_obj({"url":ACTION_URL.user_detail,"post_data":this.form_data.id,"is_json_param":false,
                 "callback_func":(json_result)=>{
-                    this.form_data = json_result.data; //赋值            s
+                    this.form_data = json_result.data; //赋值                                  
+                    $("#entryDate").val(tools.formatDate(json_result.data.entryDate));
+                    $("#leaveDate").val(tools.formatDate(json_result.data.leaveDate));
+                    $("#trialDate").val(json_result.data.trialDate);                    
                     if(json_result.data.provinceId != undefined){
                         jquery_ajax(ACTION_URL.city_list,"post",json_result.data.provinceId,true,(e)=>{
                             this.city_list = e.data;                
@@ -72,7 +76,7 @@ var vue_instance = new Vue({
             reader.onload = (event) => {                                
                 jquery_ajax_obj({"url":ACTION_URL.resource,"request_type":"post","post_data":event.target.result,"is_json_param":false,
                     "callback_func":(e)=>{
-                        this.arethis.form_data.avatara_list = e.data;            
+                        this.form_data.avatar = e.data;            
                     },
                 });   
                 //console.log(event.target.result);
@@ -89,19 +93,19 @@ var vue_instance = new Vue({
             },
         });   
         //拉公司列表
-        jquery_ajax_obj({"url":ACTION_URL.companies_list,"request_type":"post","post_data":{page:1,"rows":1000},"is_json_param":true,
+        jquery_ajax_obj({"url":ACTION_URL.companies_list,"request_type":"post","post_data":{page:0,"rows":3000},"is_json_param":true,
             "callback_func":(e)=>{
                 this.company_list = e.data.records;            
             },
         }); 
         //拉部门列表
-        jquery_ajax_obj({"url":ACTION_URL.departments_list,"request_type":"post","post_data":{page:1,"rows":1000},"is_json_param":true,
+        jquery_ajax_obj({"url":ACTION_URL.departments_list,"request_type":"post","post_data":{page:0,"rows":3000},"is_json_param":true,
             "callback_func":(e)=>{
                 this.depart_list = e.data.records;            
             },
         });  
         //拉职位列表
-        jquery_ajax_obj({"url":ACTION_URL.positions_list,"request_type":"post","post_data":{page:1,"rows":1000},"is_json_param":true,
+        jquery_ajax_obj({"url":ACTION_URL.positions_list,"request_type":"post","post_data":{page:0,"rows":3000},"is_json_param":true,
             "callback_func":(e)=>{
                 this.position_list = e.data;            
             },
@@ -126,5 +130,22 @@ var vue_instance = new Vue({
         $("#cancelBtn").click(function() {
             location.href = history.go(-1);
         });        
+        $('#opening_license').ssi_uploader({
+            url: ACTION_URL.resource,
+            maxNumberOfFiles: 1,
+            maxFileSize: 10,
+            allowed: ['jpg', 'gif', 'png', 'jpeg'],
+            inProgress:1,
+            responseValidation:{
+              validationKey: {
+                success: 'success',
+                error: 'error'
+              },
+              resultKey: 'msg'
+            },
+            onUpload:function(){
+                console.log('文件上传完毕！');                                  
+            }
+         });         
     },
 })

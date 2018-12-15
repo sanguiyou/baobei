@@ -2,8 +2,9 @@ var vue_instance = new Vue({
     el: '#app',
     data: {
         list: [],
-        search_param:{page:1,"rows":per_page_cnt},        
-        totalPages: 0,        
+        search_param:{page:0,"rows":per_page_cnt},        
+        totalPages: 0,   
+        department_leader_list:[],     
     },
     methods: {
         list_callback: function (ajax_json) {  
@@ -54,6 +55,10 @@ var vue_instance = new Vue({
         if(page_param["current_page"] != undefined){
             this.search_param.page = page_param["current_page"];
         }
+        //拉部门领导列表
+        jquery_ajax(ACTION_URL.user_list,"post",undefined,true,(json_result)=>{
+            this.department_leader_list = json_result.data;
+        }); 
         this.load_list();            
     },
     mounted() {        

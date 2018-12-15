@@ -25,6 +25,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
+    <link href="../../src/scss/common/ssi-uploader.css" rel="stylesheet">    
     <link href="../../build/css/department_clerkAdd.css" rel="stylesheet">
     <title>新增业务员</title>
 </head>
@@ -172,32 +173,27 @@
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>用户类型</p>
                             <select v-model="form_data.userType">
-                                    <option value="1">用户类型1</option>
+                                    <option value="1">本公司</option>
+                                    <option value="2">友公司</option>
                             </select>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>入职日期</p>
                             <input type="text" class="form_datetime" id="entryDate"/>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>离职日期</p>
                             <input type="text" class="form_datetime" id="leaveDate"/>
                         </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                                <p>试用期</p>
+                                <input type="text" class="form_datetime" id="trialDate"/>
+                            </div>  
                     </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p>试用期</p>
-                            <input type="text" class="form_datetime" id="trialDate"/>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p>* 销售任务(可在销售任务页修改)</p>
-                            <input type="text" required=""/>
-                        </div>
-                    </div>
+                    <br/>                
                     <br/>
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4">
@@ -227,7 +223,8 @@
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p>选择文件</p>
-                            <input type="file" @change="setImage"/>
+                            <input type="hidden" id="opening_license_url"/>
+                            <input type="file" multiple name="files" id="opening_license"/>
                         </div>
                     </div>
                     <hr>
@@ -275,5 +272,6 @@
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
 <script src="../../build/js/department_clerkAdd.min.js"></script>
+<script src="../../src/js/common/ssi-uploader.js"></script>
 </body>
 </html>

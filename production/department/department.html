@@ -124,19 +124,17 @@
                     <div class="search_content">
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p >部门名称</p>
-                            <input type="text" />
+                            <input type="text" v-model="search_param.name"/>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p >部门负责人</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >类型</p>
-                            <input type="text" />
-                        </div>
+                            <select v-model="search_param.supervisorId ">
+                                <option v-for="department_lead_obj in department_leader_list" :value="department_lead_obj.id" v-html="department_lead_obj.nickname"></option>
+                            </select>
+                        </div>                        
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
+                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
                         </div>
                     </div>
                 </div>
@@ -159,12 +157,12 @@
                             <tbody>
                             <tr v-for="list_value in list">
                                 <td><a href="./detail.html" >{{list_value.id}}</a></td>
-                                <td>{{list_value.name}}</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
+                                <td v-html="list_value.name"></td>
+                                <td v-html="list_value.departmentName"></td>
+                                <td v-html="list_value.nickname"></td>
                                 <td>{{list_value.description}}</td>
                                 <td>
-                                    <a href="/production/department/depart_clerk.html"><button class="btn btn-success">显示</button></a>
+                                    <a :href="'/production/department/depart_clerk.html?depart_id='+list_value.id"><button class="btn btn-success">显示</button></a>
                                 </td>
                             </tr>                            
                             </tbody>

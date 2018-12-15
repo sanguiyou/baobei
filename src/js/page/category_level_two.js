@@ -3,7 +3,8 @@ var vue_instance = new Vue({
     data: {
         list: [],
         search_param:{page:1,"rows":per_page_cnt,"name":""},        
-        totalPages: 0,        
+        totalPages: 0,    
+        level_one_list:[],    
     },
     methods: {
         list_callback: function (ajax_json) {              
@@ -29,18 +30,18 @@ var vue_instance = new Vue({
                 onPageClicked: (event, originalEvent, type, page)=> {
                     this.search_param.page = page;
                     console.log("clicked page", page);
-                    jquery_ajax(ACTION_URL.positions_list,"post",this.search_param,true,this.list_callback);  
+                    jquery_ajax(ACTION_URL.product_sub_categories_list,"post",this.search_param,true,this.list_callback);  
                 }
             }); 
                               
         },
         load_list:function(){                 
             console.log(this.search_param);            
-            jquery_ajax(ACTION_URL.positions_list,"post",this.search_param,true,this.list_callback);      
+            jquery_ajax(ACTION_URL.product_sub_categories_list,"post",undefined,true,this.list_callback);      
         },
         del_record(id){            
             if(confirm("确定要删除此记录吗？")){
-                jquery_ajax(ACTION_URL.positions_delete,"post",id,true,()=>{
+                jquery_ajax(ACTION_URL.product_sub_categories_delete,"post",id,true,()=>{
                     alert("操作成功");
                     location.href = location.href;
                 }); 
@@ -50,7 +51,7 @@ var vue_instance = new Vue({
     },
     created: function () {
         var page_param = parseURL(window.location.href);
-        console.log(page_param["current_page"]);
+        console.log(page_param["current_page"]);       
         if(page_param["current_page"] != undefined){
             this.search_param.page = page_param["current_page"];
         }

@@ -2,7 +2,7 @@ var vue_instance = new Vue({
     el: '#app',
     data: {
         list: [],
-        search_param:{page:1,"rows":per_page_cnt},        
+        search_param:{page:0,"rows":per_page_cnt},        
         totalPages: 0,        
     },
     methods: {

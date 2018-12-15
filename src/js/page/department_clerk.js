@@ -3,6 +3,7 @@ var vue_instance = new Vue({
     data: {
         list: [],
         province_list:[],        
+        department_list:[],  
         search_param:{page:1,"rows":per_page_cnt,"provinceId":null},        
         totalPages: 0,        
     },
@@ -54,14 +55,17 @@ var vue_instance = new Vue({
     created: function () {
         var page_param = parseURL(window.location.href);
         console.log(page_param["current_page"]);
+        //拉取省列表
+        jquery_ajax(ACTION_URL.province_list,"post",undefined,true,(e)=>{
+            this.province_list = e.data;            
+        }); 
+        //拉取部门列表
+        jquery_ajax(ACTION_URL.departments_list_tree,"post",{"page":0,"row":5000},true,(e)=>{
+            this.department_list = e.data.records;            
+        });        
         if(page_param["current_page"] != undefined){
             this.search_param.page = page_param["current_page"];
-        }
-        jquery_ajax_obj({"url":ACTION_URL.province_list,"request_type":"post","post_data":undefined,"is_json_param":true,
-            "callback_func":(e)=>{
-                this.province_list = e.data;            
-            },
-        }); 
+        }       
         this.load_list();            
     },
     mounted() {

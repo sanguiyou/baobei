@@ -7,12 +7,12 @@ var vue_instance = new Vue({
     },
     methods: {
         load_depart_list(){                 
-            jquery_ajax_obj({"url":ACTION_URL.departments_list_tree,"request_type":"post","post_data":{"pid":this.current_depart_id},"is_json_param":true,"callback_func":(json_result)=>{
+            jquery_ajax_obj({"url":ACTION_URL.departments_list_tree,"request_type":"post","post_data":{"pid":this.current_depart_id,"row":3000,"page":1},"is_json_param":true,"callback_func":(json_result)=>{
 				this.depart_list = json_result.data.records;
 			}});     
         },
         load_depart_user_list(){                 
-            jquery_ajax_obj({"url":ACTION_URL.departments_get_dep_users,"request_type":"post","post_data":{"pid":this.current_depart_id},"is_json_param":true,"callback_func":(json_result)=>{
+            jquery_ajax_obj({"url":ACTION_URL.departments_get_dep_users,"request_type":"post","post_data":this.current_depart_id,"is_json_param":true,"callback_func":(json_result)=>{
 				this.depart_user_list = json_result.data;
 			}});     
         }               

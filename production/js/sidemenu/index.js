@@ -120,6 +120,12 @@
                 }, {
                     text: "计量单位",
                     href: "/production/product/measurementunit.html"
+                }, {
+                    text: "一级分类",
+                    href: "/production/product/category_level_one.html"
+                }, {
+                    text: "二级分类",
+                    href: "/production/product/category_level_two.html"
                 }
             ]
         }, {

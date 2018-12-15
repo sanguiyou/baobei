@@ -5,6 +5,7 @@ var vue_instance = new Vue({
         department_list:[],
         current_page:1,        
         title_name:"",
+        department_leader_list:[],
     },
     methods: {
         submit_form:function () {                        
@@ -29,7 +30,11 @@ var vue_instance = new Vue({
         //拉取部门列表
         jquery_ajax(ACTION_URL.departments_list_tree,"post",{"pid":null},true,(json_result)=>{
             this.department_list = json_result.data.records;
-        });           
+        });  
+        //拉部门领导列表
+        jquery_ajax(ACTION_URL.user_list,"post",undefined,true,(json_result)=>{
+            this.department_leader_list = json_result.data;
+        });            
         //解析URL参数
         var page_param = parseURL(window.location.href);        
         this.title_name = "新增部门"
