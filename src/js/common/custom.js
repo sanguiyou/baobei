@@ -77,6 +77,10 @@ var ACTION_URL ={
     "product_model_detail":remote_host+"/productModels/getProductModels",
     "product_model_modify":remote_host+"/productModels/modify",
     "product_model_list":remote_host+"/productModels/listPage",
+    "price_floor_list":remote_host+"/priceFloors/getList",
+    "price_floor_modify":remote_host+"/priceFloors/modify",
+    "price_floor_detail":remote_host+"/priceFloors/getPriceFloors",
+    "price_floor_delete":remote_host+"/priceFloors/deleteLogic",
 
 };
 

@@ -106,6 +106,10 @@
             text: "产品中心",
             children: [
                 {
+                    text: "限价管理",
+                    href: "/production/product/price_floor.html"
+                },
+                {
                     text: "产品管理",
                     href: "/production/product/index.html"
                 }, {
