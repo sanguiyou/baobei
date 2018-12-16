@@ -113,10 +113,10 @@
                     href: "/production/product/component.html"
                 }, {
                     text: "主型号管理",
-                    href: "/production/product/model.html"
+                    href: "/production/product/products_model.html"
                 }, {
                     text: "分类管理",
-                    href: "/production/product/category.html"
+                    href: "/production/product/products_category.html"
                 }, {
                     text: "计量单位",
                     href: "/production/product/measurementunit.html"

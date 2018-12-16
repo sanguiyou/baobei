@@ -113,120 +113,49 @@
                 <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
-                        <li><a href="./index.html">代理商管理</a></li>
+                        <li><a href="#">产品中心</a></li>
                         <li class="active" v-html="title_name"></li>
                     </ul>
                 </li>
             </ul>
             <div class="clearfix"></div>
             <br/>
-            <validator name="myForm">
-            <div style="background:#fff; padding:20px;">                
+            <div style="background:#fff; padding:20px;">     
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >报备人</p>
-                            <select v-model="form_data.userId" id="baobei_select">
-                                <option v-for="baobei in baobei_list" :value="baobei.id" v-html="baobei.nickname"></option>
-                            </select>                            
+                            <p >* 产品主型号</p>
+                            <input type="text" v-model="form_data.model"/>
                         </div>
-                    </div>
-                    <br/>
+                    </div> 
+                                      
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p > 产品分类</p>
+                            <select id="product_category_id">
+                                <option v-for="product_sub_category_obj in product_sub_category_list" :value="product_sub_category_obj.id" v-html="product_sub_category_obj.name"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <p style="padding-top:30px;padding-left: 20px">绩效比例：&nbsp;&nbsp;<span v-html="unit_performance_rate"></span></p>                           
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <p style="padding-top:30px;">单位：&nbsp;&nbsp;<span v-html="unit_capacity"></span></p>                          
+                        </div>
+                    </div>                                                                
                     <div style="margin-top:10px;" class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >* 名称</p>
-                            <input type="text" v-model="form_data.realName" />
+                            <p >* 描述</p>
+                            <input type="text" v-model="form_data.description"/>
                         </div>
                     </div>                                       
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >年龄</p>
-                            <select v-model="form_data.age">
-                                <option >10-20</option>
-                                <option >20-30</option>
-                                <option >30-40</option>
-                                <option >40-50</option>
-                                <option >50-60</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >性别</p>
-                            <select v-model="form_data.gender">
-                                <option >未知</option>
-                                <option >男</option>
-                                <option >女</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >Email</p>
-                            <input type="text" v-model="form_data.email"/>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >联系电话</p>
-                            <input type="text" v-model="form_data.phone"/>
-                        </div>
-                    </div>
-                    <br/>
-                    <div style="margin-top:10px;" class="row" >
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <p >* 省/直辖市</p>
-                            <select id="provinceSelect" required="" v-model="form_data.provinceId" @change="province_change()">                                
-                                <option v-for="province_obj in province_list" v-bind:value="province_obj.provinceId" v-html="province_obj.name"></option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <p>* 市/市辖区</p>
-                            <select id="citySelect" required="" v-model="form_data.cityId" @change="city_change()">
-                                <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId" v-html="city_obj.name"></option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <p >* 区县</p>
-                            <select id="areaSelect" required="" v-model="form_data.areaId">
-                                <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId" v-html="area_obj.name"></option>                                    
-                            </select>
-                        </div>
-                    </div>
-                    <br/>
-                    <div style="margin-top:10px;" class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >详细地址</p>
-                            <input type="text" v-model="form_data.street"/>
-                        </div>
-                    </div>
-                    <br/>
-                    <div style="margin-top:10px;" class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >爱好</p>
-                            <input type="text" v-model="form_data.hobby"/>
-                        </div>
-                    </div>
-                    <br/>
-                    <div style="margin-top:10px;" class="row">
-                        <div class="col-md-2 col-sm-2 col-xs-2">
-                            <p >认识时间</p>
-                            <input type="text" class="form_datetime" id="perceptionTime"/>
-                        </div>
-                    </div>
-                    <br/>
-                    <div style="margin-top:10px;" class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p >备注</p>
-                            <input type="text" v-model="form_data.note"/>
-                        </div>
-                    </div>
-                    <br/>
+                    
                     <br/>                    
                     <div style="text-align:center;">
-                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()" v-html="title_name"></button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
                         <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
                     </div>
                     <br/>                    
             </div>
-        </validator>
         </div>
         <footer>
             Copyright © 2019 TysenKLD. All rights reserved.
@@ -237,11 +166,11 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
 <!-- FastClick -->
-<script src="../../vendors/vue/vue.js"></script>
 <script src="../../vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
 <script src="../../vendors/nprogress/nprogress.js"></script>
@@ -261,6 +190,6 @@
 
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/agent_add.min.js"></script>
+<script src="../../build/js/products_model_add.min.js"></script>
 </body>
 </html>

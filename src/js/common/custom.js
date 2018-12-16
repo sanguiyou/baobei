@@ -68,7 +68,16 @@ var ACTION_URL ={
     "product_sub_categories_delete":remote_host+"/productSubCategories/delete", 
     "product_sub_categories_modify":remote_host+"/productSubCategories/modify", 
     "product_sub_categories_detail":remote_host+"/productSubCategories/getProductSubCategories", 
-    "product_sub_categories_list":remote_host+"/productSubCategories/getList", 
+    "product_sub_categories_list":remote_host+"/productSubCategories/getList",
+    "product_category_delete":remote_host+"/products/delete",
+    "product_category_detail":remote_host+"/products/getProducts",
+    "product_category_modify":remote_host+"/products/modify",
+    "product_category_list":remote_host+"/products/listPage",
+    "product_model_delete":remote_host+"/productModels/delete",
+    "product_model_detail":remote_host+"/productModels/getProductModels",
+    "product_model_modify":remote_host+"/productModels/modify",
+    "product_model_list":remote_host+"/productModels/listPage",
+
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],

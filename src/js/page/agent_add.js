@@ -78,5 +78,6 @@ var vue_instance = new Vue({
         $("#cancelBtn").click(function() {
             location.href = history.go(-1);
         });        
+        $('#baobei_select').select2();
     },
 })
