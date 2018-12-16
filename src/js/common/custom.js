@@ -93,6 +93,10 @@ var ACTION_URL ={
     "skus_modify":remote_host+"/productSkus/modify",
     "skus_detail":remote_host+"/productSkus/getProductSkus",
     "skus_delete":remote_host+"/productSkus/delete",
+    "component_skus_list":remote_host+"/productComponentSkus/listPage",
+    "component_skus_modify":remote_host+"/productComponentSkus/modify",
+    "component_skus_detail":remote_host+"/productComponentSkus/getComponentSkus",
+    "component_skus_delete":remote_host+"/productComponentSkus/delete",
 
 };
 
