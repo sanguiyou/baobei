@@ -98,28 +98,41 @@
                     </ul>
                 </nav>
             </div>
-        </div>
-        <!-- /top navigation -->
-
+        </div>        
         <!-- page content -->
         <div class="right_col" role="main" id="app">
+            <!-- /top navigation -->            
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    限价管理
+                    限价清单
                 </li>
                 <li>
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
                         <li><a href="#">产品中心</a></li>
-                        <li class="active"><a href="#">限价管理</a></li>
+                        <li class="active"><a href="#">限价清单</a></li>
                         <li >
-                            <a href="/production/product/price_floor_add.html"><span id="addBtn">+添加限价</span></a>
+                            <a :href="'/production/product/price_floor_item_add.html?price_floor_id='+search_param.priceFloorId"><span id="addBtn">+添加限价项</span></a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <div class="clearfix"></div>
             <br/>
+            <div class="row special">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="search_content">
+                            <div class="col-md-5 col-sm-5 col-xs-5">
+                                <h3 v-html="price_floor_obj.name"></h3>
+                                <p >限价名称：&nbsp;<span v-html="price_floor_obj.name"></span></span></p>                        
+                                <p>开始时间：&nbsp;<span v-html="price_floor_obj.beginAt"></span></span></p>                        
+                                <p>结束时间：&nbsp;<span v-html="price_floor_obj.endAt"></span></span></p>                        
+                                <p>备注：&nbsp;<span v-html="price_floor_obj.description"></span></span></p>                        
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+                <br/>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel tile">
@@ -128,8 +141,8 @@
                             <tr>
                                 <th>序号</th>
                                 <th>名称</th>
-                                <th>开始时间</th>
-                                <th>结束时间</th>
+                                <th>折扣</th>
+                                <th>底价</th>                                
                                 <th>备注</th>
                                 <th>操作</th>
                             </tr>
@@ -137,12 +150,12 @@
                             <tbody>
                             <tr v-for="obj in list">
                                 <td v-html="obj.id"></td>
-                                <td><a :href="'/production/product/price_floor_item.html?price_floor_id='+obj.id" v-html="obj.name"></a></td>
-                                <td v-html="obj.beginAt"></td>                                
-                                <td v-html="obj.endAt"></td>
-                                <td v-html="obj.description"></td>                                
+                                <td><a :href="'/production/product/price_floor_mapping.html?price_floor_item_id='+obj.id" v-html="obj.name"></a></td>
+                                <td v-html="obj.discount"></td>                                
+                                <td v-html="obj.price"></td>
+                                <td v-html="obj.note"></td>                                
                                 <td>                                    
-                                    <button class="btn btn-warning"><a :href="'/production/product/price_floor_add.html?id='+obj.id+'&current_page='+search_param.page">修改</a></button>
+                                    <button class="btn btn-warning"><a :href="'/production/product/price_floor_mapping_add.html?id='+obj.id+'&current_page='+search_param.page+'&price_floor_item_id='+search_param.price_floor_item_id">修改</a></button>
                                     <button class="btn btn-danger" @click="del_record(obj.id)">删除</button>
                                 </td>
                             </tr>
@@ -189,6 +202,6 @@
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/price_floor.min.js"></script>
+<script src="../../build/js/price_floor_item.min.js"></script>
 </body>
 </html>

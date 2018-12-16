@@ -18,16 +18,18 @@
 
     <!-- bootstrap-progressbar -->
     <link href="../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="../../vendors/timeline/jquery.eeyellow.Timeline.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
-    <link href="../../build/css/product_measurementunit.css" rel="stylesheet">
-    <title>限价管理</title>
+    <link href="../../build/css/agent_add.css" rel="stylesheet">
+    <title>{{title_name}}</title>
 </head>
 <body class="nav-md">
-<div class="container body">
+<div class="container body" >
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
@@ -105,57 +107,44 @@
         <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    限价管理
+                    {{title_name}}
                 </li>
-                <li>
+                <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
-                        <li><a href="#">产品中心</a></li>
-                        <li class="active"><a href="#">限价管理</a></li>
-                        <li >
-                            <a href="/production/product/price_floor_add.html"><span id="addBtn">+添加限价</span></a>
-                        </li>
+                        <li><a href="#">限价项管理</a></li>
+                        <li class="active" v-html="title_name"></li>
                     </ul>
                 </li>
             </ul>
             <div class="clearfix"></div>
             <br/>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel tile">
-                        <table class="table  table-striped">
-                            <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>名称</th>
-                                <th>开始时间</th>
-                                <th>结束时间</th>
-                                <th>备注</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="obj in list">
-                                <td v-html="obj.id"></td>
-                                <td><a :href="'/production/product/price_floor_item.html?price_floor_id='+obj.id" v-html="obj.name"></a></td>
-                                <td v-html="obj.beginAt"></td>                                
-                                <td v-html="obj.endAt"></td>
-                                <td v-html="obj.description"></td>                                
-                                <td>                                    
-                                    <button class="btn btn-warning"><a :href="'/production/product/price_floor_add.html?id='+obj.id+'&current_page='+search_param.page">修改</a></button>
-                                    <button class="btn btn-danger" @click="del_record(obj.id)">删除</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="page_content">
-                            <ul id="pageLimit1"></ul>
+            <div style="background:#fff; padding:20px;">                
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <p >*阶梯最低项</p>
+                            <input type="text" v-model="form_data.price1"/>
                         </div>
+                    </div>                    
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <p >阶梯最高价</p>
+                            <input type="text" class="form_datetime" v-model="form_data.price2"/>
+                        </div>                       
+                    </div> 
+                    <div style="margin-top:10px;" class="row">
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <p >阶梯价比率</p>
+                                    <input type="text" class="form_datetime" v-model="form_data.ratio"/>
+                            </div>
+                        </div>                                                        
+                    <div style="text-align:center;">
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
+                        <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
                     </div>
-                </div>
+                    <br/>                    
             </div>
         </div>
-
         <footer>
             Copyright © 2019 TysenKLD. All rights reserved.
         </footer>
@@ -182,13 +171,12 @@
 <script src="../../vendors/iCheck/icheck.min.js"></script>
 <!-- Skycons -->
 <script src="../../vendors/skycons/skycons.js"></script>
-<script src="../../vendors/art-template-master/lib/template-web.js"></script>
-<!-- bootstrap-daterangepicker -->
 <script src="../../vendors/moment/min/moment.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/price_floor.min.js"></script>
+<script src="../../build/js/price_floor_mapping_add.min.js"></script>
 </body>
 </html>

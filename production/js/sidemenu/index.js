@@ -111,7 +111,7 @@
                 },
                 {
                     text: "产品管理",
-                    href: "/production/product/index.html"
+                    href: "/production/product/products_skus.html"
                 }, {
                     text: "组件管理",
                     href: "/production/product/component.html"

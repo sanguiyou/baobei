@@ -81,6 +81,18 @@ var ACTION_URL ={
     "price_floor_modify":remote_host+"/priceFloors/modify",
     "price_floor_detail":remote_host+"/priceFloors/getPriceFloors",
     "price_floor_delete":remote_host+"/priceFloors/deleteLogic",
+    "price_floor_item_list":remote_host+"/priceFloorItems/listPage",
+    "price_floor_item_modify":remote_host+"/priceFloorItems/modify",
+    "price_floor_item_detail":remote_host+"/priceFloorItems/getPriceFloorItems",
+    "price_floor_item_delete":remote_host+"/priceFloorItems/deleteLogic",
+    "price_floor_mapping_list":remote_host+"/pricePerformanceMappings/getList",
+    "price_floor_mapping_modify":remote_host+"/pricePerformanceMappings/modify",
+    "price_floor_mapping_detail":remote_host+"/pricePerformanceMappings/getPriceMappings",
+    "price_floor_mapping_delete":remote_host+"/pricePerformanceMappings/delete",
+    "skus_list":remote_host+"/productSkus/listPage",
+    "skus_modify":remote_host+"/productSkus/modify",
+    "skus_detail":remote_host+"/productSkus/getProductSkus",
+    "skus_delete":remote_host+"/productSkus/delete",
 
 };
 

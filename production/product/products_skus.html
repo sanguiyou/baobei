@@ -24,7 +24,7 @@
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
     <link href="../../build/css/product_measurementunit.css" rel="stylesheet">
-    <title>限价管理</title>
+    <title>产品管理</title>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -105,44 +105,63 @@
         <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    限价管理
+                    产品管理
                 </li>
                 <li>
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
                         <li><a href="#">产品中心</a></li>
-                        <li class="active"><a href="#">限价管理</a></li>
+                        <li class="active"><a href="#">产品管理</a></li>
                         <li >
-                            <a href="/production/product/price_floor_add.html"><span id="addBtn">+添加限价</span></a>
+                            <a href="/production/product/products_skus_add.html"><span id="addBtn">+添加新产品</span></a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <div class="clearfix"></div>
             <br/>
+            <div class="row special">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="search_content">
+                        <div class="col-md-5 col-sm-5 col-xs-5">
+                            <p>产品名称</p>
+                            <input type="text" v-model="search_param.name"/>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <p>&nbsp;</p>
+                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel tile">
                         <table class="table  table-striped">
                             <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>名称</th>
-                                <th>开始时间</th>
-                                <th>结束时间</th>
-                                <th>备注</th>
-                                <th>操作</th>
-                            </tr>
+                                    <tr>
+                                            <th>ID</th>
+                                            <th>名称</th>
+                                            <th>产品型号</th>
+                                            <th>主型号</th>                                            
+                                            <th>单位规格</th>
+                                            <th>最低限价</th>
+                                            <th>备注</th>
+                                            <th>操作</th>
+                                        </tr>
                             </thead>
                             <tbody>
                             <tr v-for="obj in list">
                                 <td v-html="obj.id"></td>
-                                <td><a :href="'/production/product/price_floor_item.html?price_floor_id='+obj.id" v-html="obj.name"></a></td>
-                                <td v-html="obj.beginAt"></td>                                
-                                <td v-html="obj.endAt"></td>
+                                <td v-html="obj.name"></td>
+                                <td v-html="obj.no"></td>
+                                <td v-html="obj.model"></td> 
+                                <td v-html="obj.v"></td> 
+                                <td v-html="obj.priceFloorItemName"></td>                                
                                 <td v-html="obj.description"></td>                                
                                 <td>                                    
-                                    <button class="btn btn-warning"><a :href="'/production/product/price_floor_add.html?id='+obj.id+'&current_page='+search_param.page">修改</a></button>
+                                    <button class="btn btn-warning"><a :href="'/production/product/products_skus_add.html?id='+obj.id+'&current_page='+search_param.page">修改</a></button>
                                     <button class="btn btn-danger" @click="del_record(obj.id)">删除</button>
                                 </td>
                             </tr>
@@ -189,6 +208,6 @@
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/price_floor.min.js"></script>
+<script src="../../build/js/products_skus.min.js"></script>
 </body>
 </html>
