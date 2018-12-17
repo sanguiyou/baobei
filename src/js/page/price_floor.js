@@ -36,7 +36,7 @@ var vue_instance = new Vue({
         },
         load_list:function(){                 
             console.log(this.search_param);            
-            jquery_ajax(ACTION_URL.price_floor_list,"post",undefined,true,this.list_callback);      
+            jquery_ajax(ACTION_URL.price_floor_list,"post",this.search_param,true,this.list_callback);      
         },
         del_record(id){            
             if(confirm("确定要删除此记录吗？")){    

@@ -104,7 +104,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">  
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     项目管理
@@ -120,116 +120,113 @@
             </ul>
             <div class="clearfix"></div>
             <br/>
-            <div style="background:#fff; padding:20px;">
-                <form>
+            <div style="background:#fff; padding:20px;">                
                     <div style="margin-top:10px;" class="row" data-toggle="distpicker">
-                        <div class="col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-md- col-sm-4 col-xs-4">
                             <p >* 省/直辖市</p>
-                            <select id="provinceSelect" required=""></select>
+                            <select id="provinceSelect" required="" v-model="form_data.provinceId" @change="province_change()">                                
+                                <option v-for="province_obj in province_list" v-bind:value="province_obj.provinceId">{{province_obj.name}}</option>
+                            </select>
                         </div>
-                        <div class="col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>* 市/市辖区</p>
-                            <select id="citySelect" required=""></select>
+                            <select id="citySelect" required="" v-model="form_data.cityId" @change="city_change()">
+                                <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId">{{city_obj.name}}</option>
+                            </select>
                         </div>
-                        <div class="col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 区县</p>
-                            <select id="areaSelect" required=""></select>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >代理商</p>
-                            <select></select>
-                        </div>
+                            <select id="areaSelect" required="" v-model="form_data.areaId">
+                                <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId">{{area_obj.name}}</option>                                    
+                            </select>
+                        </div>                        
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p >代理商</p>
+                            <select id="agent_id" required="" v-model="form_data.shadowUserIds">
+                                <option v-for="agent_obj in agent_list" v-bind:value="agent_obj.id" v-html="agent_obj.realName"></option>                                    
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <p >报备人</p>
+                            <select id="owner_id" required="" v-model="form_data.ownerId">
+                                <option v-for="owner_obj in owner_list" v-bind:value="owner_obj.id" v-html="owner_obj.nickname"></option>                                    
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >* 项目名称</p>
-                            <input type="text" class="big" required="" />
+                            <input type="text" class="big" v-model="form_data.name"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >设计院</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.designInstituteName"/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >甲方</p>
-                            <input type="text" />
+                            <input type="text" v-model="form_data.partyAName"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >报备时间</p>
-                            <input size="16" type="text" readonly class="form_datetime">
+                            <input size="16" type="text" readonly class="form_datetime" id="owner_time">
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p >* 主行业</p>
-                            <select required="">
-                                <option >民营(国内项目)</option>
-                                <option >外资(国内项目)</option>
-                                <option >国企(国内项目)</option>
-                                <option >海外总包(所有海外)</option>
+                            <select required="" v-model="form_data.industryParentId">
+                                <option value="1">民营(国内项目)</option>
+                                <option value="1">外资(国内项目)</option>
+                                <option value="1">国企(国内项目)</option>
+                                <option value="1">海外总包(所有海外)</option>
                             </select>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p >* 子行业</p>
-                            <select  required="">
-                                <option >工业</option>
-                                <option >民用</option>
+                            <select  required="" v-model="form_data.industryId">
+                                <option value="2">工业</option>
+                                <option value="2">民用</option>
                             </select>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p >&nbsp;</p>
-                            <select  required="">
-                                <option >石油化工</option>
-                                <option >冶金钢铁</option>
-                                <option >机械机电</option>
-                                <option >汽车制造</option>
-                                <option >航空航天制造</option>
-                                <option >船舶港口制造</option>
-                                <option >电力电子/半导体</option>
-                                <option >供水处理/废旧回收</option>
-                                <option >食品粮油饮料业</option>
-                                <option >纺织行业</option>
-                                <option >发电/电站</option>
-                                <option >其他工业</option>
+                            <select  required="" v-model="form_data.industrySubId">
+                                <option value="3">石油化工</option>
+                                <option value="3">冶金钢铁</option>                                
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >街道/详细地址</p>
-                            <input type="text" class="big" />
+                            <input type="text" class="big" v-model="form_data.street"/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 产品</p>
-                            <select  required="">
-                                <option >选择产品(多选)</option>
-                                <option >电能质量</option>
-                                <option >动态电压调节装置DVR</option>
-                                <option >三相不平衡调节装置</option>
-                                <option >弧光保护系统</option>
-                                <option >消防产品</option>
-                                <option >光纤测温系统</option>
-                                <option >充电桩</option>
-                            </select>
+                            <select id="owner_id" required="" v-model="form_data.productCategoryIds">
+                                <option v-for="product_obj in product_list" v-bind:value="product_obj.id" v-html="product_obj.name"></option>                                    
+                            </select>                            
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >备注</p>
-                            <input type="text" class="big" />
+                            <input type="text" class="big" v-model="form_data.description"/>
                         </div>
                     </div>
                     <br/>
                     <br/>
                     <div style="text-align:center;">
-                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;">确认新增</button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">确认新增</button>
                         <button type="button" id="cancelBtn" class="btn btn-default btn-lg">取消返回</button>
                     </div>
-                    <br/>
-                </form>
+                    <br/>                
             </div>
         </div>
         <footer>
@@ -241,6 +238,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

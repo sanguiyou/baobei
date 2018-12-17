@@ -104,7 +104,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     项目管理
@@ -167,27 +167,27 @@
                     <div class="x_panel tile">
                         <ul id="myTab" class="nav nav-tabs">
                             <li class="active">
-                                <a href="#waitApproval" data-toggle="tab">待审批</a>
+                                <a href="#all" data-toggle="tab" data-type="">全部</a>
                             </li>
-                            <li><a href="#approvaling" data-toggle="tab">审批中</a></li>
-                            <li class="dropdown">
-                                <a href="#approvalsuccess" data-toggle="tab">审批通过</a>
+                            <li>
+                                <a href="#waitApproval" data-toggle="tab" data-type="1">待审批</a>
                             </li>
+                            <li><a href="#approvaling" data-toggle="tab" data-type="2">审批中</a></li>
                             <li class="dropdown">
-                                <a href="#approvalFail" data-toggle="tab">审批驳回</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#handoverRecord" data-toggle="tab">移交记录</a>
+                                <a href="#approvalsuccess" data-toggle="tab" data-type="3">审批通过</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#coordinationRecord" data-toggle="tab">协调记录</a>
+                                <a href="#report" data-toggle="tab" data-type="4">申报中</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#done" data-toggle="tab">已成交</a>
+                                <a href="#finish" data-toggle="tab" data-type="5">已完成</a>
                             </li>
+                            <li class="dropdown">
+                                <a href="#approvalFail" data-toggle="tab" data-type="6">审批驳回</a>
+                            </li>                                                                                   
                         </ul>
                         <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane fade in active" id="waitApproval">
+                            <div class="tab-pane fade in active" id="all">
                                 <table class="table  table-striped">
                                     <thead>
                                     <tr>
@@ -199,55 +199,38 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <tr v-for="obj in list">
+                                        <td v-html="obj.name"></td>
+                                        <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                        <td v-html="obj.ownerName"></td>
+                                        <td v-html="obj.approvalName"></td>
+                                        <td v-html="obj.updateAt"></td>
+                                    </tr>                                    
+                                    </tbody>
+                                </table>
+                                <div class="page_content">
+                                    <ul id="pageLimit1"></ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="waitApproval">
+                                <table class="table  table-striped">
+                                    <thead>
                                     <tr>
-                                        <td><a href="./projectDetail.html" >山东省</a></td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
+                                        <th>项目名称</th>
+                                        <th>地区</th>
+                                        <th>报备人</th>
+                                        <th>审批人</th>
+                                        <th>报备日期</th>
                                     </tr>
-                                    <tr>
-                                        <td><a href="./../contractPerformance/contractDetail.html" >江苏</a></td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>江苏</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="obj in list">
+                                        <td v-html="obj.name"></td>
+                                        <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                        <td v-html="obj.ownerName"></td>
+                                        <td v-html="obj.approvalName"></td>
+                                        <td v-html="obj.updateAt"></td>
+                                    </tr>                                    
                                     </tbody>
                                 </table>
                                 <div class="page_content">
@@ -255,22 +238,129 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="approvaling">
-                                approvaling
+                                    <table class="table  table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>项目名称</th>
+                                            <th>地区</th>
+                                            <th>报备人</th>
+                                            <th>审批人</th>
+                                            <th>报备日期</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="obj in list">
+                                            <td v-html="obj.name"></td>
+                                            <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                            <td v-html="obj.ownerName"></td>
+                                            <td v-html="obj.approvalName"></td>
+                                            <td v-html="obj.updateAt"></td>
+                                        </tr>                                    
+                                        </tbody>
+                                    </table>
+                                    <div class="page_content">
+                                        <ul id="pageLimit1"></ul>
+                                    </div>
                             </div>
                             <div class="tab-pane fade" id="approvalsuccess">
-                                approvalsuccess
+                                <table class="table  table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>项目名称</th>
+                                        <th>地区</th>
+                                        <th>报备人</th>
+                                        <th>审批人</th>
+                                        <th>报备日期</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="obj in list">
+                                        <td v-html="obj.name"></td>
+                                        <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                        <td v-html="obj.ownerName"></td>
+                                        <td v-html="obj.approvalName"></td>
+                                        <td v-html="obj.updateAt"></td>
+                                    </tr>                                    
+                                    </tbody>
+                                </table>
+                                <div class="page_content">
+                                    <ul id="pageLimit1"></ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="report">
+                                <table class="table  table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>项目名称</th>
+                                            <th>地区</th>
+                                            <th>报备人</th>
+                                            <th>审批人</th>
+                                            <th>报备日期</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="obj in list">
+                                            <td v-html="obj.name"></td>
+                                            <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                            <td v-html="obj.ownerName"></td>
+                                            <td v-html="obj.approvalName"></td>
+                                            <td v-html="obj.updateAt"></td>
+                                        </tr>                                    
+                                        </tbody>
+                                    </table>
+                                    <div class="page_content">
+                                        <ul id="pageLimit1"></ul>
+                                    </div>
+                            </div>                            
+                            <div class="tab-pane fade" id="finish">
+                                <table class="table  table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>项目名称</th>
+                                        <th>地区</th>
+                                        <th>报备人</th>
+                                        <th>审批人</th>
+                                        <th>报备日期</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="obj in list">
+                                        <td v-html="obj.name"></td>
+                                        <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                        <td v-html="obj.ownerName"></td>
+                                        <td v-html="obj.approvalName"></td>
+                                        <td v-html="obj.updateAt"></td>
+                                    </tr>                                    
+                                    </tbody>
+                                </table>
+                                <div class="page_content">
+                                    <ul id="pageLimit1"></ul>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="approvalFail">
-                                approvalFail
-                            </div>
-                            <div class="tab-pane fade" id="handoverRecord">
-                                handoverRecord
-                            </div>
-                            <div class="tab-pane fade" id="coordinationRecord">
-                                coordinationRecord
-                            </div>
-                            <div class="tab-pane fade" id="done">
-                                done
+                                <table class="table  table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>项目名称</th>
+                                        <th>地区</th>
+                                        <th>报备人</th>
+                                        <th>审批人</th>
+                                        <th>报备日期</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="obj in list">
+                                        <td v-html="obj.name"></td>
+                                        <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                        <td v-html="obj.ownerName"></td>
+                                        <td v-html="obj.approvalName"></td>
+                                        <td v-html="obj.updateAt"></td>
+                                    </tr>                                    
+                                    </tbody>
+                                </table>
+                                <div class="page_content">
+                                    <ul id="pageLimit1"></ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -287,6 +377,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
