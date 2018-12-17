@@ -24,7 +24,7 @@
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
     <link href="../../build/css/product_measurementunit.css" rel="stylesheet">
-    <title>组件管理</title>
+    <title>组件单品管理</title>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -98,22 +98,21 @@
                     </ul>
                 </nav>
             </div>
-        </div>
-        <!-- /top navigation -->
-
+        </div>        
         <!-- page content -->
         <div class="right_col" role="main" id="app">
+            <!-- /top navigation -->            
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    组件管理
+                    组件单品管理
                 </li>
                 <li>
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
                         <li><a href="#">产品中心</a></li>
-                        <li class="active"><a href="#">组件管理</a></li>
+                        <li class="active"><a href="#">组件单品管理</a></li>
                         <li >
-                            <a href="/production/product/products_component_skus_add.html"><span id="addBtn">+添加新组件</span></a>
+                            <a :href="'/production/product/component_relation_add.html?component_skus_id='+component_skus_id"><span id="addBtn">+添加组件单品</span></a>
                         </li>
                     </ul>
                 </li>
@@ -121,55 +120,49 @@
             <div class="clearfix"></div>
             <br/>
             <div class="row special">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="search_content">
-                        <div class="col-md-5 col-sm-5 col-xs-5">
-                            <p>组件名称</p>
-                            <input type="text" v-model="search_param.name"/>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="search_content">
+                            <div class="col-md-5 col-sm-5 col-xs-5">
+                                <h3 v-html="component_skus_detail_obj.name"></h3>
+                                <p>组件名称：&nbsp;<span v-html="component_skus_detail_obj.name"></span></span></p>                        
+                                <p>组件型号：&nbsp;<span v-html="component_skus_detail_obj.no"></span></span></p>                        
+                                <p>主型号：&nbsp;<span v-html="component_skus_detail_obj.model"></span></span></p>                        
+                                <p>子型号&nbsp;<span v-html="component_skus_detail_obj.subModel"></span></span></p>                        
+                                <p>单位规格：&nbsp;<span v-html="component_skus_detail_obj.v"></span></span></p>                        
+                                <p>描述&nbsp;<span v-html="component_skus_detail_obj.description"></span></span></p>                        
+                            </div>                    
                         </div>
                     </div>
                 </div>
-            </div>
-            <br/>
+                <br/>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel tile">
                         <table class="table  table-striped">
                             <thead>
-                                    <tr>
-                                            <th>ID</th>
-                                            <th>名称</th>
-                                            <th>主型号</th>
-                                            <th>主型号</th>                                            
-                                            <th>单位规格</th>
-                                            <th>最低限价</th>
-                                            <th>备注</th>
-                                            <th>操作</th>
-                                        </tr>
+                            <tr>
+                                <th>序号</th>
+                                <th>产品型号</th>
+                                <th>数量</th>
+                                <th>容量</th>
+                                <th>描述</th>                                                                
+                                <th>操作</th>
+                            </tr>
                             </thead>
                             <tbody>
                             <tr v-for="obj in list">
                                 <td v-html="obj.id"></td>
-                                <td><a :href="'/production/product/component_relation.html?component_skus_id='+obj.id" v-html="obj.name"></a></td>
-                                <td v-html="obj.no"></td>
-                                <td v-html="obj.model"></td> 
-                                <td v-html="obj.v"></td> 
-                                <td v-html="obj.priceFloorItemName"></td>                                
+                                <td v-html="obj.skuName"></td>
+                                <td v-html="obj.count"></td>                                
+                                <td v-html="obj.skuV"></td>
                                 <td v-html="obj.description"></td>                                
                                 <td>                                    
-                                    <button class="btn btn-warning"><a :href="'/production/product/products_component_skus_add.html?id='+obj.id+'&current_page='+search_param.page">修改</a></button>
+                                    <button class="btn btn-warning"><a :href="'/production/product/component_relation_add.html?id='+obj.id+'&component_skus_id='+component_skus_id">修改</a></button>
                                     <button class="btn btn-danger" @click="del_record(obj.id)">删除</button>
                                 </td>
                             </tr>
                             </tbody>
-                        </table>
-                        <div class="page_content">
-                            <ul id="pageLimit1"></ul>
-                        </div>
+                        </table>                        
                     </div>
                 </div>
             </div>
@@ -208,6 +201,6 @@
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/products_component_skus.min.js"></script>
+<script src="../../build/js/component_relation.min.js"></script>
 </body>
 </html>

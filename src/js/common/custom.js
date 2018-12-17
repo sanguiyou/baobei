@@ -22,9 +22,9 @@ function parseURL(url) {
 //var remote_host = "http://39.105.146.145:8081";
 var remote_host = "http://192.168.1.102:8081";
 var ACTION_URL ={
-    "city_list":remote_host+"/api/cities/getlistDic",   //市列表
-    "province_list":remote_host+"/api/provinces/getlistDic",  //省列表
-    "area_list":remote_host+"/api/areas/getlistDic",  //区列表
+    "city_list":remote_host+"/cities/getlistDic",   //市列表
+    "province_list":remote_host+"/provinces/getlistDic",  //省列表
+    "area_list":remote_host+"/areas/getlistDic",  //区列表
     "login":remote_host+"/login",  //登录验证
     "shadow_users_modify":remote_host+"/shadowUsers/modify", //代理人修改接口
     "shadow_users_list":remote_host+"/shadowUsers/listPage", //代理人列表
@@ -48,14 +48,14 @@ var ACTION_URL ={
     "companies_list":remote_host+"/companies/listPage", //公司列表
     "companies_delete":remote_host+"/companies/delete", //公司删除
     "companies_get_companies":remote_host+"/companies/getCompanies", //公司详情  
-    "business_modify":remote_host+"/api/businessEntities/modify", //客户修改接口
-    "business_list":remote_host+"/api/businessEntities/listPage", //客户列表
-    "business_delete":remote_host+"/api/businessEntities/delete", //客户删除
-    "business_get_detail":remote_host+"/api/businessEntities/getBusinessEntities", //客户详情   
-    "business_category_modify":remote_host+"/api/businessEntityCategories/modify", //客户分类修改接口
-    "business_category_list":remote_host+"/api/businessEntityCategories/getlist", //客户分类列表
-    "business_category_delete":remote_host+"/api/businessEntityCategories/delete", //客户分类删除
-    "business_category_detail":remote_host+"/api/businessEntityCategories/getBusinessEntityCategories", //客户分类详情   
+    "business_modify":remote_host+"/businessEntities/modify", //客户修改接口
+    "business_list":remote_host+"/businessEntities/listPage", //客户列表
+    "business_delete":remote_host+"/businessEntities/delete", //客户删除
+    "business_get_detail":remote_host+"/businessEntities/getBusinessEntities", //客户详情   
+    "business_category_modify":remote_host+"/businessEntityCategories/modify", //客户分类修改接口
+    "business_category_list":remote_host+"/businessEntityCategories/getlist", //客户分类列表
+    "business_category_delete":remote_host+"/businessEntityCategories/delete", //客户分类删除
+    "business_category_detail":remote_host+"/businessEntityCategories/getBusinessEntityCategories", //客户分类详情   
     "resource":remote_host+"/api/resource",     
     "product_capacities_delete":remote_host+"/productCapacities/delete", //计量删除
     "product_capacities_modify":remote_host+"/productCapacities/modify", //计量修改
@@ -97,7 +97,40 @@ var ACTION_URL ={
     "component_skus_modify":remote_host+"/productComponentSkus/modify",
     "component_skus_detail":remote_host+"/productComponentSkus/getComponentSkus",
     "component_skus_delete":remote_host+"/productComponentSkus/delete",
-
+	"component_skus_rela_list":remote_host+"/productComponentSkus/getSkuList",
+    "component_skus_rela_modify":remote_host+"/productComponentSkus/productSkusModify",
+    "component_skus_rela_detail":remote_host+"/productComponentSkus/getSkuInfo",
+    "component_skus_rela_delete":remote_host+"/productComponentSkus/productSkusDelete",
+	"project_delete":remote_host+"/projects/delete",
+	"project_delete_logic":remote_host+"/projects/deleteLogic",
+	"project_do_approved":remote_host+"/projects/doApproved",
+	"project_do_audit":remote_host+"/projects/doAudit",
+	"project_do_finished":remote_host+"/projects/doFinished",
+	"project_do_reject":remote_host+"/projects/doReject",
+	"project_do_report":remote_host+"/projects/doReport",
+	"project_do_sumbit":remote_host+"/projects/doSumbit",
+	"project_detail":remote_host+"/projects/getProjects",
+	"project_list":remote_host+"/projects/listPage",
+	"project_modify":remote_host+"/projects/modify",
+	"project_transfer":remote_host+"/projects/transfer",
+	"project_transfer_batch":remote_host+"/projects/transferBatch",
+	"project_contact_list":remote_host+"/projectContacts/getList",
+    "project_contact_modify":remote_host+"/projectContacts/modify",
+    "project_contact_detail":remote_host+"/projectContacts/getContacts",
+    "project_contact_delete":remote_host+"/projectContacts/delete",
+    "project_product_list":remote_host+"/projectProducts/getList",
+    "project_product_modify":remote_host+"/projectProducts/modify",
+    "project_product_delete":remote_host+"/projectProducts/delete",
+    "project_quotation_list":remote_host+"/projectQuotations/getList",
+    "project_quotation_modify":remote_host+"/projectQuotations/modify",
+    "project_quotation_detail":remote_host+"/projectQuotations/getQuotations",
+    "project_quotation_delete":remote_host+"/projectQuotations/delete",
+    "project_quotation_item_list":remote_host+"/projectQuotationItems/getList",
+    "project_detail_list":remote_host+"/projectDetails/getList",
+    "project_visit_list":remote_host+"/projectVisits/getList",
+    "project_visit_modify":remote_host+"/projectVisits/modify",
+    "project_visit_detail":remote_host+"/projectVisits/getVisits",
+    "project_visit_delete":remote_host+"/projectVisits/delete",
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],

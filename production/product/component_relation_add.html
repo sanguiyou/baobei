@@ -18,16 +18,18 @@
 
     <!-- bootstrap-progressbar -->
     <link href="../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="../../vendors/timeline/jquery.eeyellow.Timeline.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
-    <link href="../../build/css/product_measurementunit.css" rel="stylesheet">
-    <title>组件管理</title>
+    <link href="../../build/css/agent_add.css" rel="stylesheet">
+    <title>{{title_name}}</title>
 </head>
 <body class="nav-md">
-<div class="container body">
+<div class="container body" >
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
@@ -105,76 +107,59 @@
         <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    组件管理
+                    {{title_name}}
                 </li>
-                <li>
+                <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
-                        <li><a href="#">产品中心</a></li>
-                        <li class="active"><a href="#">组件管理</a></li>
-                        <li >
-                            <a href="/production/product/products_component_skus_add.html"><span id="addBtn">+添加新组件</span></a>
-                        </li>
+                        <li><a href="#">组件单品管理</a></li>
+                        <li class="active" v-html="title_name"></li>
                     </ul>
                 </li>
             </ul>
             <div class="clearfix"></div>
             <br/>
-            <div class="row special">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="search_content">
-                        <div class="col-md-5 col-sm-5 col-xs-5">
-                            <p>组件名称</p>
-                            <input type="text" v-model="search_param.name"/>
+            <div style="background:#fff; padding:20px;">                
+                    <div style="margin-top:10px;" class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p > 产品分类</p>
+                            <select id="skus_list_id">
+                                <option v-for="(skus_obj,key) in skus_list" :value="key" v-html="skus_obj.name"></option>
+                            </select>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p>&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
-                        </div>
+                        <div style="margin-top:10px;" class="row">  
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <p style="padding-top:30px;padding-left: 20px">主型号：&nbsp;&nbsp;<span v-html="this.skus_detail.model"></span></p>                           
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <p style="padding-top:30px;">子型号：&nbsp;&nbsp;<span v-html="this.skus_detail.subModel"></span></p>                          
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <p style="padding-top:30px;">单位规格：&nbsp;&nbsp;<span v-html="this.skus_detail.v"></span></p>                          
+                            </div>
+                        </div>     
+                    </div>                
+                    <br>                    
+                    <div style="margin-top:10px;" class="row">                        
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                <p >数量</p>
+                                <input type="text" class="form_datetime" v-model="form_data.count"/>
+                            </div>
+                    </div>                      
+                    <br/>    
+                    <div style="margin-top:10px;" class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <p >描述</p>
+                                <input type="text" v-model="form_data.description"/>
+                            </div>
+                        </div>                
+                    <div style="text-align:center;">
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">{{title_name}}</button>
+                        <button type="button" id="cancelBtn" class="btn btn-default btn-lg">返回</button>
                     </div>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel tile">
-                        <table class="table  table-striped">
-                            <thead>
-                                    <tr>
-                                            <th>ID</th>
-                                            <th>名称</th>
-                                            <th>主型号</th>
-                                            <th>主型号</th>                                            
-                                            <th>单位规格</th>
-                                            <th>最低限价</th>
-                                            <th>备注</th>
-                                            <th>操作</th>
-                                        </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="obj in list">
-                                <td v-html="obj.id"></td>
-                                <td><a :href="'/production/product/component_relation.html?component_skus_id='+obj.id" v-html="obj.name"></a></td>
-                                <td v-html="obj.no"></td>
-                                <td v-html="obj.model"></td> 
-                                <td v-html="obj.v"></td> 
-                                <td v-html="obj.priceFloorItemName"></td>                                
-                                <td v-html="obj.description"></td>                                
-                                <td>                                    
-                                    <button class="btn btn-warning"><a :href="'/production/product/products_component_skus_add.html?id='+obj.id+'&current_page='+search_param.page">修改</a></button>
-                                    <button class="btn btn-danger" @click="del_record(obj.id)">删除</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="page_content">
-                            <ul id="pageLimit1"></ul>
-                        </div>
-                    </div>
-                </div>
+                    <br/>                    
             </div>
         </div>
-
         <footer>
             Copyright © 2019 TysenKLD. All rights reserved.
         </footer>
@@ -201,13 +186,12 @@
 <script src="../../vendors/iCheck/icheck.min.js"></script>
 <!-- Skycons -->
 <script src="../../vendors/skycons/skycons.js"></script>
-<script src="../../vendors/art-template-master/lib/template-web.js"></script>
-<!-- bootstrap-daterangepicker -->
 <script src="../../vendors/moment/min/moment.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="../../build/js/custom.min.js"></script>
-<script src="../../build/js/products_component_skus.min.js"></script>
+<script src="../../build/js/component_relation_add.min.js"></script>
 </body>
 </html>
