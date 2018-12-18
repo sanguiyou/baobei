@@ -131,6 +131,9 @@ var ACTION_URL ={
     "project_visit_modify":remote_host+"/projectVisits/modify",
     "project_visit_detail":remote_host+"/projectVisits/getVisits",
     "project_visit_delete":remote_host+"/projectVisits/delete",
+    "get_industry_parent_list":remote_host+"/industries/getIndustryParentList",    
+    "get_industry_list":remote_host+"/industries/getIndustryList",
+    "get_industry_sub_list":remote_host+"/industries/getIndustrySubList",
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],

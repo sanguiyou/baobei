@@ -188,15 +188,15 @@
                             </select>                            
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
-                            <p >* 子行业</p>
+                            <p >* 行业</p>
                             <select id="citySelect" required="" v-model="form_data.industryId" @change="industry_change()">
-                                <option v-for="industry_obj in industry_list" v-bind:value="industry_obj.cityId" v-html="industry_obj.name"></option>
+                                <option v-for="industry_obj in industry_list" v-bind:value="industry_obj.id" v-html="industry_obj.name"></option>
                             </select>     
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
-                            <p >&nbsp;</p>                            
+                            <p >&nbsp;子行业</p>                            
                             <select v-model="form_data.industrySubId">
-                                <option v-for="industry_sub_obj in industry_sub_list" v-bind:value="industry_sub_obj.areaId" v-html="industry_sub_obj.name"></option>                                    
+                                <option v-for="industry_sub_obj in industry_sub_list" v-bind:value="industry_sub_obj.id" v-html="industry_sub_obj.name"></option>                                    
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">

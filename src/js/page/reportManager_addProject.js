@@ -79,7 +79,7 @@ var vue_instance = new Vue({
         industry_parent_change(){
             this.form_data.industryId = 0;            
             this.form_data.industrySubId = 0;            
-            jquery_ajax_obj({"url":ACTION_URL.city_list,"request_type":"post","post_data":this.form_data.industryParentId,"is_json_param":true,
+            jquery_ajax_obj({"url":ACTION_URL.get_industry_list,"request_type":"post","post_data":undefined,"is_json_param":true,
                 "callback_func":(e)=>{
                     this.industry_list = e.data;            
                 },
@@ -87,7 +87,7 @@ var vue_instance = new Vue({
         },
         industry_change(){
             this.form_data.industrySubId = 0;
-            jquery_ajax_obj({"url":ACTION_URL.area_list,"request_type":"post","post_data":this.form_data.industryId,"is_json_param":true,
+            jquery_ajax_obj({"url":ACTION_URL.get_industry_sub_list,"request_type":"post","post_data":this.form_data.industryId,"is_json_param":true,
                 "callback_func":(e)=>{
                     this.industry_sub_list = e.data;            
                 },
@@ -102,7 +102,7 @@ var vue_instance = new Vue({
             },
         });  
         //拉主行业列表
-        jquery_ajax_obj({"url":ACTION_URL.province_list,"request_type":"post","post_data":undefined,"is_json_param":true,
+        jquery_ajax_obj({"url":ACTION_URL.get_industry_parent_list,"request_type":"post","post_data":undefined,"is_json_param":true,
             "callback_func":(e)=>{                    
                 this.industry_parent_list = e.data;            
             },
