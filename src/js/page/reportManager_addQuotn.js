@@ -1,41 +1,97 @@
-function resetProductNum() {
-    $("#productListUL li .num").each(function(index, ele) {
-        ele.innerHTML = index+1;
-    });
-}
 
-CKEDITOR.replace( 'editor1' );
-$("#addProductBtn").click(function() {
-    $("#productListUL").append(template("productTemplate"));
-    resetProductNum();
-});
 
-$("#cancelBtn").click(function(){
-    location.href = "./projectDetail.html";
-});
+var vue_instance = new Vue({
+    el: '#app',
+    data: {
+        form_data: {"id":null},        
+        current_page:1,        
+        title_name:"", 
+        project_name:"",  
+        material_model_is_show:true,     
+    },
+    methods: {
+        submit_form:function () {                                                      
+            jquery_ajax(ACTION_URL.project_quotation_modify,"post",this.form_data,true,(json_result)=>{                
+                console.log(json_result);
+                alert("操作成功");
+                if(this.form_data.id > 0){
+                    //location.href="/production/product/products_category.html?current_page="+this.current_page;
+                }else{
+                    //location.href="/production/product/products_category.html";
+                }
+            });                    
+        },        
+        load_edit_data(){ //拉取修改页的数据            
+            jquery_ajax(ACTION_URL.product_category_detail,"post",this.form_data.id,false,(json_result)=>{
+                this.form_data = json_result.data; //赋值                                                                         
+            });                    
+        }
+    },
+    created: function () {          
+        //解析URL参数
+        var page_param = parseURL(window.location.href);        
+        this.title_name = "新增产品分类";
+        // jquery_ajax(ACTION_URL.product_capacities_list,"post",undefined,false,(e)=>{
+        //     this.unit_capacity_list = e.data;
+        // });                
+        if(page_param["id"] != undefined){
+            this.form_data.id = page_param["id"];            
+            this.load_edit_data(); 
+            this.title_name = "修改产品分类"
+        }        
+        this.form_data.project_id = page_param["project_id"];
+        this.project_name = page_param["project_name"];
+                                            
+    },
+    mounted() {        
+        $("#cancelBtn").click(function() {
+            location.href = history.go(-1);
+        });       
+        // $("#unit_capacity_id").on('change', function (e) {
+        //     console.log(e.val)
+        //     this.form_data.unitCapacity = e.html;
+        //     this.form_data.unitCapacityId = e.val;
+        //  });
+        // $('select').select2(); 
+        CKEDITOR.replace( 'editor1' );
+        $("#addProductBtn").click(function() {
+            $("#productListUL").append(template("productTemplate"));
+            resetProductNum();
+        });
 
-$("#productListUL").on("click", ".delete_btn", function() {
-    console.log("delete-btn");
-    $(this).closest("li").remove();
-    resetProductNum();
-});
+        $("#cancelBtn").click(function(){
+            location.href = "./projectDetail.html";
+        });
 
-$("#productListUL").on("input", ".product_money,.product_count", function() {
-    var $parent = $(this).closest("li");
-    var $money = $parent.find(".product_money");
-    var $count = $parent.find(".product_count");
+        $("#productListUL").on("click", ".delete_btn", function() {
+            console.log("delete-btn");
+            $(this).closest("li").remove();
+            resetProductNum();
+        });
+        function resetProductNum() {
+            $("#productListUL li .num").each(function(index, ele) {
+                ele.innerHTML = index+1;
+            });
+        }
 
-    var money = +$money.val();
-    var count = +$count.val();
-    if(isNaN(money)) {
-        money = 0;
-        $money.val(0);
-    }
-    if(isNaN(count)) {
-        count = 0;
-        $count.val(0);
-    }
+        $("#productListUL").on("input", ".product_money,.product_count", function() {
+            var $parent = $(this).closest("li");
+            var $money = $parent.find(".product_money");
+            var $count = $parent.find(".product_count");
 
-    console.log(money, count);
-    $parent.find(".product_total_price").val(money*count);
-});
+            var money = +$money.val();
+            var count = +$count.val();
+            if(isNaN(money)) {
+                money = 0;
+                $money.val(0);
+            }
+            if(isNaN(count)) {
+                count = 0;
+                $count.val(0);
+            }
+
+            console.log(money, count);
+            $parent.find(".product_total_price").val(money*count);
+        });
+    },
+})

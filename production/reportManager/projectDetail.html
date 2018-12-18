@@ -100,7 +100,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     项目管理
@@ -129,54 +129,54 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel tile filter_form">
                         <div class="x_title">
-                            <h2>环球影城主题公园配套建设一期项目城市大道 <span class="state">已通过</span></h2>
+                            <h2 v-html="project_detail.name"><span class="state" v-html="project_detail.status"></span></h2>
                         </div>
                         <div class="x_content fixed_height_410">
                             <div id="base_info">
                                 <ul >
                                     <li class="info_row">
                                         <div class="row_label">地区:</div>
-                                        <div class="row_content">you</div>
+                                        <div class="row_content" v-html="project_detail.provinceName+'-'+project_detail.cityName+'-'+project_detail.areaName">you</div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">甲方:</div>
-                                        <div class="row_content">you</div>
+                                        <div class="row_content" v-html="project_detail.partyAName">you</div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">行业分类:</div>
-                                        <div class="row_content">民营-工业-电力电子/半导体</div>
+                                        <div class="row_content" v-html="project_detail.industryParentName+'-'+project_detail.industryName+'-'+project_detail.industrySubName">民营-工业-电力电子/半导体</div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">代理商:</div>
-                                        <div class="row_content">黄永清</div>
+                                        <div class="row_content" v-html="project_detail.shadowUsers"></div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">设计院:</div>
-                                        <div class="row_content">you</div>
+                                        <div class="row_content" v-html="project_detail.designInstituteName"></div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">备注:</div>
-                                        <div class="row_content">该项目与阿里巴巴6个项目有关</div>
+                                        <div class="row_content" v-html="project_detail.description"></div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">产品:</div>
-                                        <div class="row_content">抵押无功补偿-弧光保护</div>
+                                        <div class="row_content" v-html="project_detail.productCategorys"></div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">审批时间:</div>
-                                        <div class="row_content">20187-12-18 13：30</div>
+                                        <div class="row_content" v-html="project_detail.approveAt"></div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">创建时间:</div>
-                                        <div class="row_content">20187-12-18 13：30</div>
+                                        <div class="row_content" v-html="project_detail.createAt"></div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">成交概率:</div>
-                                        <div class="row_content">把握比较大</div>
+                                        <div class="row_content" v-html="project_detail.status"></div>
                                     </li>
                                     <li class="info_row">
                                         <div class="row_label">预计招标时间:</div>
-                                        <div class="row_content">2019年第二季度</div>
+                                        <div class="row_content" v-html="project_detail.status"></div>
                                     </li>
                                 </ul>
                             </div>
@@ -185,50 +185,14 @@
                                     <table class="table  table-striped">
                                         <thead>
                                         <tr>
-                                            <th>项目名称</th>
-                                            <th>地区</th>
+                                            <th>产品名称</th>
+                                            <th>数量</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>山东省</td>
-                                            <td>Otto</td>
-                                        </tr>
-                                        <tr>
-                                            <td>江苏</td>
-                                            <td>Thornton</td>
-                                        </tr>
-                                        <tr>
-                                            <td>北京市</td>
-                                            <td>the Bird</td>
-                                        </tr>
-                                        <tr>
-                                            <td>山东省</td>
-                                            <td>Otto</td>
-                                        </tr>
-                                        <tr>
-                                            <td>江苏</td>
-                                            <td>Thornton</td>
-                                        </tr>
-                                        <tr>
-                                            <td>北京市</td>
-                                            <td>the Bird</td>
-                                        </tr>
-                                        <tr>
-                                            <td>山东省</td>
-                                            <td>Otto</td>
-                                        </tr>
-                                        <tr>
-                                            <td>江苏</td>
-                                            <td>Thornton</td>
-                                        </tr>
-                                        <tr>
-                                            <td>北京市</td>
-                                            <td>the Bird</td>
-                                        </tr>
-                                        <tr>
-                                            <td>山东省</td>
-                                            <td>Otto</td>
+                                        <tbody>                                        
+                                        <tr v-for="project_product_obj in project_product_list">
+                                            <td v-html="project_product_obj.productId"></td>
+                                            <td v-html="project_product_obj.amount">Otto</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -275,54 +239,18 @@
                                 <div class="col-md-5 col-sm-5 col-xs-5">
                                     <div class="VivaTimeline" style="margin-left:-50%;">
                                         <dl>
-                                            <dd class="pos-right clearfix">
+                                            <dd class="pos-right clearfix" v-for="project_detail_obj in project_detail_list">
                                                 <div class="circ"></div>
-                                                <div class="time"><strong>20:15:03</strong><br/>2018-12-11</div>
+                                                <div class="time"><strong v-html="project_detail_obj.createAt">20:15:03</strong><br/>2018-12-11</div>
                                                 <div class="events">
                                                     <div class="events-body">
                                                         <div class="events-desc">
-                                                            <h2>审批完成</h2>
-                                                            <p>崔水香-通过项目审批，项目审批完成</p>
+                                                            <h2 v-html="project_detail_obj.startStatus+'&nbsp;>>&nbsp;'+project_detail_obj.endStatus"></h2>
+                                                            <p v-html="project_detail_obj.content"></p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </dd>
-                                            <dd class="pos-right clearfix">
-                                                <div class="circ"></div>
-                                                <div class="time"><strong>20:15:03</strong><br/>2018-12-11</div>
-                                                <div class="events">
-                                                    <div class="events-body">
-                                                        <div class="events-desc">
-                                                            <h2>开始审批</h2>
-                                                            <p>崔水香-通过该项目审批，项目审批完成</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                            <dd class="pos-right clearfix">
-                                                <div class="circ"></div>
-                                                <div class="time"><strong>20:15:03</strong><br/>2018-12-11</div>
-                                                <div class="events">
-                                                    <div class="events-body">
-                                                        <div class="events-desc">
-                                                            <h2>提交</h2>
-                                                            <p>王建-提交报备审核</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                            <dd class="pos-right clearfix">
-                                                <div class="circ"></div>
-                                                <div class="time"><strong>20:15:03</strong><br/>2018-12-11</div>
-                                                <div class="events">
-                                                    <div class="events-body">
-                                                        <div class="events-desc">
-                                                            <h2>创建</h2>
-                                                            <p>王建-创建了该项目</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </dd>
+                                            </dd>                                            
                                         </dl>
                                     </div>
                                 </div>
@@ -339,76 +267,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
+                                    <tr v-for="project_visit_obj in project_visit_list">
+                                        <td v-html="project_visit_obj.visitAt"></td>
+                                        <td v-html="project_visit_obj.contacts.join(',')"></td>
+                                        <td v-html="project_visit_obj.activityTypes.join(',')"></td>
+                                        <td v-html="project_visit_obj.amount1"></td>
+                                        <td v-html="project_visit_obj.amount2"></td>
                                     </tr>
-                                    <tr>
-                                        <td>江苏</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>江苏</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>江苏</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -425,86 +291,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><a href="./quotnDetail.html" >详情</a>&nbsp;&nbsp;<a>下载</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>江苏</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>江苏</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>江苏</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>北京市</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <td>山东省</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
+                                    <tr v-for="project_quotation_obj in project_quotation_list">
+                                        <td v-html="project_quotation_obj.createAt"></td>
+                                        <td v-html="project_quotation_obj.title"></td>
+                                        <td v-html="project_quotation_obj.customerName"></td>
+                                        <td v-html="project_quotation_obj.companyId"></td>
+                                        <td v-html="project_quotation_obj.amount"></td>
+                                        <td><a :href="'/production/reportManager/quotnDetail.html?quotation_id='+project_quotation_obj.id" >详情</a>&nbsp;&nbsp;
+                                            <a :href="project_quotation_obj.quotationUrl">下载</a>
+                                        </td>
+                                    </tr>                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -522,6 +318,7 @@
 <!-- jQuery -->
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
+<script src="../../vendors/vue/vue.js"></script>
 <script src="./../js/sidemenu/index.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -100,7 +100,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     项目管理
@@ -116,64 +116,64 @@
             </ul>
             <div class="clearfix"></div>
             <div style="background:#fff;padding:20px;padding-top:20px;margin-top:15px;">
-                <div class="row">
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p>项目名称</p>
-                        <input type="text" />
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-8">
+                            <p>项目名称</p>
+                            <input type="text" v-model="project_name" disabled/>
+                        </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >To</p>
-                        <input type="text" class="big" />
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >To</p>
+                            <input type="text" class="big" v-model="form_data.customerCompanyName"/>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >From</p>
+                            <input type="text" class="big" v-model="form_data.companyName"/>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >From</p>
-                        <input type="text" class="big" />
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >客户联系人</p>
+                            <input type="text" class="big" v-model="form_data.customerName"/>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >公司联系人</p>
+                            <input type="text" class="big" v-model="form_data.ownerName"/>
+                        </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >联系人</p>
-                        <input type="text" class="big" />
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >客户电话</p>
+                            <input type="text" class="big" v-model="form_data.customerTel"/>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >公司电话</p>
+                            <input type="text" class="big" v-model="form_data.salerTel"/>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >联系人</p>
-                        <input type="text" class="big" />
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >客户传真</p>
+                            <input type="text" class="big" v-model="form_data.customerFax"/>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <p >公司传真</p>
+                            <input type="text" class="big" v-model="form_data.companyFax"/>
+                        </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >电话</p>
-                        <input type="text" class="big" />
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>简单说明</p>
+                            <textarea id="editor1" rows="10" >
+                            </textarea>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >电话</p>
-                        <input type="text" class="big" />
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >传真</p>
-                        <input type="text" class="big" />
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p >传真</p>
-                        <input type="text" class="big" />
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <p>简单说明</p>
-                        <textarea id="editor1" rows="10">
-                        </textarea>
-                    </div>
-                </div>
                 <div class="product_list">
                     <p class="product_title">产品列表</p>
                     <ul id="productListUL">
@@ -205,11 +205,15 @@
                                 </div>
                             </div>
                             <div class="row" >
-                                <div class="col-md-1 col-sm-1 col-xs-1" style="width:50px;">
-                                    <p></p>
-                                </div>
+                                <p>
+                                    <select style="width:20%">
+                                        <option value="1" @change="alert('11');material_model_is_show=false" selected>描述/配置/路数</option>
+                                        <option value="1" @change="alert('21');material_model_is_show = true">型号</option>                        
+                                    </select>                
+                                    <input type="text" v-if="material_model_is_show"/>    
+                                <p>
                                 <div class="col-md-11 col-sm-11 col-xs-11">
-                                    <p>描述/配置/路数</p>
+                                    
                                     <textarea class="product_des" width="100%" rows="5"></textarea>
                                 </div>
                             </div>
@@ -224,7 +228,7 @@
             </div>
             <br/>
             <div style="text-align:center;">
-                <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;">确认新增</button>
+                <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_form()">确认新增</button>
                 <button type="button" id="cancelBtn" class="btn btn-default btn-lg">取消返回</button>
             </div>
             <br/>
@@ -267,7 +271,12 @@
                 <p></p>
             </div>
             <div class="col-md-11 col-sm-11 col-xs-11">
-                <p>描述/配置/路数</p>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                <select>
+                    <option>描述/配置/路数</option>
+                    <option>型号</option>                        
+                </select>                    
+                <div>
                 <textarea class="product_des" width="100%" rows="5"></textarea>
             </div>
         </div>
@@ -278,6 +287,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

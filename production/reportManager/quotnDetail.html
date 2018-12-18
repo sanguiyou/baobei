@@ -100,7 +100,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     项目管理
@@ -118,55 +118,53 @@
             <div style="background:#fff;padding:20px;padding-top:5px;margin-top:15px;" id="baseInfo">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <h2 class="text-center">环球影城主题公园配套建设一期项目城市大道-滤波补偿装饰报价</h2>
+                        <h2 class="text-center" v-html="quotation_detail.title"></h2>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4">
                         <p class="left-content">To</p>
-                        <div class="text_content">北京环球大道建筑设计公司</div>
+                        <div class="text_content" v-html="quotation_detail.customerCompanyName"></div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 ">
                         <p class="left-content">From</p>
-                        <div class="text_content">蒂森壳罗德电器</div>
+                        <div class="text_content" v-html="quotation_detail.companyName"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p class="left-content">联系人</p>
-                        <div class="text_content">王增容</div>
+                        <p class="left-content">客户联系人</p>
+                        <div class="text_content" v-html="quotation_detail.customerName"></div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 ">
-                        <p class="left-content">联系人</p>
-                        <div class="text_content">王增容</div>
+                        <p class="left-content">公司联系人</p>
+                        <div class="text_content" v-html="quotation_detail.ownerName"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p class="left-content">电话</p>
-                        <div class="text_content">021-62886915</div>
+                        <p class="left-content">客户电话</p>
+                        <div class="text_content" v-html="quotation_detail.customerTel"></div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 ">
-                        <p class="left-content">电话</p>
-                        <div class="text_content">021-62886915</div>
+                        <p class="left-content">公司电话</p>
+                        <div class="text_content" v-html="quotation_detail.salerTel"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4">
-                        <p class="left-content">传真</p>
-                        <div class="text_content">021-62886915</div>
+                        <p class="left-content">客户传真</p>
+                        <div class="text_content" v-html="quotation_detail.customerFax"></div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 ">
-                        <p class="left-content">传真</p>
-                        <div class="text_content">021-62886915</div>
+                        <p class="left-content">公司传真</p>
+                        <div class="text_content" v-html="quotation_detail.companyFax"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <p>简单说明</p>
-                        <div class="text_content" style="padding-left: 80px;line-height:30px;">
-                            1、滤波补偿装置介绍： xxxx<br/>
-                            2、产品质保期： 18个月
+                        <div class="text_content" style="padding-left: 80px;line-height:30px;" v-html="quotation_detail.note">                            
                         </div>
                     </div>
                 </div>
@@ -177,44 +175,48 @@
                 <div class="product_list">
                     <p class="product_title">产品列表</p>
                     <ul id="productListUL">
-                        <li>
+                        <li v-for="item_obj in quotation_detail.items">
                             <div class="row">
                                 <div class="col-md-1 col-sm-1 col-xs-1" style="width:50px;">
-                                    <div class="product_num text_content"><span class="num">1</span></div>
+                                    <div class="product_num text_content"><span class="num" v-html="item_obj.id"></span></div>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>型号</p>
-                                    <div class="text_content">KTL.3000ZTL</div>
+                                    <div class="text_content" v-html="item_obj.skuName"></div>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>单位</p>
-                                    <div class="text_content">台</div>
+                                    <div class="text_content" v-html="item_obj.unitCapacity"></div>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>单价(元)</p>
-                                    <div class="text_content">￥9000</div>
+                                    <div class="text_content" v-html="'￥'+item_obj.unitPrice"></div>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>数量</p>
-                                    <div class="text_content">200</div>
+                                    <div class="text_content" v-html="item_obj.count"></div>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>合计金额(元)</p>
-                                    <div class="text_content">￥180000</div>
+                                    <div class="text_content" v-html="'￥'+item_obj.amount"></div>
                                 </div>
                             </div>
                             <div class="row" >
                                 <div class="col-md-1 col-sm-1 col-xs-1" style="width:50px;">
                                 </div>
-                                <div class="col-md-11 col-sm-11 col-xs-11">
-                                    <p>描述/配置/路数</p>
-                                    <div class="text_content">电容器、电坑</div>
+                                <div class="col-md-11 col-sm-11 col-xs-11" v-if="item_obj.quotationType == 1">
+                                    <p>描述/配置/路数</p>     
+                                    <div class="text_content" v-html="item_obj.note"></div>                               
                                 </div>
+                                <div class="col-md-11 col-sm-11 col-xs-11" v-if="item_obj.quotationType == 2">
+                                    <p>型号&nbsp;&nbsp;<span v-html="item_obj.materialModel"></span></p>
+                                    <div class="text_content" v-html="item_obj.note"></div>                                   
+                                </div>                                
                             </div>
                         </li>
                     </ul>
                     <div class="bottom_tip">
-                        <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;">下载</button>
+                            <a :href="quotation_detail.quotationUrl"><button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;">下载</button></a>s
                         <span class="total-price" style="float:right;">总价: ￥232323</span>
                     </div>
                     <div class="clearfix"></div>
@@ -232,6 +234,7 @@
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
 <!-- Bootstrap -->
+<script src="../../vendors/vue/vue.js"></script>
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="../../vendors/fastclick/lib/fastclick.js"></script>
