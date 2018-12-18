@@ -22,6 +22,7 @@
     <link href="../../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
@@ -131,13 +132,13 @@
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>* 市/市辖区</p>
                             <select id="citySelect" required="" v-model="form_data.cityId" @change="city_change()">
-                                <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId">{{city_obj.name}}</option>
+                                <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId" v-html="city_obj.name"></option>
                             </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 区县</p>
                             <select id="areaSelect" required="" v-model="form_data.areaId">
-                                <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId">{{area_obj.name}}</option>                                    
+                                <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId" v-html="area_obj.name"></option>                                    
                             </select>
                         </div>                        
                     </div>
@@ -145,17 +146,18 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >代理商</p>
-                            <select id="agent_id" required="" v-model="form_data.shadowUserIds">
+                            <select id="agent_id" required="">
                                 <option v-for="agent_obj in agent_list" v-bind:value="agent_obj.id" v-html="agent_obj.realName"></option>                                    
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p >报备人</p>
-                            <select id="owner_id" required="" v-model="form_data.ownerId">
-                                <option v-for="owner_obj in owner_list" v-bind:value="owner_obj.id" v-html="owner_obj.nickname"></option>                                    
-                            </select>
-                        </div>
+                            <p>* 产品</p>
+                            <select id="product_id" required="">
+                                <option v-for="product_obj in product_list" v-bind:value="product_obj.id" v-html="product_obj.name"></option>                                    
+                            </select>                            
+                        </div>                        
                     </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >* 项目名称</p>
@@ -180,26 +182,21 @@
                     <br/>
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-2">
-                            <p >* 主行业</p>
-                            <select required="" v-model="form_data.industryParentId">
-                                <option value="1">民营(国内项目)</option>
-                                <option value="1">外资(国内项目)</option>
-                                <option value="1">国企(国内项目)</option>
-                                <option value="1">海外总包(所有海外)</option>
-                            </select>
+                            <p >* 主行业</p>                                                            
+                            <select v-model="form_data.industryParentId" @change="industry_parent_change()">                                
+                                <option v-for="industry_parent_obj in industry_parent_list" v-bind:value="industry_parent_obj.provinceId" v-html="industry_parent_obj.name"></option>
+                            </select>                            
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
                             <p >* 子行业</p>
-                            <select  required="" v-model="form_data.industryId">
-                                <option value="2">工业</option>
-                                <option value="2">民用</option>
-                            </select>
+                            <select id="citySelect" required="" v-model="form_data.industryId" @change="industry_change()">
+                                <option v-for="industry_obj in industry_list" v-bind:value="industry_obj.cityId" v-html="industry_obj.name"></option>
+                            </select>     
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">
-                            <p >&nbsp;</p>
-                            <select  required="" v-model="form_data.industrySubId">
-                                <option value="3">石油化工</option>
-                                <option value="3">冶金钢铁</option>                                
+                            <p >&nbsp;</p>                            
+                            <select v-model="form_data.industrySubId">
+                                <option v-for="industry_sub_obj in industry_sub_list" v-bind:value="industry_sub_obj.areaId" v-html="industry_sub_obj.name"></option>                                    
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
@@ -210,10 +207,10 @@
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <p>* 产品</p>
-                            <select id="owner_id" required="" v-model="form_data.productCategoryIds">
-                                <option v-for="product_obj in product_list" v-bind:value="product_obj.id" v-html="product_obj.name"></option>                                    
-                            </select>                            
+                            <p >报备人</p>
+                            <select id="owner_id" required="" v-model="form_data.ownerId">
+                                <option v-for="owner_obj in owner_list" v-bind:value="owner_obj.id" v-html="owner_obj.nickname"></option>                                    
+                            </select>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p >备注</p>
@@ -238,6 +235,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
 <script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>

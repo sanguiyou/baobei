@@ -6,15 +6,20 @@ var vue_instance = new Vue({
         city_list:[],
         province_list:[],
         area_list:[],
+        industry_parent_list:[],
+        industry_list:[],
+        industry_sub_list:[],
         title_name:"",
         agent_list:[],
         owner_list:[],
-        product_list:[],
+        product_list:[],        
     },
     methods: {
         submit_form:function () {                        
             console.log(this.form_data);                         
             //this.form_data.ownerTime = $("#owner_time").val();            
+            this.form_data.shadowUserIds = $("#agent_id").val().join(",");      
+            this.form_data.productCategoryIds = $("#product_id").val().join(",");                  
             jquery_ajax_obj({"url":ACTION_URL.project_modify,"request_type":"post","post_data":this.form_data,"is_json_param":true,
                 "callback_func":(json_result)=>{                
                     console.log(json_result);
@@ -40,6 +45,16 @@ var vue_instance = new Vue({
                         jquery_ajax(ACTION_URL.area_list,"post",json_result.data.cityId,true,(e)=>{
                             this.area_list = e.data;                
                         });                         
+                    }   
+                    if(json_result.data.industryParentId != undefined){
+                        jquery_ajax(ACTION_URL.city_list,"post",json_result.data.industryParentId,true,(e)=>{
+                            this.industry_list = e.data;                
+                        }); 
+                    }                     
+                    if(json_result.data.industryId != undefined){
+                        jquery_ajax(ACTION_URL.area_list,"post",json_result.data.industryId,true,(e)=>{
+                            this.industry_sub_list = e.data;                
+                        });                         
                     }     
                 },
             });                                          
@@ -60,6 +75,23 @@ var vue_instance = new Vue({
                     this.area_list = e.data;            
                 },
             });            
+        },
+        industry_parent_change(){
+            this.form_data.industryId = 0;            
+            this.form_data.industrySubId = 0;            
+            jquery_ajax_obj({"url":ACTION_URL.city_list,"request_type":"post","post_data":this.form_data.industryParentId,"is_json_param":true,
+                "callback_func":(e)=>{
+                    this.industry_list = e.data;            
+                },
+            });
+        },
+        industry_change(){
+            this.form_data.industrySubId = 0;
+            jquery_ajax_obj({"url":ACTION_URL.area_list,"request_type":"post","post_data":this.form_data.industryId,"is_json_param":true,
+                "callback_func":(e)=>{
+                    this.industry_sub_list = e.data;            
+                },
+            });            
         }
     },
     created: function () {                
@@ -67,6 +99,12 @@ var vue_instance = new Vue({
         jquery_ajax_obj({"url":ACTION_URL.province_list,"request_type":"post","post_data":undefined,"is_json_param":true,
             "callback_func":(e)=>{                    
                 this.province_list = e.data;            
+            },
+        });  
+        //拉主行业列表
+        jquery_ajax_obj({"url":ACTION_URL.province_list,"request_type":"post","post_data":undefined,"is_json_param":true,
+            "callback_func":(e)=>{                    
+                this.industry_parent_list = e.data;            
             },
         });  
          //拉代理商列表
@@ -104,5 +142,11 @@ var vue_instance = new Vue({
         $("#cancelBtn").click(function() {
             location.href = history.go(-1);
         });        
+        $('#agent_id').select2({
+            multiple:true,
+        });     
+        $('#product_id').select2({
+            multiple:true,
+        });     
     },
 })

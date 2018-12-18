@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var per_page_cnt = 5;
+var per_page_cnt = 4;
 function parseURL(url) {
     //var url =  location.href;
     console.log(url);
@@ -19,8 +19,8 @@ function parseURL(url) {
     return parseResult;
 }
 
-//var remote_host = "http://39.105.146.145:8081";
-var remote_host = "http://192.168.1.102:8081";
+var remote_host = "http://39.105.146.145:8081";
+//var remote_host = "http://192.168.1.102:8081";
 var ACTION_URL ={
     "city_list":remote_host+"/cities/getlistDic",   //市列表
     "province_list":remote_host+"/provinces/getlistDic",  //省列表
