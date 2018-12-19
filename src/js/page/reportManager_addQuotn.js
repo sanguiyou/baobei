@@ -4,8 +4,9 @@ var vue_instance = new Vue({
         form_data: {"id":null,items:[{}]},                
         current_page:1,        
         title_name:"", 
-        project_name:"",      
+        title:"",      
         editor1_obj:{},    
+        project_detail:{},
     },
     methods: {
         submit_form:function () {  
@@ -35,17 +36,23 @@ var vue_instance = new Vue({
     created: function () {          
         //解析URL参数
         var page_param = parseURL(window.location.href);        
-        this.title_name = "新增产品分类";
-        // jquery_ajax(ACTION_URL.product_capacities_list,"post",undefined,false,(e)=>{
-        //     this.unit_capacity_list = e.data;
-        // });                
+        this.title_name = "新增产品分类";               
         if(page_param["id"] != undefined){
             this.form_data.id = page_param["id"];            
             this.load_edit_data(); 
             this.title_name = "修改产品分类"
         }        
         this.form_data.project_id = page_param["project_id"];
-        this.project_name = decodeURI(page_param["project_name"]);
+        jquery_ajax(ACTION_URL.project_detail,"post",this.form_data.project_id,false,(json_result)=>{
+            this.project_detail = json_result.data; //赋值
+            console.log(this.project_detail);   
+            // this.form_data.partyAName = this.project_detail.partyAName;                                                                     
+            // this.form_data.companyName = this.project_detail.companyName;
+            // this.form_data.contact = this.project_detail.contact;                                                                     
+            // this.form_data.ownerName = this.project_detail.ownerName;
+
+        });     
+        this.form_data.title = decodeURI(page_param["project_name"]);
                                             
     },    
     computed: {
@@ -54,8 +61,8 @@ var vue_instance = new Vue({
             // `this` 指向 vm 实例
             var total_money = 0;
             for( var i=0;i<this.form_data.items.length;i++){
-                if(this.form_data.items[i].count != undefined && this.form_data.items[i].price != undefined){
-                    total_money += this.form_data.items[i].count*this.form_data.items[i].price;
+                if(this.form_data.items[i].count != undefined && this.form_data.items[i].unitPrice != undefined){
+                    total_money += this.form_data.items[i].count*this.form_data.items[i].unitPrice;
                 }
                 
             }

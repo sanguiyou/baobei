@@ -294,8 +294,8 @@
                                     <tr v-for="project_quotation_obj in project_quotation_list">
                                         <td v-html="project_quotation_obj.createAt"></td>
                                         <td v-html="project_quotation_obj.title"></td>
-                                        <td v-html="project_quotation_obj.customerName"></td>
-                                        <td v-html="project_quotation_obj.companyId"></td>
+                                        <td v-html="project_quotation_obj.partyAName"></td>
+                                        <td v-html="project_quotation_obj.companyName"></td>
                                         <td v-html="project_quotation_obj.amount"></td>
                                         <td><a :href="'/production/reportManager/quotnDetail.html?quotation_id='+project_quotation_obj.id" >详情</a>&nbsp;&nbsp;
                                             <a :href="project_quotation_obj.quotationUrl">下载</a>
