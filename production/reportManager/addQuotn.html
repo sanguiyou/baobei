@@ -177,53 +177,53 @@
                 <div class="product_list">
                     <p class="product_title">产品列表</p>
                     <ul id="productListUL">
-                        <li>
+                        <li v-for="(item_obj,key) in form_data.items">
                             <div class="row">
                                 <div class="col-md-1 col-sm-1 col-xs-1" style="width:50px;">
                                     <!--<p>序号</p>-->
-                                    <div class="product_num text_content"><span class="num">1</span></div>
+                                    <div class="product_num text_content"><span class="num" v-html="key+1"></span></div>
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-3">
                                     <p>型号</p>
-                                    <input type="text" />
+                                    <input type="text" v-model="item_obj.type1"/>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>单位</p>
-                                    <input type="text" />
+                                    <input type="text" v-model="item_obj.unit"/>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>单价(元)</p>
-                                    <input type="text" class="product_money" />
+                                    <input type="text" class="product_money" v-model="item_obj.price"/>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>数量</p>
-                                    <input type="text" class="product_count" />
+                                    <input type="text" class="product_count" v-model="item_obj.count"/>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                     <p>合计金额(元)</p>
-                                    <input type="text" readonly class="product_total_price" />
+                                    <span v-html="'￥'+item_obj.price*item_obj.count"></span>
                                 </div>
                             </div>
                             <div class="row" >
                                 <p>
-                                    <select style="width:20%">
-                                        <option value="1" @change="alert('11');material_model_is_show=false" selected>描述/配置/路数</option>
-                                        <option value="1" @change="alert('21');material_model_is_show = true">型号</option>                        
+                                    <select style="width:20%" v-model="item_obj.materialModel">
+                                        <option value="1" selected>描述/配置/路数</option>
+                                        <option value="2">型号</option>                        
                                     </select>                
-                                    <input type="text" v-if="material_model_is_show"/>    
+                                    &nbsp;&nbsp;<input type="text" style="width:200px;border: 1px solid red" v-show="item_obj.materialModel == 2" v-model="item_obj.type15"/>    
                                 <p>
                                 <div class="col-md-11 col-sm-11 col-xs-11">
                                     
                                     <textarea class="product_des" width="100%" rows="5"></textarea>
                                 </div>
                             </div>
-                            <a href="javsacript:void(0)" title="删除" class="delete_btn"></a>
+                            <a href="javsacript:void(0)" title="删除" class="delete_btn" @click="del_product_item(key)"></a>
                         </li>
                     </ul>
                     <div class="total-price">
                         总价: <span >￥232323</span>
                     </div>
-                    <a class="add_product" id="addProductBtn">+新增产品</a>
+                    <a class="add_product" @click="add_product_item">+新增产品</a>
                 </div>
             </div>
             <br/>

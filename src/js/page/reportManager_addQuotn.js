@@ -3,11 +3,10 @@
 var vue_instance = new Vue({
     el: '#app',
     data: {
-        form_data: {"id":null},        
+        form_data: {"id":null,items:[{'type1':'bbb'}]},                
         current_page:1,        
         title_name:"", 
-        project_name:"",  
-        material_model_is_show:true,     
+        project_name:"",          
     },
     methods: {
         submit_form:function () {                                                      
@@ -25,6 +24,12 @@ var vue_instance = new Vue({
             jquery_ajax(ACTION_URL.product_category_detail,"post",this.form_data.id,false,(json_result)=>{
                 this.form_data = json_result.data; //赋值                                                                         
             });                    
+        },
+        add_product_item(){
+            this.form_data.items.push({});            
+        },
+        del_product_item(array_key){
+            this.form_data.items.splice(array_key, 1);            
         }
     },
     created: function () {          
@@ -42,7 +47,7 @@ var vue_instance = new Vue({
         this.form_data.project_id = page_param["project_id"];
         this.project_name = page_param["project_name"];
                                             
-    },
+    },    
     mounted() {        
         $("#cancelBtn").click(function() {
             location.href = history.go(-1);
@@ -65,7 +70,7 @@ var vue_instance = new Vue({
 
         $("#productListUL").on("click", ".delete_btn", function() {
             console.log("delete-btn");
-            $(this).closest("li").remove();
+            //$(this).closest("li").remove();
             resetProductNum();
         });
         function resetProductNum() {
