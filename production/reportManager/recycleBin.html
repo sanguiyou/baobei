@@ -15,6 +15,7 @@
     <link href="../../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
 
     <!-- bootstrap-progressbar -->
     <link href="../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
@@ -102,7 +103,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     项目管理
@@ -114,10 +115,7 @@
                         <li><a href="./project.html" >项目管理</a></li>
                         <li class="active">回收站</li>
                     </ul>
-                </li>
-                <li >
-                    <span id="addProejctBtn">+添加新项目</span>
-                </li>
+                </li>               
             </ul>
             <div class="clearfix"></div>
             <div class="row special">
@@ -125,11 +123,13 @@
                     <div class="search_content">
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p >项目名称</p>
-                            <input type="text" />
+                            <input type="text" v-model="search_param.name"/>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >报备人</p>
-                            <input type="text" />
+                            <p>报备人</p>
+                            <select id="owner_id">
+                                <option v-for="owner_obj in owner_list" v-bind:value="owner_obj.id" v-html="owner_obj.nickname"></option>                                    
+                            </select>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p >起止日期 至今</p>
@@ -137,7 +137,7 @@
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <p >&nbsp;</p>
-                            <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
+                            <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
                         </div>
                     </div>
                 </div>
@@ -146,33 +146,29 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel tile ">
-                        <div class="x_content">
+                        <div class="x_content">                        
                             <table class="table  table-striped">
-                                <thead>
-                                <tr>
-                                    <th>名称</th>
-                                    <th>省市区</th>
-                                    <th>部门</th>
-                                    <th>报备人</th>
-                                    <th>删除时间</th>
-                                    <th>报备日期</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <span class="fa fa-check checked">通过</span><span class="fa fa-close rejected">通过</span><a href="./projectDetail.html" >中国航天工业集团公司贵州天怡电器有限责任公司整体搬迁建设项目</a>
-                                    </td>
-                                    <td>贵州省遵义市汇川区</td>
-                                    <td>李中元部门</td>
-                                    <td>李洋</td>
-                                    <td>2018-11-13</td>
-                                    <td>尚未审批通过</td>
-                                    <td><button class="btn btn-danger btn-sm">删除</button></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                    <thead>
+                                    <tr>
+                                        <th>项目名称</th>
+                                        <th>地区</th>
+                                        <th>报备人</th>
+                                        <th>审批人</th>
+                                        <th>报备日期</th>                                        
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="obj in list">                                       
+                                        <td><span class="fa fa-check checked" v-html="obj.status"></span><a  v-html="obj.name" :href="'/production/reportManager/projectDetail.html?project_id='+obj.id"></a></td>
+                                        <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
+                                        <td v-html="obj.ownerName"></td>
+                                        <td v-html="obj.approvalName"></td>
+                                        <td v-html="obj.updateAt"></td>
+                                        <td><button class="btn btn-danger btn-sm" @click="del_record(obj.id)">删除</button></td>
+                                    </tr>                                    
+                                    </tbody>
+                                </table>      
                             <div class="page_content">
                                 <ul id="pageLimit1"></ul>
                             </div>
@@ -191,6 +187,8 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
+<script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
