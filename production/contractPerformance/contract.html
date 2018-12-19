@@ -18,13 +18,16 @@
 
     <!-- bootstrap-progressbar -->
     <link href="../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="../../vendors/timeline/jquery.eeyellow.Timeline.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../../vendors/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
-    <link href="../../build/css/contractPerformance_contract.css" rel="stylesheet">
-    <title>合同管理</title>
+    <link href="../../build/css/reportManager_project.css" rel="stylesheet">
+    <title>项目管理</title>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -102,81 +105,79 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app">
+            
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
-                    合同管理
+                        合同管理
                 </li>
                 <li >
                     <ul class="breadcrumb border">
                         <li><a href="./../index.html">首页</a></li>
                         <li><a href="#">合同绩效</a></li>
-                        <li class="active"><a href="#" >合同管理</a></li>
+                        <li class="active">合同管理</li>
                     </ul>
                 </li>
                 <li >
-                    <span id="addBtn">+创建新合同</span>
+                    <span id="addProejctBtn">+添加新合同</span>
                 </li>
             </ul>
             <div class="clearfix"></div>
-            <div class="row special">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="search_content">
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >项目名</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >报备人</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >签订日期</p>
-                            <input size="16" type="text" readonly class="form_datetime">
-                        </div>
-                        <div class="clearfix" ></div>
-                        <br/>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >合同编号</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >客户名称</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <p >我方公司名称</p>
-                            <input type="text" />
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3">
-                            <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <br/>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel tile ">
-                        <div class="x_content" id="fapiaoFilter">
-                            <span class="filter_tag">发票：</span>
-                            <ul >
-                                <li class="active" ><a href="javascript:void(0)" >不限</a></li>
-                                <li ><a href="javascript:void(0)" >未开票</a></li>
-                                <li ><a href="javascript:void(0)" >已开票</a></li>
-                                <li ><a href="javascript:void(0)" >不开票</a></li>
-                                <li ><a href="javascript:void(0)" >部门开票</a></li>
-                            </ul>
+                    <div class="x_panel tile filter_form">
+                        <div class="search_content">
+                            <!--
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p>地区</p>
+                                <input type="text" />
+                            </div>
+                            -->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p>项目名称</p>
+                                <input type="text" v-model="search_param.projectName"/>
+                            </div>                            
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >开始签订日期</p>
+                                <input size="16" type="text" readonly class="form_datetime" id="startSignedTime">
+                            </div> 
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >结束签订日期</p>
+                                <input size="16" type="text" readonly class="form_datetime" id="endSignedTime">
+                            </div>                           
+                            <div class="clearfix" ></div>
+                            <br/>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >合同编号</p>
+                                <input type="text" v-model="search_param.no"/>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >客户名称</p>
+                                <input type="text" v-model="search_param.businessEntityName"/>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p >我方公司名称</p>
+                                <input type="text" v-model="search_param.companyName"/>
+                            </div>
+                            
                         </div>
-                        <div class="x_content" id="huikuanFilter">
-                            <span class="filter_tag">回款：</span>
-                            <ul >
-                                <li class="active" ><a href="javascript:void(0)" >不限</a></li>
-                                <li ><a href="javascript:void(0)" >未付款</a></li>
-                                <li ><a href="javascript:void(0)" >付全款</a></li>
-                                <li ><a href="javascript:void(0)" >部分到款</a></li>
-                            </ul>
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div class="search_content">
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <p>报备人</p>
+                                <select id="owner_id">
+                                    <option value="">全部</option>
+                                    <option v-for="owner_obj in owner_list" v-bind:value="owner_obj.id" v-html="owner_obj.nickname"></option>                                    
+                                </select>
+                            </div>                         
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <!--<p >&nbsp;</p>-->
+                                <button type="button" id="searchBtn" class="btn btn-primary" @click="load_list()">搜索</button>
+                            </div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -184,186 +185,77 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel tile">
-                        <div class="x_panel tile">
-                            <ul id="myTab" class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#waitApproval" data-toggle="tab">全部</a>
-                                </li>
-                                <li><a href="#approvaling" data-toggle="tab">待提交</a></li>
-                                <li class="dropdown">
-                                    <a href="#approvalsuccess" data-toggle="tab">待审核</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#approvalFail" data-toggle="tab">审核中</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#handoverRecord" data-toggle="tab">审核通过</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#coordinationRecord" data-toggle="tab">绩效待审核</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#done" data-toggle="tab">绩效审核通过</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#done" data-toggle="tab">绩效待回款</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#done" data-toggle="tab">绩效完成(部分到款)</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#done" data-toggle="tab">绩效完成(全部到款)</a>
-                                </li>
-                            </ul>
-                            <div id="myTabContent" class="tab-content">
-                                <div class="tab-pane fade in active" id="waitApproval">
-                                    <table class="table  table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>合同编号</th>
-                                            <th>合同状态</th>
-                                            <th>价格状态</th>
-                                            <th>项目名称</th>
-                                            <th>报备人</th>
-                                            <th>总金额</th>
-                                            <th>成交额</th>
-                                            <th>回款状态</th>
-                                            <th>发票状态</th>
-                                            <th>签订日期</th>
-                                            <th>客户名称</th>
-                                            <th>供应商</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td><a href="./contractDetail.html" >Otto</a></td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td><a href="customer.html" >厦门电器销子客气有限公司</a></td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="page_content">
-                                        <ul id="pageLimit1"></ul>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="approvaling">
-                                    approvaling
-                                </div>
-                                <div class="tab-pane fade" id="approvalsuccess">
-                                    approvalsuccess
-                                </div>
-                                <div class="tab-pane fade" id="approvalFail">
-                                    approvalFail
-                                </div>
-                                <div class="tab-pane fade" id="handoverRecord">
-                                    handoverRecord
-                                </div>
-                                <div class="tab-pane fade" id="coordinationRecord">
-                                    coordinationRecord
-                                </div>
-                                <div class="tab-pane fade" id="done">
-                                    done
-                                </div>
+                        <ul id="myTab" class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#all" data-toggle="tab" data-type="">全部</a>
+                            </li>
+                            <li>
+                                <a href="#doSubmit" data-toggle="tab" data-type="1">待审核</a>
+                            </li>                
+                            <li class="dropdown">
+                                <a href="#doAudit" data-toggle="tab" data-type="2">审核中</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#doApproved" data-toggle="tab" data-type="3">审核通过</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#doReject" data-toggle="tab" data-type="4">驳回</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#doPerformanceWait" data-toggle="tab" data-type="5">绩效待审核</a>
+                            </li>    
+                            <li class="dropdown">
+                                <a href="#doPerformancePass" data-toggle="tab" data-type="6">绩效审核通过</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#doFinishWait" data-toggle="tab" data-type="7">绩效待完成</a>
+                            </li>   
+                            <li class="dropdown">
+                                <a href="#doFinishPart" data-toggle="tab" data-type="8">绩效完成(部分到款)</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#doFinish" data-toggle="tab" data-type="9">绩效完成(全部到款)</a>
+                            </li>                                                                            
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade in active" id="all">
+                                <table_content :list="list"></table_content>
                             </div>
+                            <div class="tab-pane fade" id="doSubmit">
+                                <table_content :list="list"></table_content>
+                            </div>
+                            <div class="tab-pane fade" id="doAudit">
+                                <table_content :list="list"></table_content>
+                            </div>
+                            <div class="tab-pane fade" id="doApproved">
+                                <table_content :list="list"></table_content>
+                            </div>
+                            <div class="tab-pane fade" id="doReject">
+                                <table_content :list="list"></table_content>
+                            </div>                            
+                            <div class="tab-pane fade" id="doPerformanceWait">
+                                <table_content :list="list"></table_content>
+                            </div>
+                            <div class="tab-pane fade" id="doPerformancePass">                                
+                                <table_content :list="list"></table_content>
+                            </div>
+                            <div class="tab-pane fade" id="doFinishWait">                                
+                                <table_content :list="list"></table_content>
+                            </div>
+                            <div class="tab-pane fade" id="doFinishPart">                                
+                                <table_content :list="list"></table_content>
+                            </div>
+                            <div class="tab-pane fade" id="doFinish">                                
+                                <table_content :list="list"></table_content>
+                            </div>
+                        </div>
+                        <div class="page_content">
+                            <ul id="pageLimit1"></ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div>        
         <footer>
             Copyright © 2019 TysenKLD. All rights reserved.
         </footer>
@@ -373,6 +265,8 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -389,13 +283,13 @@
 <script src="../../vendors/iCheck/icheck.min.js"></script>
 <!-- Skycons -->
 <script src="../../vendors/skycons/skycons.js"></script>
-<script src="../../vendors/art-template-master/lib/template-web.js"></script>
 <!-- bootstrap-daterangepicker -->
 <script src="../../vendors/moment/min/moment.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../../vendors/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 <!-- Custom Theme Scripts -->
-<script src="../../build/js/custom.min.js"></script>
+<script src="../../src/js/common/custom.js"></script>
 <script src="../../build/js/contractPerformance_contract.min.js"></script>
 </body>
 </html>

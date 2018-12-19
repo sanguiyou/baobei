@@ -134,6 +134,7 @@ var ACTION_URL ={
     "get_industry_parent_list":remote_host+"/industries/getIndustryParentList",    
     "get_industry_list":remote_host+"/industries/getIndustryList",
     "get_industry_sub_list":remote_host+"/industries/getIndustrySubList",
+    "contract_list":remote_host+"/agreements/listPage", 
 };
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
