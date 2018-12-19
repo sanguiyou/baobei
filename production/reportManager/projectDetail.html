@@ -231,7 +231,7 @@
                                     <a href="#approvalsuccess" data-type="3" data-toggle="tab">报价(5)</a>
                                 </li>
                             </ul>
-                            <a href="./addQuotn.html" id="addReportPriceBtn">+新增报价</a>
+                            <a :href="'./addQuotn.html?project_id='+project_detail.id+'&project_name='+project_detail.name" id="addReportPriceBtn">+新增报价</a>
                         </div>
                         <div class="clearfix"></div>
                         <div id="myTabContent" class="tab-content">

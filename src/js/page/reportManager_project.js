@@ -15,7 +15,7 @@ Vue.component('table_content', {
                 </thead>
                 <tbody>
                 <tr v-for="obj in list">
-                    <td v-html="obj.name"></td>
+                    <td><a  v-html="obj.name" :href="'/production/reportManager/projectDetail.html?project_id='+obj.id"></a></td>
                     <td v-html="obj.provinceName+'-'+obj.cityName+'-'+obj.areaName"></td>
                     <td v-html="obj.ownerName"></td>
                     <td v-html="obj.approvalName"></td>

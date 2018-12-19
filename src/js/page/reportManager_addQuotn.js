@@ -1,15 +1,15 @@
-
-
 var vue_instance = new Vue({
     el: '#app',
     data: {
-        form_data: {"id":null,items:[{'type1':'bbb'}]},                
+        form_data: {"id":null,items:[{}]},                
         current_page:1,        
         title_name:"", 
-        project_name:"",          
+        project_name:"",      
+        editor1_obj:{},    
     },
     methods: {
-        submit_form:function () {                                                      
+        submit_form:function () {  
+            this.form_data.note = this.editor1_obj.getData();                                                  
             jquery_ajax(ACTION_URL.project_quotation_modify,"post",this.form_data,true,(json_result)=>{                
                 console.log(json_result);
                 alert("操作成功");
@@ -45,9 +45,23 @@ var vue_instance = new Vue({
             this.title_name = "修改产品分类"
         }        
         this.form_data.project_id = page_param["project_id"];
-        this.project_name = page_param["project_name"];
+        this.project_name = decodeURI(page_param["project_name"]);
                                             
     },    
+    computed: {
+        // 计算属性的 getter
+        total_money: function () {
+            // `this` 指向 vm 实例
+            var total_money = 0;
+            for( var i=0;i<this.form_data.items.length;i++){
+                if(this.form_data.items[i].count != undefined && this.form_data.items[i].price != undefined){
+                    total_money += this.form_data.items[i].count*this.form_data.items[i].price;
+                }
+                
+            }
+            return total_money;
+        }
+    },
     mounted() {        
         $("#cancelBtn").click(function() {
             location.href = history.go(-1);
@@ -58,45 +72,44 @@ var vue_instance = new Vue({
         //     this.form_data.unitCapacityId = e.val;
         //  });
         // $('select').select2(); 
-        CKEDITOR.replace( 'editor1' );
-        $("#addProductBtn").click(function() {
-            $("#productListUL").append(template("productTemplate"));
-            resetProductNum();
-        });
+        this.editor1_obj = CKEDITOR.replace( 'editor1' );
+        // $("#addProductBtn").click(function() {
+        //     $("#productListUL").append(template("productTemplate"));
+        //     resetProductNum();
+        // });
 
-        $("#cancelBtn").click(function(){
-            location.href = "./projectDetail.html";
-        });
+        // $("#cancelBtn").click(function(){
+        //     location.href = "./projectDetail.html";
+        // });
 
-        $("#productListUL").on("click", ".delete_btn", function() {
-            console.log("delete-btn");
-            //$(this).closest("li").remove();
-            resetProductNum();
-        });
-        function resetProductNum() {
-            $("#productListUL li .num").each(function(index, ele) {
-                ele.innerHTML = index+1;
-            });
-        }
+        // $("#productListUL").on("click", ".delete_btn", function() {
+        //     console.log("delete-btn");
+        //     //$(this).closest("li").remove();
+        //     resetProductNum();
+        // });
+        // function resetProductNum() {
+        //     $("#productListUL li .num").each(function(index, ele) {
+        //         ele.innerHTML = index+1;
+        //     });
+        // }
+        // $("#productListUL").on("input", ".product_money,.product_count", function() {
+        //     var $parent = $(this).closest("li");
+        //     var $money = $parent.find(".product_money");
+        //     var $count = $parent.find(".product_count");
 
-        $("#productListUL").on("input", ".product_money,.product_count", function() {
-            var $parent = $(this).closest("li");
-            var $money = $parent.find(".product_money");
-            var $count = $parent.find(".product_count");
+        //     var money = +$money.val();
+        //     var count = +$count.val();
+        //     if(isNaN(money)) {
+        //         money = 0;
+        //         $money.val(0);
+        //     }
+        //     if(isNaN(count)) {
+        //         count = 0;
+        //         $count.val(0);
+        //     }
 
-            var money = +$money.val();
-            var count = +$count.val();
-            if(isNaN(money)) {
-                money = 0;
-                $money.val(0);
-            }
-            if(isNaN(count)) {
-                count = 0;
-                $count.val(0);
-            }
-
-            console.log(money, count);
-            $parent.find(".product_total_price").val(money*count);
-        });
+        //     console.log(money, count);
+        //     $parent.find(".product_total_price").val(money*count);
+        // });
     },
 })
