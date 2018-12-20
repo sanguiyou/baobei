@@ -102,7 +102,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" id="app"> 
             <ul class="nav navbar-nav navbar-left page_title">
                 <li class="page_name">
                     项目管理
@@ -132,91 +132,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
+                                <tr v-for="left_obj in left_list">
+                                    <td><input type="checkbox" v-model="left_obj.is_checked"/></td>
                                     <td><a href="./projectDetail.html">山东省</a></td>
                                     <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td><a href="./../contractPerformance/contractDetail.html">江苏</a></td>
-                                    <td>@fat</td>
-                                </tr>
+                                </tr>                                
                                 <tr>
                                     <td><input type="checkbox" /></td>
                                     <td>北京市北京市北京市北京市北京市北京市北京市北京市北京市</td>
                                     <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>山东省</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>江苏</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>北京市</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>山东省</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>山东省</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>江苏</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>北京市</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>山东省</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>山东省</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>江苏</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>北京市</td>
-                                    <td>the Bird</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>山东省</td>
-                                    <td>@mdo</td>
-                                </tr>
+                                </tr>                                                                
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="center_btn_group">
                         <a href="javascript:void(0)">
-                            <img src="../images/transfer.png"/>
+                            <img src="../images/transfer.png" @click="transfer_left_to_right()"/>
                         </a>
                         <a href="javascript:void(0)" class="back">
-                            <img src="../images/transfer_back.png"/>
+                            <img src="../images/transfer_back.png" @click="transfer_right_to_left()"/>
                         </a>
                     </div>
                     <div class="right_tree">
@@ -231,6 +166,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <tr v-for="right_obj in right_list">
+                                        <td><input type="checkbox" v-model="right_obj.is_checked"/></td>
+                                        <td><a href="./projectDetail.html">山东省</a></td>
+                                        <td>@mdo</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -254,6 +194,7 @@
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
+<script src="../../vendors/vue/vue.js"></script>
 <!-- Bootstrap -->
 <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
