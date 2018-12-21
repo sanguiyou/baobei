@@ -120,7 +120,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="left_tree ztree">
-                        <div class="tree">
+                        <div class="tree" id="left_tree">
                         </div>
                         <div class="table_content">
                             <table class="table  table-striped">
@@ -136,12 +136,7 @@
                                     <td><input type="checkbox" v-model="left_obj.is_checked"/></td>
                                     <td><a href="./projectDetail.html">山东省</a></td>
                                     <td>@mdo</td>
-                                </tr>                                
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>北京市北京市北京市北京市北京市北京市北京市北京市北京市</td>
-                                    <td>@twitter</td>
-                                </tr>                                                                
+                                </tr>                                                                                                                             
                                 </tbody>
                             </table>
                         </div>
@@ -155,7 +150,7 @@
                         </a>
                     </div>
                     <div class="right_tree">
-                        <div class="tree ztree">
+                        <div class="tree ztree" id="right_tree">
                         </div>
                         <div class="table_content">
                             <table class="table  table-striped">
@@ -179,7 +174,7 @@
                 <div class="clearfix"></div>
                 <br/>
                 <div style="text-align:center;">
-                    <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;">执行操作</button>
+                    <button type="button" class="btn btn-primary btn-lg" style="margin-right:50px;" @click="submit_transfer_data()">执行操作</button>
                     <button type="button" id="cancelBtn" class="btn btn-default btn-lg">取消重置</button>
                 </div>
             </div>
