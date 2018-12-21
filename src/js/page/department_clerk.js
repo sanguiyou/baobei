@@ -5,7 +5,8 @@ var vue_instance = new Vue({
         province_list:[],        
         department_list:[],  
         search_param:{page:1,"rows":per_page_cnt,"provinceId":null},        
-        totalPages: 0,        
+        totalPages: 0,
+        orderBy:true,
     },
     methods: {
         list_callback: function (ajax_json) {  
@@ -35,6 +36,19 @@ var vue_instance = new Vue({
                 }
             }); 
                               
+        },
+        order_array:function(key){            
+            this.orderBy = !this.orderBy;
+            console.log(this.orderBy);
+            this.list.sort((a,b)=>{                
+                var x = a[key];
+                var y = b[key];                                
+                if(this.orderBy){
+                    return((x<y)?-1:((x>y)?1:0));
+                }else{
+                    return((x<y)?1:((x>y)?-1:0));
+                }                
+            });            
         },
         load_list:function(){                 
             console.log(this.search_param);            
@@ -82,6 +96,16 @@ var vue_instance = new Vue({
 
             $this.addClass("active").siblings().removeClass("active");
         });    
-    },
+    },    
+    filters: {
+        format_date: function (value) {              
+            if(!isNaN(parseInt(value) && value != "" && value != undefined)){
+                //return tools.formatDate(parseInt(value));                
+                return moment(parseInt(value)).format('YYYY-MM-DD HH:mm:ss');    
+            }else{
+                return value;
+            }                                
+        }
+    }
 })
 

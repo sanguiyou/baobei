@@ -165,8 +165,8 @@
                             <table class="table  table-striped">
                                 <thead>
                                 <tr>
-                                    <th>用户ID</th>
-                                    <th>用户名</th>
+                                    <th @click="order_array('id')">用户ID</th>
+                                    <th @click="order_array('nickname')">用户名</th>
                                     <th>手机号</th>
                                     <th>性别</th>
                                     <!--<th>项目通过数</th>-->
@@ -188,7 +188,7 @@
                                     <td v-html="customer.nickname"></td>
                                     <td v-html="customer.phone"></td>
                                     <td v-html="customer.sex==1?'男':'女'"></td>                                    
-                                    <td v-html="customer.entryDate"></td>
+                                    <td>{{customer.entryDate | format_date}}</td>
                                     <td v-html="customer.leaveDate"></td>
                                     <td v-html="customer.departmentId"></td>
                                     <td v-html="customer.positionId"></td>
