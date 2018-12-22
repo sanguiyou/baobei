@@ -134,8 +134,8 @@
                                 <tbody>
                                 <tr v-for="left_obj in left_list">
                                     <td><input type="checkbox" v-model="left_obj.is_checked"/></td>
-                                    <td><a href="./projectDetail.html">山东省</a></td>
-                                    <td>@mdo</td>
+                                    <td v-html="left_obj.name"></td>
+                                    <td v-html="left_obj.submitAt"></td>
                                 </tr>                                                                                                                             
                                 </tbody>
                             </table>
