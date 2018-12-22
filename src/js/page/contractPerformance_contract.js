@@ -21,7 +21,7 @@ Vue.component('table_content', {
                 </thead>
                 <tbody>
                 <tr v-for="obj in list">
-                    <td><a  v-html="obj.no" :href="'/production/reportManager/projectDetail.html?project_id='+obj.id"></a></td>
+                    <td><a  v-html="obj.no" :href="'/production/contractPerformance/contractDetail.html?contract_id='+obj.id"></a></td>
                     <td v-html="obj.status"></td>
                     <td v-html="obj.mark"></td>
                     <td v-html="obj.projectName"></td>
