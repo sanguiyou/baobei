@@ -3,7 +3,7 @@ var vue_instance = new Vue({
     data: {
         list: [],        
         totalPages: 0,        
-        left_list:[{"is_checked":false},{"is_checked":false}], 
+        left_list:[], 
         right_list:[],  
         zNodes:[], 
         project_userid:0
@@ -11,30 +11,29 @@ var vue_instance = new Vue({
     },
     methods: {
         submit_transfer_data: function (ajax_json) {                         
-            // jquery_ajax_obj({"url":ACTION_URL.user_list,"post_data":{"project_userid":this.project_userid,"project_list":this.right_list},"is_json_param":true,
-            //     "callback_func":(e)=>{                    
-            //             
-            //     },
-            // });                                                                       
+            var id_arr = [];                    
+            for (var i = 0; i < this.right_list.length; i++) {  
+                id_arr.push(this.right_list[i].id);                  
+            }  
+            jquery_ajax_obj({"url":ACTION_URL.project_transfer_batch,"post_data":{"toUserId":this.project_userid,"projectIds":id_arr.join(",")},"is_json_param":true,
+                "callback_func":(e)=>{                    
+                        
+                },
+            });                                                                       
         },
         
         load_list:function(){  
-            //拉部门列表
-            // jquery_ajax_obj({"url":ACTION_URL.user_list,"post_data":undefined,"is_json_param":true,
-            //     "callback_func":(e)=>{                    
-            //         this.zNodes = e.data;            
-            //     },
-            // });               
-            this.zNodes =[
-                { id:1, pId:0, name:"徐海涛部门", open:true},
-                { id:11, pId:1, name:"杨锴", open:true},
-                { id:12, pId:1, name:"陈子栋部门", open:true},
-                { id:2, pId:0, name:"陈子栋部门", open:true},
-                { id:22, pId:2, name:"赵海洋部门", open:true},
-                { id:221, pId:22, name:"李松"},
-                { id:222, pId:22, name:"胡江"},
-                { id:23, pId:2, name:"李文东"}
-            ]; 
+                        
+            // this.zNodes =[
+            //     { id:1, pId:0, name:"徐海涛部门", open:true},
+            //     { id:11, pId:1, name:"杨锴", open:true},
+            //     { id:12, pId:1, name:"陈子栋部门", open:true},
+            //     { id:2, pId:0, name:"陈子栋部门", open:true},
+            //     { id:22, pId:2, name:"赵海洋部门", open:true},
+            //     { id:221, pId:22, name:"李松"},
+            //     { id:222, pId:22, name:"胡江"},
+            //     { id:23, pId:2, name:"李文东"}
+            // ]; 
         },    
         transfer_left_to_right:function(){                         
             var i =0;
@@ -62,11 +61,11 @@ var vue_instance = new Vue({
             var id = treeNode.id;
             if( treeNode.checked ){
                 //拉这个人下的项目
-                // jquery_ajax_obj({"url":ACTION_URL.user_list,"post_data":undefined,"is_json_param":true,
-                //     "callback_func":(e)=>{                    
-                //         this.left_list = e.data;            
-                //     },
-                // });    
+                jquery_ajax_obj({"url":ACTION_URL.project_list,"post_data":{"page":1,"rows":3000,"ownerId":id},"is_json_param":true,
+                    "callback_func":(e)=>{                    
+                        this.left_list = e.data.records;            
+                    },
+                });    
                 console.log("checked:"+id);
             }else{
                 console.log("unchecked:"+id);
@@ -100,12 +99,19 @@ var vue_instance = new Vue({
                     enable: true
                 }
             }
-        };        
-                                
-        var left_tree_obj = $.fn.zTree.init($("#left_tree"), setting, this.zNodes);
-        left_tree_obj.setting.callback.onCheck = this.left_tree_on_check;        
-        var right_tree_obj = $.fn.zTree.init($("#right_tree"), setting, this.zNodes);              
-        right_tree_obj.setting.callback.onCheck = this.right_tree_on_check;  
+        };   
+        //拉部门列表
+        jquery_ajax_obj({"url":ACTION_URL.company_structure,"post_data":undefined,"is_json_param":true,
+            "callback_func":(e)=>{    
+                console.log(e.data);                
+                this.zNodes = e.data;         
+                var left_tree_obj = $.fn.zTree.init($("#left_tree"), setting, this.zNodes);
+                left_tree_obj.setting.callback.onCheck = this.left_tree_on_check;        
+                var right_tree_obj = $.fn.zTree.init($("#right_tree"), setting, this.zNodes);              
+                right_tree_obj.setting.callback.onCheck = this.right_tree_on_check;     
+            },
+        });                                        
+        
     },
 })
 
