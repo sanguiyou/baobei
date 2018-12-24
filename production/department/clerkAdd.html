@@ -28,6 +28,11 @@
     <link href="../../src/scss/common/ssi-uploader.css" rel="stylesheet">    
     <link href="../../build/css/department_clerkAdd.css" rel="stylesheet">
     <title>新增业务员</title>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -122,22 +127,22 @@
             <div class="clearfix"></div>
             <br/>
             <div style="background:#fff; padding:20px;">
-                <form>
+                <form id="signupForm">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 电话</p>
-                            <input type="text" class="big" required="" placeholder="用作登录账号" v-model="form_data.phone"/>
+                            <input type="text" class="big" name="phone" placeholder="用作登录账号" v-model="form_data.phone"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 真实姓名</p>
-                            <input type="text" class="big" required="" v-model="form_data.nickname"/>
+                            <input type="text" class="big" name="nickname" v-model="form_data.nickname"/>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>* 邮件</p>
-                            <input type="text" class="big" required="" placeholder="用作登录账号" v-model="form_data.email"/>
+                            <input type="text" class="big" placeholder="用作登录账号" v-model="form_data.email"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <p>性别</p>
@@ -198,19 +203,19 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 省/直辖市</p>
-                            <select id="provinceSelect" required="" v-model="form_data.provinceId" @change="province_change()">                                
+                            <select id="provinceSelect" v-model="form_data.provinceId" @change="province_change()">                                
                                 <option v-for="province_obj in province_list" v-bind:value="province_obj.provinceId">{{province_obj.name}}</option>
                             </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p>* 市/市辖区</p>
-                            <select id="citySelect" required="" v-model="form_data.cityId" @change="city_change()">
+                            <select id="citySelect"  v-model="form_data.cityId" @change="city_change()">
                                 <option v-for="city_obj in city_list" v-bind:value="city_obj.cityId">{{city_obj.name}}</option>
                             </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <p >* 区县</p>
-                            <select id="areaSelect" required="" v-model="form_data.areaId">
+                            <select id="areaSelect"  v-model="form_data.areaId">
                                 <option v-for="area_obj in area_list" v-bind:value="area_obj.areaId">{{area_obj.name}}</option>                                    
                             </select>
                         </div>
@@ -245,6 +250,7 @@
 </div>
 <!-- jQuery -->
 <script src="../../vendors/jquery/dist/jquery.min.js"></script>
+<script src="../../vendors/validator/jquery.validate.min.js"></script>
 <!--sidemenu-->
 <script src="./../js/sidemenu/index.js"></script>
 <script src="../../vendors/vue/vue.js"></script>

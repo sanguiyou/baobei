@@ -10,10 +10,15 @@ var vue_instance = new Vue({
         company_list:[],
         depart_list:[],
         position_list:[],
+        validate_obj:{},
     },
     methods: {
         submit_form:function () {                        
-            console.log(this.form_data);                         
+            console.log(this.form_data);                  
+            if(!$("#signupForm").valid()){
+                alert("标‘*’字段必须填写");
+                return; 
+            }                        
             this.form_data.entryDate = $("#entryDate").val();
             this.form_data.leaveDate = $("#leaveDate").val();
             this.form_data.trialDate = $("#trialDate").val();
@@ -146,6 +151,16 @@ var vue_instance = new Vue({
             onUpload:function(){
                 console.log('文件上传完毕！');                                  
             }
-         });         
+         });    
+         this.validate_obj = $("#signupForm").validate({
+			rules: {
+                phone: "required",		
+                nickname: "required",		
+			},
+			messages: {
+                phone: "*电话必须填写!",				
+                nickname: "*真实姓名必须填写!",
+			}
+        });             
     },
 })
